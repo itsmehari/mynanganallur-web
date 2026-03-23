@@ -90,3 +90,30 @@ body {
 .animate-gentle-float {
   animation: gentle-float 5s ease-in-out infinite;
 }
+
+/* Home: template-style mesh (original — not from third-party kits) */
+.home-hero-mesh {
+  background-image:
+    radial-gradient(
+      ellipse 80% 60% at 100% 0%,
+      color-mix(in srgb, var(--accent) 18%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 0% 100%,
+      color-mix(in srgb, var(--accent-warm) 14%, transparent),
+      transparent 50%
+    );
+}
+
+.home-bento-tile {
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.home-bento-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--foreground) 8%, transparent);
+}

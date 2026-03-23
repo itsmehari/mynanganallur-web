@@ -6,10 +6,11 @@ export function HomeCommunityBand() {
   return (
     <Section
       id="newsletter"
+      eyebrow="Community"
       title="Stay in the loop"
       subtitle="Newsletter + chat groups — hooks only until Resend and community policies ship."
     >
-      <div className="grid gap-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div className="grid gap-6 rounded-[1.75rem] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
           <p className="text-sm font-semibold text-[var(--foreground)]">
             Weekly Chennai digest

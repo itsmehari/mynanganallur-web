@@ -66,6 +66,7 @@ export default async function Home() {
 
         <Section
           id="areas"
+          eyebrow="Neighbourhoods"
           title="Greater Chennai area map"
           subtitle="Click a tile to open its hub — listings and filters wire in as the database goes live."
           action={{ href: "/directory", label: "Browse all listings" }}

@@ -3,6 +3,8 @@ import Link from "next/link";
 
 type SectionProps = {
   id?: string;
+  /** Small caps label above the title (template-style section marker). */
+  eyebrow?: string;
   title: string;
   subtitle?: string;
   action?: { href: string; label: string };
@@ -12,6 +14,7 @@ type SectionProps = {
 
 export function Section({
   id,
+  eyebrow,
   title,
   subtitle,
   action,
@@ -26,9 +29,14 @@ export function Section({
     >
       <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
+          {eyebrow ? (
+            <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">
+              {eyebrow}
+            </p>
+          ) : null}
           <h2
             id={id ? `${id}-heading` : undefined}
-            className="text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl"
+            className="font-serif text-2xl font-bold tracking-tight text-[var(--foreground)] sm:text-3xl"
           >
             {title}
           </h2>
