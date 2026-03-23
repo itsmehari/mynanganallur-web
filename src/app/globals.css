@@ -13,6 +13,14 @@
   --accent-warm: #c45c3a;
   --ring: #0d6e6e66;
   --wave: #b8d9d6;
+  /* Fat footer: distinct slab from main page (UI pattern: fat footer band) */
+  --footer-bg: #1a1724;
+  --footer-fg: #f4f2fa;
+  --footer-muted: #a8a1ba;
+  --footer-elevated: #242030;
+  --footer-border: #38344a;
+  --footer-link: color-mix(in srgb, var(--footer-fg) 88%, var(--footer-muted));
+  --footer-link-hover: #7fd9d1;
 }
 
 @theme inline {
@@ -43,6 +51,13 @@
     --accent-warm: #e07a5f;
     --ring: #3ec9c099;
     --wave: #1f3d3a;
+    --footer-bg: #14121a;
+    --footer-fg: #f0eef7;
+    --footer-muted: #928ca3;
+    --footer-elevated: #1c1a26;
+    --footer-border: #2c2938;
+    --footer-link: color-mix(in srgb, var(--footer-fg) 82%, var(--footer-muted));
+    --footer-link-hover: var(--accent-hover);
   }
 }
 
@@ -116,4 +131,10 @@ body {
 .home-bento-tile:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 40px color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+/* Fat footer link focus: visible on dark slab */
+.site-footer :where(a, button):focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--footer-link-hover) 85%, white);
+  outline-offset: 3px;
 }

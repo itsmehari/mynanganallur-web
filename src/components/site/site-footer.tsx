@@ -43,12 +43,12 @@ const legalLinks = [
 ];
 
 const tagLinks = [
-  { href: "/news", label: "Metro" },
-  { href: "/news", label: "GCC" },
-  { href: "/news", label: "Monsoon" },
-  { href: "/news", label: "OMR" },
-  { href: "/news", label: "Marina" },
-  { href: "/news", label: "Startups" },
+  { href: "/chennai-local-news/topic/mobility", label: "Metro" },
+  { href: "/chennai-local-news/topic/chennai", label: "GCC" },
+  { href: "/chennai-local-news/topic/chennai", label: "Monsoon" },
+  { href: "/areas/omr-perungudi-sholinganallur", label: "OMR" },
+  { href: "/chennai-local-news/topic/chennai", label: "Marina" },
+  { href: "/jobs", label: "Startups" },
   { href: "/events", label: "Weekend" },
   { href: "/jobs", label: "Remote" },
 ];
@@ -61,8 +61,8 @@ function FooterColumn({
   links: { href: string; label: string }[];
 }) {
   return (
-    <div>
-      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+    <div className="min-w-0">
+      <p className="border-b border-[var(--footer-border)] pb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--footer-muted)]">
         {title}
       </p>
       <ul className="mt-4 space-y-2.5">
@@ -70,7 +70,7 @@ function FooterColumn({
           <li key={l.href + l.label}>
             <Link
               href={l.href}
-              className="text-sm text-[color-mix(in_srgb,var(--foreground)_88%,var(--muted))] transition hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              className="text-sm leading-snug text-[var(--footer-link)] transition hover:text-[var(--footer-link-hover)]"
             >
               {l.label}
             </Link>
@@ -89,74 +89,75 @@ export function SiteFooter() {
 
   return (
     <footer
-      className="relative mt-20 border-t border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_65%,var(--background))]"
+      className="site-footer relative mt-20 border-t-4 border-[var(--accent)] bg-[var(--footer-bg)] text-[var(--footer-fg)]"
       role="contentinfo"
     >
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/25 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[var(--accent)]/12 to-transparent"
         aria-hidden
       />
 
-      <div className="mx-auto max-w-[1280px] px-4 pb-10 pt-14 sm:px-6 sm:pb-12 sm:pt-16 lg:px-8 lg:pb-16 lg:pt-20">
-        {/* Top CTA band */}
-        <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-10">
+      <div className="relative mx-auto max-w-[1280px] px-4 pb-12 pt-12 sm:px-6 sm:pb-14 sm:pt-14 lg:px-8 lg:pb-16 lg:pt-16">
+        {/* Primary CTA — elevated card on the dark slab (classic fat-footer pattern) */}
+        <div className="rounded-2xl border border-[var(--footer-border)] bg-[var(--footer-elevated)] p-6 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.55)] sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-12">
           <div className="max-w-xl">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent)]">
-              Greater Chennai, one tab
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">
+              Backup navigation
             </p>
-            <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl">
-              Save mychennaicity.in — your fat footer is the backup navigation.
+            <h2 className="mt-3 font-serif text-2xl font-bold tracking-tight text-[var(--footer-fg)] sm:text-3xl">
+              Everything worth a second click — without scrolling the home page
+              again.
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
-              Jump to news, jobs, events, directory, or a neighbourhood hub
-              without scrolling the whole home page again.
+            <p className="mt-3 text-sm leading-relaxed text-[var(--footer-muted)]">
+              News desk, jobs, events, directory, and neighbourhood hubs in one
+              fat footer. Same idea as multi-column footers on editorial and
+              product sites.
             </p>
           </div>
-          <div className="mt-6 flex flex-wrap gap-3 lg:mt-0 lg:flex-shrink-0">
+          <div className="mt-8 flex flex-shrink-0 flex-wrap gap-3 lg:mt-0">
             <Link
               href="/chennai-local-news"
-              className="inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-[var(--accent-fg)] shadow-sm transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              className="inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-bold text-[var(--accent-fg)] shadow-md transition hover:bg-[var(--accent-hover)]"
             >
               Open news desk
             </Link>
             <Link
               href="/#newsletter"
-              className="inline-flex items-center justify-center rounded-full border-2 border-[var(--border)] bg-[var(--background)] px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              className="inline-flex items-center justify-center rounded-full border-2 border-[var(--footer-border)] bg-transparent px-6 py-3 text-sm font-bold text-[var(--footer-fg)] transition hover:border-[var(--footer-link-hover)] hover:text-[var(--footer-link-hover)]"
             >
               Email digest
             </Link>
           </div>
         </div>
 
-        {/* Main fat grid */}
-        <div className="mt-14 grid gap-12 border-b border-[var(--border)] pb-14 lg:mt-16 lg:grid-cols-12 lg:gap-10 lg:pb-16">
-          {/* Brand + social */}
+        {/* Brand + dense link grid */}
+        <div className="mt-14 grid gap-14 border-b border-[var(--footer-border)] pb-14 lg:mt-16 lg:grid-cols-12 lg:gap-12 lg:pb-16">
           <div className="lg:col-span-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              className="inline-flex items-center gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
             >
               <span
-                className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--accent)] text-sm font-bold text-[var(--accent-fg)] shadow"
+                className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-sm font-bold text-[var(--accent-fg)] shadow-lg ring-2 ring-[var(--footer-border)]"
                 aria-hidden
               >
                 MC
               </span>
-              <span className="text-lg font-semibold tracking-tight text-[var(--foreground)]">
+              <span className="font-serif text-xl font-bold tracking-tight text-[var(--footer-fg)]">
                 mychennaicity.in
               </span>
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-[var(--muted)]">
-              City-scale local: news, discovery, jobs, and listings for the whole
-              of Greater Chennai — from the harbour belt to OMR, Ambattur to
-              Adyar.
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-[var(--footer-muted)]">
+              City-scale local: news, discovery, jobs, and listings for Greater
+              Chennai — harbour belt to OMR, Ambattur to Adyar.
             </p>
-            <p className="mt-4 text-xs leading-relaxed text-[var(--muted)]">
-              Map tiles and area outlines are simplified for browsing; not a legal
-              cadastral survey.
+            <p className="mt-3 text-xs leading-relaxed text-[color-mix(in_srgb,var(--footer-muted)_92%,var(--footer-fg))]">
+              Map tiles are simplified for browsing; not a legal cadastral
+              survey.
             </p>
-            <div className="mt-6">
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+
+            <div className="mt-8">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--footer-muted)]">
                 Follow (coming soon)
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -164,7 +165,7 @@ export function SiteFooter() {
                   (label) => (
                     <span
                       key={label}
-                      className="inline-flex cursor-not-allowed items-center rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-xs font-medium text-[var(--muted)]"
+                      className="inline-flex cursor-not-allowed items-center rounded-full border border-[var(--footer-border)] bg-[color-mix(in_srgb,var(--footer-elevated)_70%,var(--footer-bg))] px-3 py-1.5 text-xs font-medium text-[var(--footer-muted)]"
                       title="Social links go live with community policy"
                     >
                       {label}
@@ -173,14 +174,13 @@ export function SiteFooter() {
                 )}
               </div>
             </div>
-            <p className="mt-8 text-xs text-[var(--muted)]">
-              Web-first experience · Mobile apps on the roadmap.
+            <p className="mt-8 text-xs text-[var(--footer-muted)]">
+              Web-first · Mobile apps on the roadmap.
             </p>
           </div>
 
-          {/* Link columns */}
           <nav
-            className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-4 lg:gap-8"
+            className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-4 lg:gap-x-6"
             aria-label="Footer"
           >
             <FooterColumn title="News & guides" links={newsLinks} />
@@ -190,17 +190,17 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        {/* Popular areas — full width row */}
+        {/* Popular areas */}
         <div className="mt-12 lg:mt-14">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--footer-muted)]">
             Popular area hubs
           </p>
-          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 sm:gap-x-5">
             {areaLinks.map((a) => (
               <li key={a.href}>
                 <Link
                   href={a.href}
-                  className="text-sm font-medium text-[var(--foreground)] underline decoration-[var(--border)] underline-offset-4 transition hover:decoration-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                  className="text-sm font-medium text-[var(--footer-link)] underline decoration-[var(--footer-border)] underline-offset-4 transition hover:text-[var(--footer-link-hover)] hover:decoration-[var(--footer-link-hover)]"
                 >
                   {a.label}
                 </Link>
@@ -209,7 +209,7 @@ export function SiteFooter() {
             <li>
               <Link
                 href="/#areas"
-                className="text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
+                className="text-sm font-bold text-[var(--footer-link-hover)] underline-offset-4 hover:underline"
               >
                 All areas on map →
               </Link>
@@ -217,17 +217,17 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        {/* Tags strip */}
-        <div className="mt-10 rounded-2xl bg-[var(--surface)] px-4 py-5 ring-1 ring-[var(--border)] sm:px-6">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+        {/* Topic chips */}
+        <div className="mt-10 rounded-2xl border border-[var(--footer-border)] bg-[color-mix(in_srgb,var(--footer-elevated)_55%,var(--footer-bg))] px-5 py-5 sm:px-6">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--footer-muted)]">
             Explore by topic
           </p>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             {tagLinks.map((t) => (
               <Link
                 key={t.href + t.label}
                 href={t.href}
-                className="rounded-full bg-[var(--background)] px-3 py-1.5 text-xs font-medium text-[var(--foreground)] ring-1 ring-[var(--border)] transition hover:ring-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                className="rounded-full border border-[var(--footer-border)] bg-[var(--footer-bg)] px-3.5 py-1.5 text-xs font-semibold text-[var(--footer-link)] transition hover:border-[var(--footer-link-hover)] hover:text-[var(--footer-link-hover)]"
               >
                 #{t.label}
               </Link>
@@ -235,8 +235,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Legal + meta bar */}
-        <div className="mt-12 flex flex-col gap-6 border-t border-[var(--border)] pt-10 lg:flex-row lg:items-start lg:justify-between">
+        {/* Subfooter */}
+        <div className="mt-12 flex flex-col gap-8 border-t border-[var(--footer-border)] pt-10 lg:flex-row lg:items-center lg:justify-between">
           <nav
             className="flex flex-wrap gap-x-6 gap-y-2"
             aria-label="Legal"
@@ -245,14 +245,16 @@ export function SiteFooter() {
               <Link
                 key={l.href + l.label}
                 href={l.href}
-                className="text-xs font-medium text-[var(--muted)] hover:text-[var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                className="text-xs font-semibold text-[var(--footer-muted)] transition hover:text-[var(--footer-fg)]"
               >
                 {l.label}
               </Link>
             ))}
           </nav>
-          <div className="text-xs leading-relaxed text-[var(--muted)] lg:text-right">
-            <p>© {new Date().getFullYear()} mychennaicity.in</p>
+          <div className="text-xs leading-relaxed text-[var(--footer-muted)] lg:text-right">
+            <p className="font-medium text-[var(--footer-link)]">
+              © {new Date().getFullYear()} mychennaicity.in
+            </p>
             <p className="mt-1">
               Chennai · Tamil Nadu · India · Content in English (தமிழ் soon)
             </p>
