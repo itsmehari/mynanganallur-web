@@ -17,11 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "mychennaicity.in",
+    default: "mychennaicity.in — Chennai news, jobs, events & listings",
     template: "%s · mychennaicity.in",
   },
   description:
-    "Chennai-focused local news, events, jobs, and listings — city-scale platform.",
+    "Greater Chennai local platform: news, directory, jobs, events, and neighbourhood hubs from Tiruvottiyur to OMR.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://mychennaicity.in",
   ),
@@ -37,7 +37,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col">
         <GoogleAnalytics />
         {children}
         <Analytics />
