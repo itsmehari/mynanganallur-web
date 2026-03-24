@@ -158,44 +158,11 @@ body {
     );
 }
 
-/* Home hero carousel (sans-serif marketing slides) */
-@keyframes home-hero-copy-in {
+/* Home hero: one panel animates per slide (avoids stacked / “stuck” columns) */
+@keyframes home-hero-slide-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes home-hero-mono-in {
-  from {
-    opacity: 0;
-    transform: translateY(-50%) translateX(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-  }
-}
-
-@keyframes home-hero-card-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes home-hero-float-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -204,20 +171,8 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .home-hero-copy-enter {
-    animation: home-hero-copy-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .home-hero-monogram {
-    animation: home-hero-mono-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .home-hero-stat-card {
-    animation: home-hero-card-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
-  }
-
-  .home-hero-float-tag {
-    animation: home-hero-float-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  .home-hero-slide-panel {
+    animation: home-hero-slide-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   @keyframes mega-nav-dropdown-in {

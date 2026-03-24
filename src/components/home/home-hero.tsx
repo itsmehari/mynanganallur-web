@@ -13,10 +13,10 @@ import { homeStats } from "@/lib/home-mock";
 
 const AUTO_MS = 7000;
 const TOPICS = [
-  { slug: "chennai", label: "Civic & GCC" },
-  { slug: "mobility", label: "Mobility & Metro" },
-  { slug: "elections", label: "Elections desk" },
-  { slug: "consumer", label: "Consumer" },
+  { slug: "chennai", label: "City & GCC" },
+  { slug: "mobility", label: "Travel & Metro" },
+  { slug: "elections", label: "Elections" },
+  { slug: "consumer", label: "Shops & prices" },
 ] as const;
 
 type Slide = {
@@ -25,14 +25,13 @@ type Slide = {
   lineBefore: string;
   lineBold: string;
   lineAfter: string;
-  /** Second accent: brand name in headline (news slide). */
   brandInHeadline?: boolean;
   sub: string;
+  footerNote: string;
   searchPlaceholder: string;
   filterLabel: string;
   filterOptions: readonly { value: string; label: string }[];
   submitLabel: string;
-  /** If set, form navigates here with optional `queryKey` from input */
   searchMode: "topic" | "link";
   hrefOnSubmit: string;
   primaryCta: { href: string; label: string };
@@ -47,103 +46,111 @@ type Slide = {
 const SLIDES: Slide[] = [
   {
     key: "news",
-    eyebrow: "Chennai local news desk",
-    lineBefore: "Cut through noise with",
-    lineBold: "reported context",
-    lineAfter: "for Greater Chennai on",
+    eyebrow: "News you can use",
+    lineBefore: "See what’s happening in",
+    lineBold: "your part of Chennai",
+    lineAfter: "— in clear language, on",
     brandInHeadline: true,
-    sub: "Elections, GCC, Metro, and consumer signal — paraphrased from publishers, structured for scanning.",
-    searchPlaceholder: "e.g. stormwater, nominations, fuel prices…",
-    filterLabel: "Desk",
+    sub: "Traffic, Metro, elections, GCC updates, and everyday costs (fuel, essentials). Pick a topic and open the news hub.",
+    footerNote:
+      "We cover the whole city: beaches to OMR, Ambattur to Adyar — not just one corridor.",
+    searchPlaceholder: "Type a topic (optional)",
+    filterLabel: "Topic",
     filterOptions: TOPICS.map((t) => ({ value: t.slug, label: t.label })),
-    submitLabel: "Go to desk",
+    submitLabel: "Open news",
     searchMode: "topic",
     hrefOnSubmit: "/chennai-local-news",
-    primaryCta: { href: "/chennai-local-news", label: "Open news hub" },
+    primaryCta: { href: "/chennai-local-news", label: "Browse all local news" },
     secondaryCta: { href: "/chennai-local-news/feed.xml", label: "RSS feed" },
     monogram: "N",
-    floatTags: ["Model code", "GCC projects", "Ward watch"],
-    statLabel: "Stories indexed",
-    statValue: "Live",
-    statHint: "Database-backed when connected",
+    floatTags: ["Road & rain", "Election dates", "Petrol price"],
+    statLabel: "How often we refresh",
+    statValue: "Daily",
+    statHint: "New links as publishers file stories",
   },
   {
     key: "events",
-    eyebrow: "Chennai local events",
-    lineBefore: "Temple utsavams, culture, and",
-    lineBold: "civic dates",
-    lineAfter: "in one calendar-shaped home.",
-    sub: "From core city to OMR — festivals, meetups, and town-hall style listings as we wire data in.",
-    searchPlaceholder: "Search listings (coming soon)",
-    filterLabel: "Focus",
+    eyebrow: "Things to do",
+    lineBefore: "Find",
+    lineBold: "festivals, concerts, and local meets",
+    lineAfter: "happening near you.",
+    sub: "Temple utsavams, weekend markets, talks, and community gatherings — start with the calendar and explore by area on the map below.",
+    footerNote:
+      "Planning a day out? Check events first, then jump to your neighbourhood on the home map.",
+    searchPlaceholder: "What are you in the mood for?",
+    filterLabel: "Type",
     filterOptions: [
-      { value: "all", label: "All listings" },
+      { value: "all", label: "Everything" },
       { value: "culture", label: "Culture & music" },
-      { value: "civic", label: "Civic & campaigns" },
+      { value: "civic", label: "Talks & civic" },
       { value: "food", label: "Food & walks" },
     ],
-    submitLabel: "Browse events",
+    submitLabel: "See events",
     searchMode: "link",
     hrefOnSubmit: "/chennai-local-events",
     primaryCta: { href: "/chennai-local-events", label: "Chennai local events" },
-    secondaryCta: { href: "#areas", label: "Area map" },
+    secondaryCta: { href: "#areas", label: "Pick your area on the map" },
     monogram: "E",
-    floatTags: ["Panguni Uthiram", "Weekend", "Free entry"],
-    statLabel: "Events this week",
+    floatTags: ["This weekend", "Temple season", "Family-friendly"],
+    statLabel: "Sample listings",
     statValue: `${homeStats.eventsWeek}+`,
-    statHint: "Representative count until live sync",
+    statHint: "Illustrative count on the homepage",
   },
   {
     key: "directory",
     eyebrow: "Places & services",
-    lineBefore: "Schools, clinics, transit, dining —",
-    lineBold: "directory-first",
-    lineAfter: "discovery for Chennai.",
-    sub: "Listings and verification workflows connect next; today this is your structured starting point.",
-    searchPlaceholder: "Hospitals near me…",
-    filterLabel: "Category",
+    lineBefore: "Look up",
+    lineBold: "schools, hospitals, food, and transit",
+    lineAfter: "across Greater Chennai.",
+    sub: "Use the directory when you need a number, a location, or a starting point — we’re growing verified listings over time.",
+    footerNote:
+      "Ten big neighbourhood zones: tap your side of the city on the map for a shorter list.",
+    searchPlaceholder: "What do you need? (optional)",
+    filterLabel: "Start with",
     filterOptions: [
-      { value: "all", label: "All categories" },
+      { value: "all", label: "Everything" },
       { value: "health", label: "Health" },
-      { value: "education", label: "Education" },
-      { value: "transit", label: "Transit hubs" },
+      { value: "education", label: "Schools & colleges" },
+      { value: "transit", label: "Transit & hubs" },
     ],
     submitLabel: "Open directory",
     searchMode: "link",
     hrefOnSubmit: "/directory",
-    primaryCta: { href: "/directory", label: "Full directory" },
-    secondaryCta: { href: "/directory", label: "List a business (soon)" },
+    primaryCta: { href: "/directory", label: "Search the directory" },
+    secondaryCta: { href: "/directory", label: "List your business (soon)" },
     monogram: "D",
-    floatTags: ["OMR", "Ambattur belt", "Adyar–T Nagar"],
-    statLabel: "Macro hubs",
+    floatTags: ["Near home", "OMR & ECR", "Central Chennai"],
+    statLabel: "Area hubs",
     statValue: "10",
-    statHint: "Greater Chennai area pages",
+    statHint: "Macro zones you can open in one tap",
   },
   {
     key: "jobs",
-    eyebrow: "Work in Chennai",
-    lineBefore: "Hiring signals and roles across",
-    lineBold: "IT, ops, and civic-facing teams",
-    lineAfter: "— free to browse.",
-    sub: "Employer accounts and applications ship next; explore the board as listings grow.",
-    searchPlaceholder: "Role or stack…",
-    filterLabel: "Mode",
+    eyebrow: "Work here",
+    lineBefore: "Browse",
+    lineBold: "open roles",
+    lineAfter: "in IT, offices, retail, and more — free to read.",
+    sub: "See who’s hiring in Chennai and nearby. Applying inside the site is on the way; for now, use the board to discover companies and roles.",
+    footerNote:
+      "Good for freshers and switches alike — filter by how you prefer to work.",
+    searchPlaceholder: "Job title or skill (optional)",
+    filterLabel: "Work style",
     filterOptions: [
-      { value: "all", label: "All" },
-      { value: "onsite", label: "On-site" },
+      { value: "all", label: "All jobs" },
+      { value: "onsite", label: "Mostly office" },
       { value: "hybrid", label: "Hybrid" },
       { value: "remote", label: "Remote-friendly" },
     ],
-    submitLabel: "Search jobs",
+    submitLabel: "View jobs",
     searchMode: "link",
     hrefOnSubmit: "/jobs",
-    primaryCta: { href: "/jobs", label: "Job board" },
-    secondaryCta: { href: "/jobs", label: "Post a role (soon)" },
+    primaryCta: { href: "/jobs", label: "Go to job board" },
+    secondaryCta: { href: "/jobs", label: "Post a job (soon)" },
     monogram: "J",
-    floatTags: ["OMR corridor", "GCC adjacency", "Startups"],
-    statLabel: "Live job signals",
+    floatTags: ["IT & product", "Chennai HQ", "Startups"],
+    statLabel: "Sample roles shown",
     statValue: `${homeStats.jobsLive}+`,
-    statHint: "Mock scale until API lands",
+    statHint: "Representative picks on the homepage",
   },
 ];
 
@@ -160,22 +167,19 @@ function SlideVisual({ slide }: { slide: Slide }) {
           backgroundSize: "20px 20px",
         }}
       />
-      <div className="home-hero-monogram pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 select-none text-[clamp(7rem,18vw,11rem)] font-bold leading-none text-[color-mix(in_srgb,var(--accent)_16%,transparent)]">
+      <div className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 select-none text-[clamp(7rem,18vw,11rem)] font-bold leading-none text-[color-mix(in_srgb,var(--accent)_16%,transparent)]">
         {slide.monogram}
       </div>
       {slide.floatTags.map((tag, i) => (
         <span
-          key={tag}
-          className="home-hero-float-tag absolute rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-[11px] font-semibold tracking-wide text-[var(--foreground)] shadow-md"
-          style={{
-            ...floatPosition(i),
-            animationDelay: `${120 + i * 90}ms`,
-          }}
+          key={`${slide.key}-${i}-${tag}`}
+          className="absolute rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-[11px] font-semibold tracking-wide text-[var(--foreground)] shadow-md"
+          style={floatPosition(i)}
         >
           {tag}
         </span>
       ))}
-      <div className="home-hero-stat-card relative z-[1] w-full max-w-[220px] rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[0_24px_50px_-28px_color-mix(in_srgb,var(--foreground)_45%,transparent)]">
+      <div className="relative z-[1] w-full max-w-[220px] rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[0_24px_50px_-28px_color-mix(in_srgb,var(--foreground)_45%,transparent)]">
         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--muted)]">
           {slide.statLabel}
         </p>
@@ -266,115 +270,117 @@ export function HomeHero() {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="overflow-hidden rounded-[1.65rem] border border-[var(--border)] bg-[var(--surface)] shadow-[0_32px_80px_-40px_color-mix(in_srgb,var(--foreground)_28%,transparent)]">
-        <div className="relative grid gap-10 px-5 py-10 sm:px-8 sm:py-12 lg:grid-cols-[1fr_minmax(260px,380px)] lg:items-center lg:gap-12 lg:px-10 lg:py-12">
-          <div key={slide.key} className="home-hero-copy-enter min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--muted)]">
-              {slide.eyebrow}
-            </p>
-            <h1
-              id={labelId}
-              className="mt-4 font-sans text-[clamp(1.65rem,4vw,2.75rem)] leading-[1.12] tracking-tight text-[var(--foreground)]"
-            >
-              <span className="font-light text-[var(--muted)]">
-                {slide.lineBefore}{" "}
-              </span>
-              <span className="font-bold text-[var(--foreground)]">
-                {slide.lineBold}
-              </span>
-              <span className="font-light text-[var(--muted)]">
-                {" "}
-                {slide.lineAfter}
-              </span>
-              {slide.brandInHeadline ? (
-                <>
+        {/* Single keyed panel so copy + visual always swap together (no “stuck” column). */}
+        <div className="relative isolate overflow-hidden px-5 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-12">
+          <div
+            key={slide.key}
+            className="home-hero-slide-panel grid gap-10 lg:grid-cols-[1fr_minmax(260px,380px)] lg:items-center lg:gap-12"
+          >
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--muted)]">
+                {slide.eyebrow}
+              </p>
+              <h1
+                id={labelId}
+                className="mt-4 font-sans text-[clamp(1.65rem,4vw,2.75rem)] leading-[1.12] tracking-tight text-[var(--foreground)]"
+              >
+                <span className="font-light text-[var(--muted)]">
+                  {slide.lineBefore}{" "}
+                </span>
+                <span className="font-bold text-[var(--foreground)]">
+                  {slide.lineBold}
+                </span>
+                <span className="font-light text-[var(--muted)]">
                   {" "}
-                  <span className="font-bold text-[var(--accent)]">
-                    mychennaicity.in
-                  </span>
-                </>
-              ) : null}
-            </h1>
-            <p className="mt-4 max-w-xl text-base font-light leading-relaxed text-[var(--muted)] sm:text-[1.05rem]">
-              {slide.sub}
-            </p>
+                  {slide.lineAfter}
+                </span>
+                {slide.brandInHeadline ? (
+                  <>
+                    {" "}
+                    <span className="font-bold text-[var(--accent)]">
+                      mychennaicity.in
+                    </span>
+                  </>
+                ) : null}
+              </h1>
+              <p className="mt-4 max-w-xl text-base font-light leading-relaxed text-[var(--muted)] sm:text-[1.05rem]">
+                {slide.sub}
+              </p>
 
-            <form
-              onSubmit={onSubmit}
-              className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch"
-            >
-              <label className="sr-only" htmlFor="hero-q">
-                Search
-              </label>
-              <input
-                id="hero-q"
-                name="q"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={slide.searchPlaceholder}
-                className="min-h-12 min-w-0 flex-1 rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 text-sm font-normal text-[var(--foreground)] shadow-sm outline-none ring-[var(--accent)] transition placeholder:text-[color-mix(in_srgb,var(--muted)_75%,transparent)] focus:border-[var(--accent)] focus:ring-2"
-              />
-              <div className="flex min-h-12 flex-1 gap-0 overflow-hidden rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-sm sm:max-w-[200px]">
-                <label className="sr-only" htmlFor="hero-filter">
-                  {slide.filterLabel}
+              <form
+                onSubmit={onSubmit}
+                className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch"
+              >
+                <label className="sr-only" htmlFor="hero-q">
+                  Search
                 </label>
-                <select
-                  id="hero-filter"
-                  value={filter}
-                  onChange={(e) => setFilter(e.target.value)}
-                  className="min-w-0 flex-1 cursor-pointer border-0 bg-transparent px-4 text-sm font-medium text-[var(--foreground)] outline-none"
+                <input
+                  id="hero-q"
+                  name="q"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={slide.searchPlaceholder}
+                  className="min-h-12 min-w-0 flex-1 rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 text-sm font-normal text-[var(--foreground)] shadow-sm outline-none ring-[var(--accent)] transition placeholder:text-[color-mix(in_srgb,var(--muted)_75%,transparent)] focus:border-[var(--accent)] focus:ring-2"
+                />
+                <div className="flex min-h-12 flex-1 gap-0 overflow-hidden rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-sm sm:max-w-[200px]">
+                  <label className="sr-only" htmlFor="hero-filter">
+                    {slide.filterLabel}
+                  </label>
+                  <select
+                    id="hero-filter"
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                    className="min-w-0 flex-1 cursor-pointer border-0 bg-transparent px-4 text-sm font-medium text-[var(--foreground)] outline-none"
+                  >
+                    {slide.filterOptions.map((o) => (
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  className="min-h-12 shrink-0 rounded-full bg-[var(--accent)] px-7 text-sm font-bold text-[var(--accent-fg)] shadow-md transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
                 >
-                  {slide.filterOptions.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
+                  {slide.submitLabel}
+                </button>
+              </form>
+
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <Link
+                  href={slide.primaryCta.href}
+                  className="text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
+                >
+                  {slide.primaryCta.label}
+                </Link>
+                <span className="hidden text-[var(--border)] sm:inline">|</span>
+                <Link
+                  href={slide.secondaryCta.href}
+                  className="text-sm font-light text-[var(--muted)] underline-offset-4 hover:text-[var(--foreground)] hover:underline"
+                >
+                  {slide.secondaryCta.label}
+                </Link>
               </div>
-              <button
-                type="submit"
-                className="min-h-12 shrink-0 rounded-full bg-[var(--accent)] px-7 text-sm font-bold text-[var(--accent-fg)] shadow-md transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-              >
-                {slide.submitLabel}
-              </button>
-            </form>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <Link
-                href={slide.primaryCta.href}
-                className="text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
-              >
-                {slide.primaryCta.label}
-              </Link>
-              <span className="hidden text-[var(--border)] sm:inline">|</span>
-              <Link
-                href={slide.secondaryCta.href}
-                className="text-sm font-light text-[var(--muted)] underline-offset-4 hover:text-[var(--foreground)] hover:underline"
-              >
-                {slide.secondaryCta.label}
-              </Link>
+              <div className="mt-8 border-t border-[var(--border)] pt-6">
+                <p className="text-sm font-light leading-relaxed text-[var(--muted)]">
+                  <strong className="font-semibold text-[var(--foreground)]">
+                    Tip:
+                  </strong>{" "}
+                  {slide.footerNote}
+                </p>
+              </div>
             </div>
 
-            <div className="mt-8 border-t border-[var(--border)] pt-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--muted)]">
-                Coverage
-              </p>
-              <p className="mt-2 text-sm font-light text-[var(--muted)]">
-                <strong className="font-semibold text-[var(--foreground)]">
-                  Tiruvottiyur → Sholinganallur
-                </strong>
-                , Ambattur → Adyar — hyperlocal hubs, not a single-corridor
-                site.
-              </p>
-            </div>
+            <SlideVisual slide={slide} />
           </div>
-
-          <SlideVisual key={slide.key} slide={slide} />
         </div>
 
         <div
-          className="flex items-center justify-between gap-4 border-t border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_88%,var(--background))] px-5 py-4 sm:px-8"
+          className="flex flex-col gap-3 border-t border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_88%,var(--background))] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8"
           role="tablist"
-          aria-label="Hero highlights"
+          aria-label="What do you want to explore?"
         >
           <div className="flex flex-wrap gap-2">
             {SLIDES.map((s, i) => (
@@ -395,15 +401,16 @@ export function HomeHero() {
                   : s.key === "events"
                     ? "Events"
                     : s.key === "directory"
-                      ? "Directory"
+                      ? "Places"
                       : "Jobs"}
               </button>
             ))}
           </div>
-          <p className="hidden text-right text-[11px] font-medium text-[var(--muted)] sm:block">
-            {paused ? "Paused" : "Auto-advance"} · slide {index + 1}/
-            {SLIDES.length}
-          </p>
+          {reduceMotion ? null : (
+            <p className="text-[11px] font-medium text-[var(--muted)] sm:text-right">
+              {paused ? "Rotation paused" : "Rotates every few seconds"}
+            </p>
+          )}
         </div>
       </div>
     </section>
