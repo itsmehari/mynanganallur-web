@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /** Legacy path redirects (old public URLs → current /local-* routes). Keep for bookmarks and inbound links. */
+  /**
+   * Alternate public paths → canonical `/local-news` and `/local-events`.
+   * Keeps short `/events` working; branded aliases for bookmarks and inbound links.
+   */
   async redirects() {
     return [
       {
@@ -15,22 +18,22 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/chennai-local-news",
+        source: "/nanganallur-local-news",
         destination: "/local-news",
         permanent: true,
       },
       {
-        source: "/chennai-local-news/:path*",
+        source: "/nanganallur-local-news/:path*",
         destination: "/local-news/:path*",
         permanent: true,
       },
       {
-        source: "/chennai-local-events",
+        source: "/nanganallur-local-events",
         destination: "/local-events",
         permanent: true,
       },
       {
-        source: "/chennai-local-events/:path*",
+        source: "/nanganallur-local-events/:path*",
         destination: "/local-events/:path*",
         permanent: true,
       },

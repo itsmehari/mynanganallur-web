@@ -3,7 +3,10 @@
 ## Principles
 
 - **v1 locality:** Nanganallur — public news at `/local-news`, events at `/local-events`; optional multi-city prefix later.
-- **Legacy redirects** — old public paths → `/local-news` and `/local-events` (see `next.config.ts`; kept for inbound links).
+- **Alternate URL redirects** (see `next.config.ts`):
+  - `/nanganallur-local-news` and `/nanganallur-local-news/*` → `/local-news` (+ same path suffix)
+  - `/nanganallur-local-events` and `/nanganallur-local-events/*` → `/local-events` (+ same path suffix)
+  - `/events` and `/events/*` → `/local-events` (+ same path suffix)
 - **Stable slugs** — unique within scope (city + type).
 
 ## Suggested public routes
