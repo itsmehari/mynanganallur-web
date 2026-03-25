@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000).
 |--------|-------------|
 | `npm run dev` | Development server |
 | `npm run build` | Production build (set `AUTH_SECRET` for NextAuth compile) |
-| `npm run lint` | ESLint |
+| `npm run lint` | ESLint (fails on any warning — same as CI) |
 | `npm run db:push` | Push Drizzle schema to Neon (run after pulling — adds `temple` directory type) |
 | `npm run db:seed` | Seed city + news articles (`nanganallur`) |
 | `npm run db:seed:directory` | Seed `directory_entries` from public web sources (Wikipedia, HRCE, etc.) — after `db:seed` |
