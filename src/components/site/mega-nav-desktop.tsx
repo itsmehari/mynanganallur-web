@@ -51,7 +51,7 @@ export function MegaNavDesktop() {
   );
 
   useEffect(() => {
-    setOpenId(null);
+    queueMicrotask(() => setOpenId(null));
   }, [pathname]);
 
   useEffect(() => {

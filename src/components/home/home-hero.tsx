@@ -7,6 +7,7 @@ import {
   useEffect,
   useId,
   useState,
+  useSyncExternalStore,
 } from "react";
 import type { CSSProperties } from "react";
 import { homeStats } from "@/lib/home-mock";
@@ -212,28 +213,90 @@ function floatPosition(i: number): CSSProperties {
   return positions[i % positions.length] ?? positions[0];
 }
 
-export function HomeHero() {
+function subscribePrefersReducedMotion(onStoreChange: () => void) {
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mq.addEventListener("change", onStoreChange);
+  return () => mq.removeEventListener("change", onStoreChange);
+}
+
+function getPrefersReducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getPrefersReducedMotionServerSnapshot() {
+  return false;
+}
+
+function HeroSlideForm({ slide }: { slide: Slide }) {
   const router = useRouter();
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState(
+    () => slide.filterOptions[0]?.value ?? "",
+  );
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (slide.searchMode === "topic") {
+      const q = query.trim();
+      const base = `/local-news/topic/${filter}`;
+      router.push(q ? `${base}?q=${encodeURIComponent(q)}` : base);
+      return;
+    }
+    router.push(slide.hrefOnSubmit);
+  };
+
+  return (
+    <form
+      onSubmit={onSubmit}
+      className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch"
+    >
+      <label className="sr-only" htmlFor="hero-q">
+        Search
+      </label>
+      <input
+        id="hero-q"
+        name="q"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder={slide.searchPlaceholder}
+        className="min-h-12 min-w-0 flex-1 rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 text-sm font-normal text-[var(--foreground)] shadow-sm outline-none ring-[var(--accent)] transition placeholder:text-[color-mix(in_srgb,var(--muted)_75%,transparent)] focus:border-[var(--accent)] focus:ring-2"
+      />
+      <div className="flex min-h-12 flex-1 gap-0 overflow-hidden rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-sm sm:max-w-[200px]">
+        <label className="sr-only" htmlFor="hero-filter">
+          {slide.filterLabel}
+        </label>
+        <select
+          id="hero-filter"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="min-w-0 flex-1 cursor-pointer border-0 bg-transparent px-4 text-sm font-medium text-[var(--foreground)] outline-none"
+        >
+          {slide.filterOptions.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button
+        type="submit"
+        className="min-h-12 shrink-0 rounded-full bg-[var(--accent)] px-7 text-sm font-bold text-[var(--accent-fg)] shadow-md transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+      >
+        {slide.submitLabel}
+      </button>
+    </form>
+  );
+}
+
+export function HomeHero() {
   const labelId = useId();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState("");
-  const [reduceMotion, setReduceMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduceMotion(mq.matches);
-    const onChange = () => setReduceMotion(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  useEffect(() => {
-    const first = SLIDES[index]?.filterOptions[0]?.value;
-    if (first !== undefined) setFilter(first);
-    setQuery("");
-  }, [index]);
+  const reduceMotion = useSyncExternalStore(
+    subscribePrefersReducedMotion,
+    getPrefersReducedMotionSnapshot,
+    getPrefersReducedMotionServerSnapshot,
+  );
 
   useEffect(() => {
     if (paused || reduceMotion) return;
@@ -247,18 +310,6 @@ export function HomeHero() {
   const go = useCallback((i: number) => {
     setIndex(((i % SLIDES.length) + SLIDES.length) % SLIDES.length);
   }, []);
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!slide) return;
-    if (slide.searchMode === "topic") {
-      const q = query.trim();
-      const base = `/local-news/topic/${filter}`;
-      router.push(q ? `${base}?q=${encodeURIComponent(q)}` : base);
-      return;
-    }
-    router.push(slide.hrefOnSubmit);
-  };
 
   if (!slide) return null;
 
@@ -307,45 +358,7 @@ export function HomeHero() {
                 {slide.sub}
               </p>
 
-              <form
-                onSubmit={onSubmit}
-                className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch"
-              >
-                <label className="sr-only" htmlFor="hero-q">
-                  Search
-                </label>
-                <input
-                  id="hero-q"
-                  name="q"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder={slide.searchPlaceholder}
-                  className="min-h-12 min-w-0 flex-1 rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 text-sm font-normal text-[var(--foreground)] shadow-sm outline-none ring-[var(--accent)] transition placeholder:text-[color-mix(in_srgb,var(--muted)_75%,transparent)] focus:border-[var(--accent)] focus:ring-2"
-                />
-                <div className="flex min-h-12 flex-1 gap-0 overflow-hidden rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-sm sm:max-w-[200px]">
-                  <label className="sr-only" htmlFor="hero-filter">
-                    {slide.filterLabel}
-                  </label>
-                  <select
-                    id="hero-filter"
-                    value={filter}
-                    onChange={(e) => setFilter(e.target.value)}
-                    className="min-w-0 flex-1 cursor-pointer border-0 bg-transparent px-4 text-sm font-medium text-[var(--foreground)] outline-none"
-                  >
-                    {slide.filterOptions.map((o) => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="min-h-12 shrink-0 rounded-full bg-[var(--accent)] px-7 text-sm font-bold text-[var(--accent-fg)] shadow-md transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-                >
-                  {slide.submitLabel}
-                </button>
-              </form>
+              <HeroSlideForm key={slide.key} slide={slide} />
 
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <Link

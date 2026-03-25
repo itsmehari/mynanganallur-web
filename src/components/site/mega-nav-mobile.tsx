@@ -14,7 +14,10 @@ export function MegaNavMobile({ open, onClose }: Props) {
   const pathname = usePathname();
   const [expanded, setExpanded] = useState<string | null>(MEGA_NAV_SECTIONS[0]?.id ?? null);
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (open) {
