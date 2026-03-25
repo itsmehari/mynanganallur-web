@@ -1,32 +1,32 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { NewspaperGrid, NewspaperMasthead } from "@/components/news/newspaper-layout";
-import { listPublishedArticlesForChennai } from "@/domains/news";
+import { listPublishedArticlesForSite } from "@/domains/news";
 import { getSiteUrl } from "@/lib/env";
 
 export const metadata: Metadata = {
-  title: "Chennai local news",
+  title: "Local news",
   description:
-    "Greater Chennai news with editorial analysis — newspaper-style front page from mychennaicity.in.",
+    "Nanganallur and south Chennai news with editorial analysis — newspaper-style front page from mynanganallur.in.",
   alternates: {
-    canonical: `${getSiteUrl()}/chennai-local-news`,
+    canonical: `${getSiteUrl()}/local-news`,
     types: {
-      "application/rss+xml": `${getSiteUrl()}/chennai-local-news/feed.xml`,
+      "application/rss+xml": `${getSiteUrl()}/local-news/feed.xml`,
     },
   },
   openGraph: {
-    title: "Chennai local news · mychennaicity.in",
-    url: `${getSiteUrl()}/chennai-local-news`,
+    title: "Local news · mynanganallur.in",
+    url: `${getSiteUrl()}/local-news`,
     type: "website",
   },
 };
 
 export const revalidate = 120;
 
-export default async function ChennaiLocalNewsPage() {
-  let all: Awaited<ReturnType<typeof listPublishedArticlesForChennai>> = [];
+export default async function LocalNewsPage() {
+  let all: Awaited<ReturnType<typeof listPublishedArticlesForSite>> = [];
   try {
-    all = await listPublishedArticlesForChennai(60);
+    all = await listPublishedArticlesForSite(60);
   } catch {
     /* DATABASE_URL unset or DB unreachable */
   }
@@ -76,7 +76,7 @@ export default async function ChennaiLocalNewsPage() {
               {featuredSide.map((a) => (
                 <li key={a.id}>
                   <Link
-                    href={`/chennai-local-news/${a.slug}`}
+                    href={`/local-news/${a.slug}`}
                     className="text-sm font-medium text-[var(--accent)] hover:underline"
                   >
                     {a.title}

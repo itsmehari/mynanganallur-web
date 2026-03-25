@@ -1,5 +1,6 @@
 /**
- * Seeds Chennai city + published local-news articles.
+ * Seeds site city (Nanganallur) + published local-news articles.
+ * Every story is anchored in Nanganallur (civic, mobility, temples, safety).
  *
  * Dev: `npm run db:seed` — uses `.env.local` then `.env` (DATABASE_URL).
  * Live: `npm run db:seed:live` — uses **only** `.env.production.local` (pull from Vercel or paste Neon URL).
@@ -41,7 +42,7 @@ if (live) {
 
 const db = drizzle(neon(url), { schema });
 
-const CHENNAI = { slug: "chennai", name: "Chennai", countryCode: "IN" };
+const SITE_CITY = { slug: "nanganallur", name: "Nanganallur", countryCode: "IN" };
 
 type SeedArticle = {
   slug: string;
@@ -60,273 +61,272 @@ type SeedArticle = {
 
 const seeds: SeedArticle[] = [
   {
-    slug: "bjp-goyal-tn-nda-seat-sharing",
+    slug: "nanganallur-power-cuts-substation-upgrade-demand",
     title:
-      "BJP says Piyush Goyal to finalise Tamil Nadu NDA seat-sharing as polls near",
+      "Nanganallur residents flag frequent power cuts; demand substation upgrade on 100 Feet Road",
     summary:
-      "State BJP indicates Union Minister Piyush Goyal will close NDA seat talks for Tamil Nadu with polling set for 23 April 2026.",
-    dek: "Alliance arithmetic tightens as nomination week approaches.",
-    category: "Politics",
+      "Grievance meeting coverage: voltage dips, overloaded 33 kV infra, and calls for 110 kV upgrade plus new transformers.",
+    dek: "TANGEDCO faces pressure as apartment density outpaces feeder capacity.",
+    category: "Local",
     featured: true,
-    publishedAt: new Date("2026-03-23T08:00:00Z"),
+    publishedAt: new Date("2025-07-15T08:00:00Z"),
     sourceUrl:
-      "https://www.hindustantimes.com/india-news/union-minister-piyush-goyal-to-finalise-seat-sharing-for-tamil-nadu-elections-today-bjp-101774229351188.html",
-    sourceName: "Hindustan Times",
+      "https://www.thehindu.com/todays-paper/tp-features/tp-downtown/nanganallur-residents-irked-over-power-cuts/article69778835.ece",
+    sourceName: "The Hindu",
     reportBody: `## What we know
 
-The BJP has indicated that Union Minister Piyush Goyal will lead final seat-sharing negotiations for the National Democratic Alliance in Tamil Nadu. The state votes on **23 April 2026**, with counting on **4 May**, under an active Model Code of Conduct.
+Residents told reporters that **power cuts** and **voltage fluctuations** have become common as Nanganallur’s built-up density has grown. At a grievance forum attended by **Minister T. M. Anbarasan** and officials from **TANGEDCO** and other departments, locals asked for the **33 kV substation on 100 Feet Road** to be upgraded to **110 kV**, replacement of ageing transformers, and faster completion of **underground high-tension cabling**.
 
-Coalition partners are aligning on constituency-level allocations in Chennai and across Tamil Nadu. Official announcements are expected to follow internal sign-off from alliance leadership.`,
-    analysisBody: `## Why Chennai watchers should care
+The same report notes a **₹29 crore** state allocation to link **Fifth Main Road** with the **Pazhavanthangal subway**—framed as easing congestion and improving safety for motorists.`,
+    analysisBody: `## What to watch on your street
 
-Chennai’s urban constituencies are high-visibility contests: media density, organised resident groups, and infrastructure flashpoints (water, waste, Metro phases) make alliance chemistry visible quickly. A late seat swap in a city seat can scramble ground campaigns that were built around a named candidate for weeks.
+Apartment clusters and AC load profiles mean **evening peak** is when dips hurt most. If your RWA documents recurring outages with **time stamps and feeder names**, that data helps zone engineers prioritise.
 
-For residents, the practical signal is **stability of candidate lists** in the next fortnight—watch for withdrawals, rebel filings, and last-minute symbol changes. mychennaicity.in will map city seats once slates firm up.`,
+Pair **discom** follow-up with **GCC** street-light tickets where dark stretches appear after outages—pedestrian safety compounds the inconvenience.`,
     interactiveJson: {
       type: "checklist",
-      title: "Following coalition news without the noise",
+      title: "If outages are disrupting your lane",
       items: [
-        { id: "1", "label": "Verify candidate from ECI / party site before sharing WhatsApp forwards" },
-        { id: "2", "label": "Note filing window: nominations from 30 March; scrutiny 7 April" },
-        { id: "3", "label": "Treat “leaked” seat PDFs as unconfirmed until parties publish" },
+        { id: "1", "label": "Log date, time, and whether whole street or single phase failed" },
+        { id: "2", "label": "Note transformer ID / EB complaint number from TANGEDCO" },
+        { id: "3", "label": "Share consolidated RWA letter to AE office with meter numbers" },
       ],
     },
   },
   {
-    slug: "chennai-polls-cash-valuables-proof",
+    slug: "nanganallur-road-surface-ugd-cmwssb-works",
     title:
-      "Tamil Nadu polls: carrying cash or valuables in Chennai? Squads may ask for proof",
+      "Nanganallur motorists report uneven roads after UGD and drain works on 4th Main Road",
     summary:
-      "Flying squads can question large cash movement during MCC; residents should keep documentation handy.",
-    dek: "Model code vigilance is visible on arterial roads and transit hubs.",
-    category: "Chennai",
+      "Press: middle stretches left rough after CMWSSB underground drainage, footpath widening, and storm-water work.",
+    dek: "Ward officials cited phased completion timelines for remaining drainage scope.",
+    category: "Mobility",
     featured: true,
-    publishedAt: new Date("2026-03-23T09:30:00Z"),
+    publishedAt: new Date("2025-05-20T09:30:00Z"),
     sourceUrl:
-      "https://timesofindia.indiatimes.com/city/chennai/tamil-nadu-polls-carrying-cash-or-valuables-be-ready-to-show-proof/articleshow/129626287.cms",
-    sourceName: "The Times of India",
+      "https://www.thehindu.com/todays-paper/tp-national/tp-tamilnadu/roads-damaged-in-civic-works-put-motorists-to-hardship-in-nanganallur/article69523260.ece",
+    sourceName: "The Hindu",
     reportBody: `## What we know
 
-Election enforcement teams are active across Tamil Nadu under the Model Code of Conduct. Press reporting notes that persons moving **large sums of cash** or high-value purchases may be asked for **valid documentation**—bank receipts, invoices, or legitimate purpose papers—so squads can rule out illicit distribution of money for votes.
+Coverage describes **uneven carriageways** on **4th Main Road** and nearby stretches after **CMWSSB** underground drainage, **footpath widening**, and **storm-water drain** construction. Residents and two-wheeler riders report **hazardous mid-lane bumps** where trenches were refilled in haste.
 
-Chennai, as the state’s economic hub, sees frequent cash movement for business, property, and weddings; enforcement is uneven by corridor but the legal framework is statewide.`,
-    analysisBody: `## What this means in practice
+Ward-level officials quoted in the report indicated that a large share of drainage scope was already complete, with **remaining work** expected within a **two-month** window—readers should treat dates as press snapshots and confirm on the ground.`,
+    analysisBody: `## Safer riding until resurfacing lands
 
-This is not a ban on carrying cash—it is a **documentation and proportionality** check during a sensitive enforcement window. If you are moving cash for a documented property closure, vendor payment, or hospital emergency, carry paperwork that ties the amount to a lawful purpose.
+Treat **night rain + fresh fill** as higher skid risk. If GCC opens a **patch complaint** channel for your ward, photograph **GPS-tagged** potholes rather than forwarding anonymous forwards.
 
-If you are stopped, stay calm, ask for identification, and note the squad unit if you believe procedures were not followed—ECI channels exist for complaints. We are not legal advisers; when in doubt, consult a lawyer for large transactions during MCC.`,
+When **bus routes** deviate around works, note whether **seniors and schoolchildren** still have a safe walking line—sometimes the motorable lane heals before the footpath does.`,
     interactiveJson: {
       type: "poll",
-      question: "Did you know MCC squads can inspect large cash movement during polls?",
+      question: "Which commute mode is worst hit by patchy roads near your home?",
       options: [
-        { id: "yes", "label": "Yes, I follow ECI advisories" },
-        { id: "somewhat", "label": "Somewhat — this is new detail" },
-        { id: "no", "label": "No — first time reading this" },
+        { id: "2w", "label": "Two-wheeler" },
+        { id: "car", "label": "Car" },
+        { id: "walk", "label": "Walking / bus first-mile" },
       ],
     },
   },
   {
-    slug: "thousand-lights-ezhilan-field-work",
+    slug: "nanganallur-pazhavanthangal-subway-fifth-main-link",
     title:
-      "Thousand Lights MLA Ezhilan on party machinery, flood work, and the 2026 contest",
+      "₹29 crore link: Fifth Main Road and Pazhavanthangal subway — a long-pending cut-through",
     summary:
-      "DMK’s N. Ezhilan speaks on constituency work and election preparedness in central Chennai.",
-    dek: "Central Chennai seat mixes heritage streets with dense apartment blocks.",
-    category: "Elections",
-    featured: true,
-    publishedAt: new Date("2026-03-23T11:00:00Z"),
-    sourceUrl:
-      "https://www.thehindu.com/elections/tamil-nadu-assembly/only-structured-party-machinery-with-popularity-can-ensure-success-says-thousand-lights-dmk-mla-n-ezhilan/article70771692.ece",
-    sourceName: "The Hindu",
-    reportBody: `## What we know
-
-In interview-style coverage, DMK MLA **Dr N. Ezhilan** (Thousand Lights) discusses his tenure and campaign approach. He points to **flood mitigation** work—citing a sharp reduction in chronic waterlogging spots compared with earlier years—and argues that structured party organisation plus popularity on the ground decides outcomes in 2026.
-
-Thousand Lights spans mixed-income neighbourhoods, institutions, and commercial cores—making service delivery and visible infrastructure politically salient.`,
-    analysisBody: `## Reading the race
-
-Incumbent narratives in central Chennai often hinge on **stormwater performance** after extreme rain events, plus everyday GCC service quality (waste, roads, street lights). Opposition messaging typically tests whether micro-works match resident experience lane by lane.
-
-mychennaicity.in separates **reported claims** from **ward-level verification** we publish separately—use this piece as context, not a scorecard.`,
-    interactiveJson: {
-      type: "checklist",
-      title: "What residents can verify locally",
-      items: [
-        { id: "1", "label": "Storm drain desilting on your street — GCC zone helpline" },
-        { id: "2", "label": "Ward committee meeting minutes (if posted)" },
-        { id: "3", "label": "Corporator contact responsiveness on 311-style complaints" },
-      ],
-    },
-  },
-  {
-    slug: "mapedu-multimodal-logistics-phase-one",
-    title:
-      "Mappedu multi-modal logistics park near Chennai nears Phase I opening",
-    summary:
-      "Tiruvallur-belt freight hub with rail and cold-chain components moves toward commissioning.",
-    dek: "Chennai’s industrial belt shifts some port pressure inland.",
-    category: "Economy",
-    featured: false,
-    publishedAt: new Date("2026-03-23T07:00:00Z"),
-    sourceUrl:
-      "https://www.thehindu.com/news/cities/chennai/first-phase-of-multi-modal-logistics-park-near-chennai-to-be-ready-next-month/article70770006.ece",
-    sourceName: "The Hindu",
-    reportBody: `## What we know
-
-Reporting indicates **Phase I** of a **multi-modal logistics park** at **Mappedu** (Tiruvallur district, proximate to Chennai’s freight corridors) is approaching completion, with warehousing, cold storage, rail connectivity, and truck parking on a large land parcel. Capital cost figures in the **₹1,400+ crore** range have appeared in press estimates.
-
-The facility is framed as easing highway congestion and improving cold-chain reliability for agri and pharma movements touching the Chennai region.`,
-    analysisBody: `## Why it matters for Chennai commuters
-
-New logistics capacity can **pull heavy truck trips** off some approach roads if rail legs are utilised—but last-mile connectivity and timing of toll/road upgrades determine whether residents feel relief. Watch for night-movement patterns and enforcement against illegal parking spillovers on village roads adjoining the park.
-
-For SMEs, the park may change **landed cost** dynamics versus older godowns in Red Hills–Ambattur belts—worth tracking for anyone in distribution.`,
-    interactiveJson: {
-      type: "checklist",
-      title: "Signals to watch after opening",
-      items: [
-        { id: "1", "label": "NH / SH peak-hour truck share on your commute" },
-        { id: "2", "label": "Cold-chain spoilage complaints in wholesale markets" },
-        { id: "3", "label": "Job postings for logistics roles in Tiruvallur belt" },
-      ],
-    },
-  },
-  {
-    slug: "chennai-fuel-prices-march-22-2026",
-    title: "Petrol and diesel prices in Chennai on 22 March 2026",
-    summary:
-      "Pump rates in the city largely steady; check before long drives or fleet runs.",
-    dek: "Consumer desk — daily mobility cost.",
-    category: "Consumer",
-    featured: false,
-    publishedAt: new Date("2026-03-22T18:00:00Z"),
-    sourceUrl:
-      "https://www.dtnext.in/news/chennai/check-out-petrol-and-diesel-prices-in-chennai-on-march-22-2026",
-    sourceName: "DT Next",
-    reportBody: `## What we know
-
-Retail **petrol** and **diesel** prices in Chennai for **22 March 2026** are published in the city’s daily fuel bulletins (see source). Rates move with global crude and central/state tax components; intracity competition between bunk chains is usually narrow.
-
-Use official Oil Company apps or trusted local bulletins before budgeting long OMR/ECR drives.`,
-    analysisBody: `## Context
-
-Fuel is a **pass-through inflation** driver for Chennai’s gig economy, school runs, and small logistics. During election season, consumers sometimes expect freezes—watch policy announcements, but rely on published retail boards for what you pay at the nozzle.`,
-    interactiveJson: {
-      type: "poll",
-      question: "How do high fuel prices change your weekly travel in Chennai?",
-      options: [
-        { id: "metro", "label": "Shifted more trips to Metro / bus" },
-        { id: "same", "label": "Same mode — absorbing cost" },
-        { id: "carpool", "label": "More carpool / WFH" },
-      ],
-    },
-  },
-  {
-    slug: "chennai-128-election-surveillance-vehicles",
-    title:
-      "128 vehicles deployed for election monitoring across Chennai’s 16 constituencies",
-    summary:
-      "ECI-aligned squads include flying teams, static surveillance, and video units; helpline publicised.",
-    dek: "Enforcement visibility rises after poll date notification.",
-    category: "Elections",
-    featured: false,
-    publishedAt: new Date("2026-03-22T12:00:00Z"),
-    sourceUrl:
-      "https://www.thehindu.com/elections/tamil-nadu-assembly/128-vehicles-deployed-for-election-monitoring-in-chennai-as-eci-announces-poll-dates/article70746956.ece",
-    sourceName: "The Hindu",
-    reportBody: `## What we know
-
-After the Assembly election schedule was announced, Chennai’s district machinery detailed a **fleet of 128 vehicles** allocated across **16 constituencies** for surveillance work—covering flying squads, static surveillance teams, and video surveillance teams. A **toll-free control room** number has been publicised for complaints.
-
-The deployment is part of standard MCC enforcement to curb inducements and intimidation.`,
-    analysisBody: `## For residents
-
-More visible patrols can mean **faster response** to cash distribution complaints but also occasional checkpoints that feel intrusive—know the difference between election squads and routine police beats. Save the **official helpline** from the Chief Electoral Officer’s releases rather than unverified forwards.
-
-If you film enforcement interactions, respect privacy law proportionality—document facts without escalating risk.`,
-    interactiveJson: {
-      type: "checklist",
-      title: "If you want to file a complaint",
-      items: [
-        { id: "1", "label": "Use CEO Tamil Nadu / ECI-published helpline numbers" },
-        { id: "2", "label": "Note date, place, vehicle registration if safe" },
-        { id: "3", "label": "Avoid naming individuals without evidence" },
-      ],
-    },
-  },
-  {
-    slug: "chennai-poll-surveillance-seizures",
-    title:
-      "₹60.63 lakh in cash, liquor, narcotics seized in Chennai district amid poll surveillance",
-    summary:
-      "Intensified checks register seizures; enforcement continues under MCC.",
-    dek: "District-level tally from surveillance drives.",
-    category: "Chennai",
-    featured: false,
-    publishedAt: new Date("2026-03-22T15:00:00Z"),
-    sourceUrl:
-      "https://www.thehindu.com/news/cities/chennai/6063-lakh-in-cash-liquor-and-narcotics-seized-in-chennai-district/article70773164.ece",
-    sourceName: "The Hindu",
-    reportBody: `## What we know
-
-District authorities reported seizures including **unaccounted cash** (around **₹60.63 lakh** in press tallies), **liquor**, **narcotics**, and precious metals during intensified surveillance around **21–22 March**. Figures aggregate multiple incidents and constituencies.
-
-Seizures are logged as part of election expenditure monitoring—not every seizure implies conviction; due process follows.`,
-    analysisBody: `## How to read the headline number
-
-Aggregate seizure values are **headline indicators** of enforcement tempo, not a precise measure of “how clean” an election is. Large cities generate more interception simply from volume of movement.
-
-Residents should treat social media clips as **partial evidence**—wait for official summaries and court/administrative follow-up where applicable.`,
-    interactiveJson: {
-      type: "poll",
-      question: "Do seizure headlines change how confident you feel about fair polling?",
-      options: [
-        { id: "more", "label": "More confident" },
-        { id: "same", "label": "Same as before" },
-        { id: "less", "label": "More anxious / sceptical" },
-      ],
-    },
-  },
-  {
-    slug: "chennai-arterial-road-widening-gcc",
-    title:
-      "Narrow stretches of arterial roads across Chennai may be widened soon, GCC told",
-    summary:
-      "Corporation identifies pinch points on key corridors to ease congestion.",
-    dek: "Mobility — corporation-led road geometry fixes.",
+      "State allocation reported for a connector expected to cut congestion toward GST Road.",
+    dek: "Palavanthangal station users watch for construction phasing and diversions.",
     category: "Mobility",
     featured: false,
-    publishedAt: new Date("2026-03-22T10:00:00Z"),
+    publishedAt: new Date("2025-07-16T07:00:00Z"),
     sourceUrl:
-      "https://www.thehindu.com/news/cities/chennai/narrow-stretches-of-arterials-roads-across-chennai-to-be-widened-soon/article70727353.ece",
+      "https://www.thehindu.com/todays-paper/tp-features/tp-downtown/nanganallur-residents-irked-over-power-cuts/article69778835.ece",
     sourceName: "The Hindu",
     reportBody: `## What we know
 
-Greater Chennai Corporation has been tasked with addressing **narrow arterial stretches** that choke peak traffic. Press reporting references **roughly 100 km** of priority corridors and named geographies such as **Velachery–Tambaram** links and **Padi flyover** surrounds—exact ward-wise lists should be verified from GCC releases.
+The same **The Hindu** downtown brief that catalogued Nanganallur power grievances notes a **₹29 crore** government allocation to connect **Fifth Main Road** with the **Pazhavanthangal subway**—described as a **long-standing demand** to reduce **vehicular congestion** and **accident risk** on approaches toward **GST Road**.
 
-Works typically bundle with stormwater and utility coordination to avoid repeated trenching.`,
-    analysisBody: `## What residents should expect
+Exact **DPR milestones**, lane closures, and **night working windows** were not detailed in the short item; residents should watch **GCC / highways** notices once contractors mobilise.`,
+    analysisBody: `## Why Palavanthangal commuters should care
 
-Widening without Metro/bus priority upgrades sometimes **induces more traffic** (induced demand). Watch whether junction redesigns include **pedestrian refuge islands** and **bus stop pull-ins**—otherwise peak-hour experience may not improve for non-motorists.
+Many residents already use **Palavanthangal suburban station**; a cleaner road geometry to the subway can shorten **last-mile** time if pedestrian crossings are designed in the same package—not only car lanes.
 
-mychennaicity.in will tag corridor stories to **area hubs** as GCC publishes zone-wise orders.`,
+Heavy rain history at the **subway** means **pumping readiness** matters as much as asphalt; ask whether the project bundles **storm pumps** or **invert fixes** in the contract scope.`,
     interactiveJson: {
       type: "checklist",
-      title: "Before your commute changes",
+      title: "Track the project responsibly",
       items: [
-        { id: "1", "label": "Check GCC / CMRL diversion notices" },
-        { id: "2", "label": "Report unfinished trench patches via 1913 / zone X" },
-        { id: "3", "label": "Note new pinch points after lane drops near schools" },
+        { id: "1", "label": "Save GCC / CMRL diversion PDFs when posted" },
+        { id: "2", "label": "Note school-zone timings before shortcutting through side streets" },
+        { id: "3", "label": "Report unfinished barricade stubs after each phase" },
       ],
     },
   },
   {
-    slug: "chennai-pre-monsoon-electrical-safety-advisory",
+    slug: "palavanthangal-subway-rain-commute-nanganallur",
     title:
-      "Ahead of monsoon: discoms flag loose outdoor wiring and unsafe earthing in Chennai homes",
+      "When Palavanthangal subway floods: how Nanganallur residents reach GST Road in monsoon",
     summary:
-      "Utility advisories remind residents to inspect service lines, meters, and rooftop runs before heavy rain.",
-    dek: "Consumer safety — a short checklist beats a trip to the ER during squalls.",
+      "Local pattern: subway and low spots pinch access to GST during intense rain; inner ring toward Velachery becomes a pressure valve.",
+    dek: "Wikipedia’s locality entry and resident accounts align on the bottleneck.",
+    category: "Mobility",
+    featured: false,
+    publishedAt: new Date("2026-03-10T10:00:00Z"),
+    sourceUrl: "https://en.wikipedia.org/wiki/Nanganallur",
+    sourceName: "Wikipedia — Nanganallur",
+    reportBody: `## What we know
+
+The **Nanganallur** article in Wikipedia (community-edited) states that **Palavanthangal** and **Thillai Ganga Nagar** subways connect the neighbourhood to **GST Road**, but that **heavy rain** can **flood** the Palavanthangal underpass—making the short hop to the highway unreliable during monsoon peaks.
+
+The same entry notes an **inner ring road** from **Thillai Ganga Nagar** toward **Velachery** as an important **alternate corridor** when the subway is unusable—especially for residents who rely on suburban trains at **Palavanthangal** or **Meenambakkam**.`,
+    analysisBody: `## Plan B before the sky opens
+
+Save **two routes** in your maps app: one via **subway** when dry, one via **inner ring / Velachery** when waterlogging warnings appear. If you pick **share autos**, agree **fare bands** for detours in advance—surge behaviour spikes when everyone reroutes at once.
+
+mynanganallur.in treats Wikipedia as a **starting map**, not gospel—verify closures with **traffic police** or **GCC** on the day.`,
+    interactiveJson: {
+      type: "poll",
+      question: "During heavy rain, which backup route do you use most?",
+      options: [
+        { id: "inner", "label": "Inner ring toward Velachery" },
+        { id: "wait", "label": "Wait out + suburban/MTC when running" },
+        { id: "gst", "label": "Longer GST approach from another junction" },
+      ],
+    },
+  },
+  {
+    slug: "nanganallur-temple-corridor-adi-anjaneyar-hrce",
+    title:
+      "Nanganallur’s 32-foot Anjaneyar temple: HRCE registry, timings, and crowd etiquette",
+    summary:
+      "Arulmigu Adivyadhihara Bhaktha Anjaneyar is a city landmark; official HRCE page lists temple ID and access basics.",
+    dek: "Ram Nagar pilgrims share space with through traffic—plan weekday visits when possible.",
+    category: "Local",
+    featured: true,
+    publishedAt: new Date("2026-03-18T06:00:00Z"),
+    sourceUrl: "https://hrce.tn.gov.in/hrcehome/index_temple.php?tid=19",
+    sourceName: "Hindu Religious & Charitable Endowments Department, Tamil Nadu",
+    reportBody: `## What we know
+
+The **HRCE** portal lists **Arulmigu Adivyadhihara Bhaktha Anjaneyar Temple** in **Nanganallur** (temple reference **TM000019**) among Tamil Nadu’s controlled temples. Public guides and community sites describe the **32-foot Hanuman** icon carved from a single granite block—drawing steady **weekend** and **festival** footfall from across Chennai.
+
+Neighbouring **Varasiddhi Vinayagar** and **Lakshmi Hayagrivar** shrines in **Hindu Colony** form a compact **temple corridor** visitors often combine in one trip.`,
+    analysisBody: `## Visiting without snarling Ram Nagar
+
+**Street parking** competes with **resident access**. Prefer **Metro + short ride** (e.g. **Nanganallur Road** or **Meenambakkam**) on peak days. Carry **change** for shoe stands and respect **photography rules** inside sanctum zones.
+
+For **archana** slots during **Panguni / Hanuman Jayanthi**, assume **queue discipline** will need volunteer ropes—check temple office boards rather than third-party apps.`,
+    interactiveJson: {
+      type: "checklist",
+      title: "Before you go",
+      items: [
+        { id: "1", "label": "Screenshot HRCE / temple notice for that day’s schedule" },
+        { id: "2", "label": "Avoid blocking 8th Street driveways when parking" },
+        { id: "3", "label": "Keep hydration + umbrella in festival heat" },
+      ],
+    },
+  },
+  {
+    slug: "nanganallur-metro-airport-multimodal-commute",
+    title:
+      "From Nanganallur Road Metro to the airport: a resident’s multimodal cheat sheet",
+    summary:
+      "Locality sits between airport, GST, and Metro spine — combine MTC, suburban, and CMRL depending on time of day.",
+    dek: "PIN 600061; wards 166–167 in Alandur zone per Wikipedia infobox.",
+    category: "Mobility",
+    featured: false,
+    publishedAt: new Date("2026-03-12T11:00:00Z"),
+    sourceUrl: "https://en.wikipedia.org/wiki/Nanganallur",
+    sourceName: "Wikipedia — Nanganallur",
+    reportBody: `## What we know
+
+Wikipedia’s **Nanganallur** infobox places the neighbourhood in **Greater Chennai Corporation** (**Alandur / Zone 12**, wards **166–167**), PIN **600061**, with **Palavanthangal** and **Meenambakkam** suburban stations nearby and **Nanganallur Road** / **Meenambakkam** on the **Chennai Metro** network.
+
+The article also lists **MTC** routes such as **52K, 52L, 52P, M18C, M152N** that pass through or serve the area—useful when Metro ends early or airport trips need a **first-mile** bus.`,
+    analysisBody: `## Pick the mode for the job
+
+**Early international departures** often favour **ride-hail + Metro** to avoid GST surprises. **Shift workers** near **Meenambakkam** industrial pockets may prefer **suburban** frequency checks on **Southern Railway** apps.
+
+Always verify **last train** and **last bus** the night before—Chennai schedules shift with **curtailed services** on maintenance days.`,
+    interactiveJson: {
+      type: "poll",
+      question: "Your most reliable airport run from Nanganallur is usually:",
+      options: [
+        { id: "metro", "label": "Metro + short cab" },
+        { id: "cab", "label": "Direct cab / auto" },
+        { id: "train", "label": "Suburban + walk" },
+      ],
+    },
+  },
+  {
+    slug: "nanganallur-roller-skating-rink-100-feet-road",
+    title:
+      "Nanganallur’s roller-skating rink on 100 Feet Road — a neighbourhood sporting landmark",
+    summary:
+      "Wikipedia cites a GCC-era rink near Civil Aviation Colony; legacy press noted TN’s longest public rink length when it opened.",
+    dek: "Call GCC recreation desk for current hours before visiting.",
+    category: "Local",
+    featured: false,
+    publishedAt: new Date("2011-06-20T08:00:00Z"),
+    sourceUrl: "https://en.wikipedia.org/wiki/Nanganallur",
+    sourceName: "Wikipedia — Nanganallur",
+    reportBody: `## What we know
+
+The **Nanganallur** Wikipedia article describes a **roller-skating rink** on **100 Feet Road** near the **Civil Aviation Colony**, developed on roughly **12,000 sq ft** of open ground by the then **Alandur Municipality** and opened in **June 2011**. A **New Indian Express** piece (archived) cited dimensions of roughly **325 ft by 30 ft**, described at the time as among the **longest** such public rinks in Tamil Nadu.
+
+**Operating hours, coaching fees, and maintenance** change with civic budgets—readers should confirm with **Greater Chennai Corporation** recreation / parks channels before planning lessons.`,
+    analysisBody: `## Why it still matters
+
+For families on **100 Feet Road** and **Civil Aviation Colony**, the rink is a rare **public play asset** in a dense ward. If sessions are cancelled, ask whether **storm damage** or **power** to floodlights is the cause—those tickets land in different departments.
+
+Coaching groups sometimes run **evening batches**; respect **noise curfew** complaints from adjacent homes.`,
+    interactiveJson: {
+      type: "checklist",
+      title: "Before kids lace up",
+      items: [
+        { id: "1", "label": "WhatsApp GCC zone park helpline if listed" },
+        { id: "2", "label": "Carry helmets + guards even for open sessions" },
+        { id: "3", "label": "Check evening flood history on 100 Feet stretch" },
+      ],
+    },
+  },
+  {
+    slug: "nanganallur-dharmalingeshwar-osr-land-dispute",
+    title:
+      "Open Space Reservation plot near Dharmalingeshwarar Temple: GCC reclaim still contested",
+    summary:
+      "Residents raised encroachment worries at the same grievance forum that discussed power and roads.",
+    dek: "Legal outcomes and on-ground fencing can diverge — track corporation notices.",
+    category: "Local",
+    featured: false,
+    publishedAt: new Date("2025-07-15T09:00:00Z"),
+    sourceUrl:
+      "https://www.thehindu.com/todays-paper/tp-features/tp-downtown/nanganallur-residents-irked-over-power-cuts/article69778835.ece",
+    sourceName: "The Hindu",
+    reportBody: `## What we know
+
+The **July 2025** downtown brief on Nanganallur grievances notes an **Open Space Reservation (OSR)** parcel near **Dharmalingeshwarar Temple** where **encroachment** concerns lingered despite a **court direction** returning land to **Greater Chennai Corporation**. Residents asked authorities to **enforce** the verdict visibly.
+
+We are not summarising the judgment text here—only the **public reporting** of resident demands.`,
+    analysisBody: `## How neighbours can engage responsibly
+
+**OSR** fights are slow. Document **boundary stones**, **GCC board orders**, and **councillor replies** rather than circulating unverifiable aerial images.
+
+If **walking paths** shrink because of temp structures, route complaints through **311 / Namma Chennai** style tickets so they attach to a **ward audit trail**.`,
+    interactiveJson: {
+      type: "checklist",
+      title: "If you want clarity on the plot",
+      items: [
+        { id: "1", "label": "Request copy of GCC council resolution if available" },
+        { id: "2", "label": "Cross-check survey numbers with RTI if you represent an RWA" },
+        { id: "3", "label": "Avoid naming private individuals without court records" },
+      ],
+    },
+  },
+  {
+    slug: "pre-monsoon-nanganallur-electrical-safety",
+    title:
+      "Pre-monsoon electrical safety for Nanganallur lanes: tight plots, common walls, terrace inverters",
+    summary:
+      "TANGEDCO seasonal advice matters more where compounds share walls and street flooding touches meters.",
+    dek: "Pair discom checks with GCC drain clearing tickets on your street.",
     category: "Consumer",
     featured: false,
     publishedAt: new Date("2026-03-21T12:00:00Z"),
@@ -334,22 +334,22 @@ mychennaicity.in will tag corridor stories to **area hubs** as GCC publishes zon
     sourceName: "Tamil Nadu Generation and Distribution Corporation Ltd. (TANGEDCO)",
     reportBody: `## What we know
 
-State discom messaging each year repeats a simple pattern: **water + electricity** is dangerous. Before the southwest monsoon strengthens over Tamil Nadu, residents are nudged to have **licensed electricians** check **service mains**, **meter boxes**, **earthing**, and any **exposed outdoor runs** (terrace pumps, AC isolators, CCTV power).
+TANGEDCO’s seasonal messaging asks households to inspect **service connections**, **meter boxes**, **earthing**, and **exposed outdoor wiring** before monsoon intensifies. In **Nanganallur**, **narrow side streets**, **shared compound walls**, and **dense AC + inverter** loads raise the stakes when water pools near **LT panels**.
 
-GCC and resident welfare associations sometimes run parallel **storm drain** and **street light** audits—these are separate from household wiring but matter for flooded footpaths touching compound walls.`,
-    analysisBody: `## Why this matters in Chennai
+Recent **The Hindu** coverage from the area also highlighted **voltage fluctuation** complaints—another reason to test **ELCB/RCCB** trips before squalls arrive.`,
+    analysisBody: `## Block-level habits that help
 
-Dense wards mix old tiled roofs, new inverter setups, and informal extensions. A **single loose neutral** or **submerged DB** can energise gates or compound walls. If you rent, clarify who owns the **meter-to-premise** segment—landlords and tenants often argue after an incident.
+RWAs on **4th Main**, **Ram Nagar**, and **Hindu Colony** grids can run **joint walk-throughs** with a licensed contractor pool—cheaper per home and easier for **discom** crews to schedule **pole-top** fixes in one pass.
 
-This page is **not** a substitute for a site inspection. If you see sparks, burning smell, or water pooling at the meter, **stay clear** and call the discom helpline / a licensed contractor.`,
+If you see **sparking** near a **street light** junction box after rain, log it as **both** electrical risk and **pedestrian** risk—GCC and TANGEDCO hand-offs are smoother when tickets cite **pole numbers**.`,
     interactiveJson: {
       type: "checklist",
       title: "10-minute pre-monsoon electrical pass",
       items: [
-        { id: "1", "label": "Visually inspect overhead service drop for fraying or tree contact" },
-        { id: "2", "label": "Confirm meter box lid seals and no pooled water at the base" },
-        { id: "3", "label": "Trip-test ELCB / RCCB if installed; note if it fails to trip" },
-        { id: "4", "label": "Unplug non-essentials before leaving home during orange rain alerts" },
+        { id: "1", "label": "Inspect service drop for tree contact" },
+        { id: "2", "label": "Check meter box seals + water pooling" },
+        { id: "3", "label": "Trip-test ELCB / RCCB" },
+        { id: "4", "label": "Unplug terrace pumps during orange alerts" },
       ],
     },
   },
@@ -360,18 +360,18 @@ async function main() {
   const existing = await db
     .select()
     .from(cities)
-    .where(eq(cities.slug, CHENNAI.slug))
+    .where(eq(cities.slug, SITE_CITY.slug))
     .limit(1);
   if (existing[0]) {
     cityId = existing[0].id;
-    console.log("City chennai exists:", cityId);
+    console.log("City nanganallur exists:", cityId);
   } else {
     const [inserted] = await db
       .insert(cities)
-      .values(CHENNAI)
+      .values(SITE_CITY)
       .returning({ id: cities.id });
     cityId = inserted.id;
-    console.log("Inserted city chennai:", cityId);
+    console.log("Inserted city nanganallur:", cityId);
   }
 
   for (const s of seeds) {

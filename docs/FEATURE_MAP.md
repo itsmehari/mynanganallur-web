@@ -1,4 +1,4 @@
-# Feature map — legacy patterns → mychennaicity v1
+# Feature map — legacy patterns → mynanganallur v1
 
 Legend: **P0** ship first, **P1** next, **Later** backlog.
 

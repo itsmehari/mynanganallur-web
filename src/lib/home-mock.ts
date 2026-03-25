@@ -51,34 +51,34 @@ export const mockJobs: MockJob[] = [
   {
     title: "Software Engineer",
     company: "Chargebee",
-    location: "Chennai",
+    location: "Chennai · Nanganallur commute",
     href: "https://careers.chargebee.com/",
     external: true,
   },
   {
     title: "Software Development Engineer",
     company: "Comcast",
-    location: "Chennai",
+    location: "Chennai · Nanganallur commute",
     href: "https://jobs.comcast.com/",
     external: true,
   },
   {
     title: "Senior Staff Software Engineer — Full Stack",
     company: "Freshworks",
-    location: "Chennai",
+    location: "Chennai · Nanganallur commute",
     href: "https://www.freshworks.com/company/careers/",
     external: true,
   },
   {
     title: "Content editor — Tamil & English",
-    company: "mychennaicity.in",
-    location: "Remote · Chennai",
+    company: "mynanganallur.in",
+    location: "Remote · Nanganallur / Chennai",
     href: "/jobs",
   },
 ];
 
 /**
- * Upcoming picks around Greater Chennai (Mar–Apr 2026).
+ * Upcoming picks reachable from Nanganallur (Mar–Apr 2026).
  * Confirm dates, venue, and tickets on the organiser or ticket site.
  */
 export const mockEvents: MockEvent[] = [
@@ -100,7 +100,7 @@ export const mockEvents: MockEvent[] = [
     title: "Subramanya Swamy — Panguni Uthiram Vaibhavam",
     when: "Wed 1 Apr 2026",
     where: "Sholinganallur (Classic Farms Road)",
-    href: "/chennai-local-events",
+    href: "/local-events",
   },
   {
     title: "Candlelight — Best of Bollywood",
@@ -133,151 +133,131 @@ export const mockListings: MockListing[] = [
 ];
 
 /**
- * Curated from Chennai / TN press (web research, Mar 22–23 2026).
+ * Mirrors Nanganallur desk themes (The Hindu, Wikipedia, HRCE, TANGEDCO).
  * Headlines paraphrased; links go to publishers. Verify before treating as legal record.
  */
 export const mockArticles: MockArticle[] = [
   {
-    title:
-      "BJP: Piyush Goyal to finalise Tamil Nadu NDA seat-sharing (state polls 2026)",
-    category: "Politics",
-    date: "Mar 23, 2026 · Today",
-    href: "https://www.hindustantimes.com/india-news/union-minister-piyush-goyal-to-finalise-seat-sharing-for-tamil-nadu-elections-today-bjp-101774229351188.html",
-    source: "Hindustan Times",
-    external: true,
-    excerpt:
-      "Alliance arithmetic ahead of the April 23 Assembly poll — watch Chennai constituencies in the mix.",
-  },
-  {
-    title:
-      "Tamil Nadu polls: carrying large cash or valuables in Chennai? Officials may ask for proof",
-    category: "Chennai",
-    date: "Mar 23, 2026 · Today",
-    href: "https://timesofindia.indiatimes.com/city/chennai/tamil-nadu-polls-carrying-cash-or-valuables-be-ready-to-show-proof/articleshow/129626287.cms",
-    source: "The Times of India",
-    external: true,
-    excerpt:
-      "Model code vigilance on city roads — know the thresholds squads cite during checks.",
-  },
-  {
-    title:
-      "Thousand Lights DMK MLA Ezhilan on field work, flood mitigation and the 2026 contest",
-    category: "Elections",
-    date: "Mar 23, 2026 · Today",
-    href: "https://www.thehindu.com/elections/tamil-nadu-assembly/only-structured-party-machinery-with-popularity-can-ensure-success-says-thousand-lights-dmk-mla-n-ezhilan/article70771692.ece",
+    title: "Nanganallur residents irked over power cuts — demand substation upgrade",
+    category: "Local",
+    date: "Jul 2025",
+    href: "https://www.thehindu.com/todays-paper/tp-features/tp-downtown/nanganallur-residents-irked-over-power-cuts/article69778835.ece",
     source: "The Hindu",
     external: true,
     excerpt:
-      "Central Chennai constituency lens: party machinery vs. local issues on the ground.",
+      "100 Feet Road 33 kV substation, new transformers, and ₹29 cr Fifth Main–Pazhavanthangal subway link.",
   },
   {
-    title:
-      "Mappedu multi-modal logistics park near Chennai: Phase I nears opening next month",
-    category: "Economy",
-    date: "Mar 23, 2026 · Today",
-    href: "https://www.thehindu.com/news/cities/chennai/first-phase-of-multi-modal-logistics-park-near-chennai-to-be-ready-next-month/article70770006.ece",
-    source: "The Hindu",
-    external: true,
-    excerpt:
-      "Tiruvallur belt freight hub (~₹1,424 crore scope) — warehouses, cold chain, rail link.",
-  },
-  {
-    title: "Petrol and diesel prices in Chennai on March 22, 2026",
-    category: "Consumer",
-    date: "Mar 22, 2026 · Yesterday",
-    href: "https://www.dtnext.in/news/chennai/check-out-petrol-and-diesel-prices-in-chennai-on-march-22-2026",
-    source: "DT Next",
-    external: true,
-    excerpt:
-      "City pump rates — check the bulletin before you fill across neighbourhoods.",
-  },
-  {
-    title:
-      "128 vehicles deployed for election monitoring across Chennai’s 16 constituencies",
-    category: "Elections",
-    date: "Mar 22, 2026 · Yesterday",
-    href: "https://www.thehindu.com/elections/tamil-nadu-assembly/128-vehicles-deployed-for-election-monitoring-in-chennai-as-eci-announces-poll-dates/article70746956.ece",
-    source: "The Hindu",
-    external: true,
-    excerpt:
-      "Flying squads, static teams and video surveillance — plus a toll-free complaint line.",
-  },
-  {
-    title:
-      "₹60.63 lakh in cash, liquor and narcotics seized in Chennai district amid poll surveillance",
-    category: "Chennai",
-    date: "Mar 22, 2026 · Yesterday",
-    href: "https://www.thehindu.com/news/cities/chennai/6063-lakh-in-cash-liquor-and-narcotics-seized-in-chennai-district/article70773164.ece",
-    source: "The Hindu",
-    external: true,
-    excerpt:
-      "Intensified checks as the model code stays in force across city constituencies.",
-  },
-  {
-    title:
-      "Narrow stretches of arterial roads across Chennai to be widened soon, GCC told",
+    title: "Roads damaged in civic works put motorists to hardship in Nanganallur",
     category: "Mobility",
-    date: "Mar 22, 2026 · Yesterday",
-    href: "https://www.thehindu.com/news/cities/chennai/narrow-stretches-of-arterials-roads-across-chennai-to-be-widened-soon/article70727353.ece",
+    date: "May 2025",
+    href: "https://www.thehindu.com/todays-paper/tp-national/tp-tamilnadu/roads-damaged-in-civic-works-put-motorists-to-hardship-in-nanganallur/article69523260.ece",
     source: "The Hindu",
     external: true,
     excerpt:
-      "Traffic relief on key corridors — corporation lists priority pinch points.",
+      "UGD and storm-water works — uneven stretches on 4th Main Road after trench refills.",
+  },
+  {
+    title: "Nanganallur — suburb, temple town, airport adjacency (local overview)",
+    category: "Local",
+    date: "Reference",
+    href: "https://en.wikipedia.org/wiki/Nanganallur",
+    source: "Wikipedia",
+    external: true,
+    excerpt:
+      "Wards 166–167, Zone 12 Alandur; Palavanthangal subway flooding pattern in monsoon.",
+  },
+  {
+    title: "Arulmigu Adivyadhihara Bhaktha Anjaneyar Temple, Nanganallur (HRCE)",
+    category: "Local",
+    date: "Reference",
+    href: "https://hrce.tn.gov.in/hrcehome/index_temple.php?tid=19",
+    source: "HRCE Tamil Nadu",
+    external: true,
+    excerpt:
+      "Official registry TM000019 — 32-ft Hanuman, Ram Nagar.",
+  },
+  {
+    title: "Roller-skating rink on 100 Feet Road — Nanganallur sporting note",
+    category: "Local",
+    date: "2011 opening",
+    href: "https://en.wikipedia.org/wiki/Nanganallur",
+    source: "Wikipedia",
+    external: true,
+    excerpt:
+      "GCC-era facility near Civil Aviation Colony; confirm hours with corporation.",
+  },
+  {
+    title: "Pre-monsoon electrical safety — TANGEDCO advisory (TN-wide, applies here)",
+    category: "Consumer",
+    date: "Seasonal",
+    href: "https://www.tangedco.gov.in/",
+    source: "TANGEDCO",
+    external: true,
+    excerpt:
+      "Meter boxes, earthing, outdoor runs — critical in tight Nanganallur lanes.",
+  },
+  {
+    title: "Open Space Reservation near Dharmalingeshwarar — residents seek GCC action",
+    category: "Local",
+    date: "Jul 2025",
+    href: "https://www.thehindu.com/todays-paper/tp-features/tp-downtown/nanganallur-residents-irked-over-power-cuts/article69778835.ece",
+    source: "The Hindu",
+    external: true,
+    excerpt:
+      "Same grievance forum as power and roads — encroachment concerns on OSR land.",
   },
 ];
 
 export const editorsPicks: MockArticle[] = [
   {
-    title:
-      "Tamil Nadu polls: carrying cash in Chennai — what officials can ask you to prove",
-    category: "Explainer",
-    date: "Mar 23, 2026",
-    href: "https://timesofindia.indiatimes.com/city/chennai/tamil-nadu-polls-carrying-cash-or-valuables-be-ready-to-show-proof/articleshow/129626287.cms",
-    source: "The Times of India",
+    title: "When Palavanthangal subway floods — backup routes toward Velachery",
+    category: "Mobility",
+    date: "Mar 2026",
+    href: "https://en.wikipedia.org/wiki/Nanganallur",
+    source: "Wikipedia",
     external: true,
   },
   {
-    title:
-      "How Chennai is staffing election squads: 128 vehicles across 16 constituencies",
-    category: "Civic",
-    date: "Mar 22, 2026",
-    href: "https://www.thehindu.com/elections/tamil-nadu-assembly/128-vehicles-deployed-for-election-monitoring-in-chennai-as-eci-announces-poll-dates/article70746956.ece",
+    title: "Power cuts on 100 Feet Road — what RWAs asked TANGEDCO",
+    category: "Local",
+    date: "Jul 2025",
+    href: "https://www.thehindu.com/todays-paper/tp-features/tp-downtown/nanganallur-residents-irked-over-power-cuts/article69778835.ece",
     source: "The Hindu",
     external: true,
   },
   {
-    title:
-      "Mappedu logistics hub: what the first phase means for Chennai–Tiruvallur freight",
-    category: "Economy",
-    date: "Mar 23, 2026",
-    href: "https://www.thehindu.com/news/cities/chennai/first-phase-of-multi-modal-logistics-park-near-chennai-to-be-ready-next-month/article70770006.ece",
-    source: "The Hindu",
+    title: "Metro + MTC from Nanganallur — route cheat sheet",
+    category: "Mobility",
+    date: "Mar 2026",
+    href: "https://en.wikipedia.org/wiki/Nanganallur",
+    source: "Wikipedia",
     external: true,
   },
 ];
 
 export const cityPulseBullets = [
   {
-    title: "Water: desal + lake recharge projects to watch this quarter",
-    href: "/news",
+    title: "Power: 100 Feet Road substation upgrade — track TANGEDCO replies",
+    href: "/local-news/topic/local",
   },
   {
-    title: "Roads: GCC’s termini upgrades — who gets paved first?",
-    href: "/news",
+    title: "Roads: post-UGD resurfacing on 4th Main and side streets",
+    href: "/local-news/topic/mobility",
   },
   {
-    title: "Transit: bus lane pilots and last-mile gaps at major hubs",
-    href: "/news",
+    title: "Rain: Palavanthangal subway + inner ring detour habits",
+    href: "/local-news/topic/mobility",
   },
 ];
 
 export const trendingTags = [
-  { label: "Metro", href: "/news" },
-  { label: "GCC", href: "/news" },
-  { label: "Monsoon ready", href: "/news" },
-  { label: "Elections 2026", href: "/news" },
+  { label: "Metro", href: "/local-news/topic/mobility" },
+  { label: "GCC", href: "/local-news/topic/local" },
+  { label: "Monsoon ready", href: "/local-news/topic/local" },
+  { label: "Temple corridor", href: "/local-news/topic/local" },
   { label: "Startups", href: "/jobs" },
-  { label: "Heritage walks", href: "/chennai-local-events" },
+  { label: "Heritage walks", href: "/local-events" },
 ];
 
 export const categoryTiles = [
@@ -292,24 +272,24 @@ export const categoryTiles = [
 ];
 
 export const zoneShortcuts = [
-  { label: "North Chennai", slug: "tiruvottiyur-manali-belt" },
-  { label: "Central Chennai", slug: "teynampet-nungambakkam" },
-  { label: "West Chennai", slug: "ambattur-annanagar" },
-  { label: "OMR IT corridor", slug: "omr-perungudi-sholinganallur" },
-  { label: "Adyar coast", slug: "adyar-thiruvanmiyur" },
-  { label: "South & airport link", slug: "saidapet-guindy-alandur" },
+  { label: "Nanganallur core", slug: "nanganallur-core" },
+  { label: "Pazhavanthangal", slug: "pazhavanthangal-thillai-ganga" },
+  { label: "Adambakkam", slug: "adambakkam-lake-view" },
+  { label: "Madipakkam belt", slug: "madipakkam-keelkattalai" },
+  { label: "OMR (near)", slug: "omr-perungudi-near" },
+  { label: "Alandur · Mount", slug: "alandur-st-thomas-mount" },
 ];
 
 export const sponsors = [
   {
-    name: "Explore Chennai data",
-    blurb: "Open datasets for wards, zones, and mobility — verify before maps go live.",
+    name: "GCC reference",
+    blurb: "Greater Chennai Corporation open info — cross-check ward and zone facts.",
     href: "https://chennaicorporation.gov.in",
     external: true,
   },
   {
     name: "Community signal",
-    blurb: "Tip lines + neighbourhood WhatsApp groups — coming soon on mychennaicity.in.",
+    blurb: "Tip lines + neighbourhood WhatsApp groups — coming soon on mynanganallur.in.",
     href: "/news",
     external: false,
   },

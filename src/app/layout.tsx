@@ -15,13 +15,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "mychennaicity.in — Chennai news, jobs, events & listings",
-    template: "%s · mychennaicity.in",
+    default: "mynanganallur.in — Nanganallur news, jobs, events & listings",
+    template: "%s · mynanganallur.in",
   },
   description:
-    "Greater Chennai local platform: news, directory, jobs, events, and neighbourhood hubs from Tiruvottiyur to OMR.",
+    "Nanganallur-focused local platform: news, directory, jobs, events, and neighbourhood hubs for south Chennai.",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://mychennaicity.in",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://mynanganallur.in",
   ),
 };
 

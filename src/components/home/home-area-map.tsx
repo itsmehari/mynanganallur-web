@@ -3,43 +3,38 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-  CHENNAI_GEO_VERSION,
-  chennaiZones,
-  type ChennaiZone,
-} from "@/lib/chennai-zones";
+  NANGANALLUR_GEO_VERSION,
+  nanganallurAreas,
+  type NanganallurArea,
+} from "@/lib/nanganallur-areas";
 
-function ZoneCard({
-  zone,
+function AreaCard({
+  area,
   active,
   onHover,
   onLeave,
 }: {
-  zone: ChennaiZone;
+  area: NanganallurArea;
   active: boolean;
   onHover: () => void;
   onLeave: () => void;
 }) {
   return (
     <Link
-      href={`/areas/${zone.slug}`}
+      href={`/areas/${area.slug}`}
       onMouseEnter={onHover}
       onFocus={onHover}
       onMouseLeave={onLeave}
       onBlur={onLeave}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${active ? "border-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))] shadow-md" : "border-[var(--border)] bg-[var(--surface)] hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--border))] hover:shadow-md"} ${zone.gridClass}`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${active ? "border-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))] shadow-md" : "border-[var(--border)] bg-[var(--surface)] hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--border))] hover:shadow-md"} ${area.gridClass}`}
     >
       <div>
         <p className="text-sm font-semibold text-[var(--foreground)]">
-          {zone.label}
+          {area.label}
         </p>
-        {zone.gccZoneNumber ? (
-          <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-[var(--muted)]">
-            GCC zone ref · {zone.gccZoneNumber}
-          </p>
-        ) : null}
       </div>
       <p className="mt-3 text-xs leading-relaxed text-[var(--muted)]">
-        {zone.blurb}
+        {area.blurb}
       </p>
       <span className="mt-4 inline-flex items-center text-xs font-semibold text-[var(--accent)]">
         Open area hub
@@ -63,22 +58,25 @@ export function HomeAreaMap() {
         <div
           className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:grid-rows-[auto_auto_auto]"
           role="list"
-          aria-label="Greater Chennai macro regions"
+          aria-label="Nanganallur and nearby neighbourhoods"
         >
-          {chennaiZones.map((zone) => (
-            <div key={zone.slug} role="listitem" className="min-h-[120px]">
-              <ZoneCard
-                zone={zone}
-                active={activeSlug === zone.slug}
-                onHover={() => setActiveSlug(zone.slug)}
+          {nanganallurAreas.map((area) => (
+            <div key={area.slug} role="listitem" className="min-h-[120px]">
+              <AreaCard
+                area={area}
+                active={activeSlug === area.slug}
+                onHover={() => setActiveSlug(area.slug)}
                 onLeave={() => setActiveSlug(null)}
               />
             </div>
           ))}
         </div>
         <p className="mt-4 text-xs text-[var(--muted)]">
-          Map data version <code className="rounded bg-[var(--background)] px-1 py-0.5">{CHENNAI_GEO_VERSION}</code>
-          . We will merge official GCC polygons when published in open form.
+          Map data version{" "}
+          <code className="rounded bg-[var(--background)] px-1 py-0.5">
+            {NANGANALLUR_GEO_VERSION}
+          </code>
+          . Boundaries are editorial groupings for navigation, not survey maps.
         </p>
       </div>
 
@@ -88,11 +86,11 @@ export function HomeAreaMap() {
       >
         <div className="animate-gentle-float pointer-events-none absolute -right-6 -top-10 h-40 w-40 rounded-full bg-[var(--accent)] opacity-15 blur-3xl" />
         <p className="text-sm font-semibold text-[var(--foreground)]">
-          Bay-side orientation
+          South Chennai anchor
         </p>
         <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">
-          This bento grid is a navigational map: tap a tile to open hyperlocal
-          hubs for news, events, and listings as we wire data in.
+          This bento grid is a navigational map: tap a tile for hyperlocal hubs
+          as we wire news, events, and listings.
         </p>
         <svg
           viewBox="0 0 200 220"
@@ -119,7 +117,7 @@ export function HomeAreaMap() {
             fillOpacity="0.5"
             fontSize="10"
           >
-            Bay of Bengal →
+            GST · OMR →
           </text>
         </svg>
       </aside>

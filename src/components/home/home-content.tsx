@@ -92,7 +92,7 @@ export function HomeTrustStrip() {
           Mobile
         </p>
         <p className="mt-2 text-sm leading-snug text-[var(--muted)]">
-          Built for mobile Chennai — fast pages, clear type.
+          Built for mobile readers in Nanganallur — fast pages, clear type.
         </p>
       </div>
     </div>
@@ -103,7 +103,7 @@ export function HomeCategoryMosaic() {
   return (
     <Section
       eyebrow="Directory"
-      title="Explore Chennai"
+      title="Explore Nanganallur"
       subtitle="Directory tiles pick up live counts once the unified listings API lands."
       action={{ href: "/directory", label: "Full directory" }}
     >
@@ -213,7 +213,7 @@ export function HomeJobsSpotlight() {
     <Section
       eyebrow="Careers"
       title="Jobs spotlight"
-      subtitle="Curated Mar 25 2026 from Chennai tech employers and public listings — external cards open the company careers site. Always verify the role before you apply."
+      subtitle="Curated Mar 25 2026 from Chennai-area tech employers (many Nanganallur residents commute here) — external cards open the company careers site. Always verify the role before you apply."
       action={{ href: "/jobs", label: "Browse all jobs" }}
     >
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -281,7 +281,7 @@ export function HomeEventsFeatured() {
       eyebrow="Calendar"
       title="Featured events"
       subtitle="Picked Mar 25 2026 from public listings (Mar–Apr). External rows open the organiser or ticket page — confirm time and price before you go."
-      action={{ href: "/chennai-local-events", label: "All local events" }}
+      action={{ href: "/local-events", label: "All local events" }}
     >
       <ul className="grid gap-4 lg:grid-cols-2">
         {mockEvents.map((e, i) => {
@@ -372,7 +372,7 @@ export function HomeTrendingTags() {
     <Section
       eyebrow="Discover"
       title="Trending topics"
-      subtitle="Tag pages wire to Elasticsearch or Postgres full-text later — links land on news for now."
+      subtitle="Tag shortcuts jump to topic desks on local news."
     >
       <div className="flex flex-wrap gap-2">
         {trendingTags.map((t) => (
@@ -395,7 +395,7 @@ export function HomeCityPulse() {
       eyebrow="Infra & civic"
       title="City pulse"
       subtitle="Infra, water, and mobility — a distinct lane from the main news river."
-      action={{ href: "/chennai-local-news", label: "Civic desk" }}
+      action={{ href: "/local-news", label: "Civic desk" }}
     >
       <ul className="divide-y divide-[var(--border)] overflow-hidden rounded-[1.25rem] border border-[var(--border)] bg-[var(--surface)] shadow-sm">
         {cityPulseBullets.map((b) => (
@@ -434,7 +434,7 @@ export function HomeSeasonalHub() {
             Seasonal hub
           </p>
           <h2 className="mt-3 font-serif text-2xl font-bold tracking-tight text-[var(--foreground)] sm:text-3xl">
-            Tamil Nadu Assembly Election 2026 — Chennai voter desk
+            Tamil Nadu Assembly Election 2026 — voter desk (south Chennai)
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted)] sm:text-base">
             Constituency explainers, roll updates, and polling-day checklists —
@@ -444,13 +444,13 @@ export function HomeSeasonalHub() {
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
           <Link
-            href="/chennai-local-news/topic/elections"
+            href="/local-news/topic/elections"
             className="inline-flex items-center justify-center rounded-full bg-[var(--foreground)] px-8 py-3 text-center text-sm font-bold text-[var(--background)] shadow-lg transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Open election desk
           </Link>
           <Link
-            href="/chennai-local-events"
+            href="/local-events"
             className="inline-flex items-center justify-center rounded-full border-2 border-[color-mix(in_srgb,var(--foreground)_25%,transparent)] bg-[var(--surface)] px-8 py-3 text-center text-sm font-bold text-[var(--foreground)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
             Town-hall events

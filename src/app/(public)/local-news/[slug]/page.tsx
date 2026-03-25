@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { EditorialArticle } from "@/components/news/editorial-article";
 import {
   getPublishedArticleBySlug,
-  getPublishedSlugsForChennai,
+  getPublishedSlugsForSite,
 } from "@/domains/news";
 import { getSiteUrl } from "@/lib/env";
 import {
@@ -23,7 +23,7 @@ export const revalidate = 120;
 
 export async function generateStaticParams() {
   try {
-    const slugs = await getPublishedSlugsForChennai();
+    const slugs = await getPublishedSlugsForSite();
     return slugs.map((slug) => ({ slug }));
   } catch {
     return [];
@@ -42,20 +42,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Story" };
   }
   const base = getSiteUrl();
-  const url = `${base}/chennai-local-news/${article.slug}`;
+  const url = `${base}/local-news/${article.slug}`;
   const desc = clipMetaDescription(
     article.summary ??
       article.dek ??
       article.title,
   );
-  /** Root layout template adds " · mychennaicity.in" → full SERP title per SEO plan. */
-  const titleSegment = `${article.title} · Chennai local news`;
+  const titleSegment = `${article.title} · Local news`;
   return {
     title: titleSegment,
     description: desc,
     alternates: { canonical: url },
     openGraph: {
-      title: `${article.title} · Chennai local news · mychennaicity.in`,
+      title: `${article.title} · Local news · mynanganallur.in`,
       description: desc,
       url,
       type: "article",
@@ -65,7 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${article.title} · Chennai local news · mychennaicity.in`,
+      title: `${article.title} · Local news · mynanganallur.in`,
       description: desc,
     },
   };

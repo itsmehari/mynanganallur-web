@@ -147,6 +147,8 @@ export const directoryEntryTypeEnum = pgEnum("directory_entry_type", [
   "it_park",
   "government_office",
   "industry",
+  /** Places of worship — HRCE / community listings; always verify timings by phone. */
+  "temple",
 ]);
 
 export const directoryEntries = pgTable(

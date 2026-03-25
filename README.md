@@ -1,6 +1,6 @@
-# mychennaicity.in
+# mynanganallur.in
 
-Next.js (App Router) + Neon Postgres + Vercel — city-scale local platform scaffold.
+Next.js (App Router) + Neon Postgres + Vercel — **mynanganallur.in** local platform scaffold.
 
 ## Stack
 
@@ -27,7 +27,10 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run dev` | Development server |
 | `npm run build` | Production build (set `AUTH_SECRET` for NextAuth compile) |
 | `npm run lint` | ESLint |
-| `npm run db:push` | Push Drizzle schema to Neon |
+| `npm run db:push` | Push Drizzle schema to Neon (run after pulling — adds `temple` directory type) |
+| `npm run db:seed` | Seed city + news articles (`nanganallur`) |
+| `npm run db:seed:directory` | Seed `directory_entries` from public web sources (Wikipedia, HRCE, etc.) — after `db:seed` |
+| `npm run db:seed:live` / `db:seed:directory:live` | Same seeds using `.env.production.local` |
 | `npm run db:studio` | Drizzle Studio |
 
 ## Documentation

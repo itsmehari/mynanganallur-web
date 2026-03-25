@@ -1,14 +1,14 @@
 /** News domain — articles, taxonomy, feeds. See docs/CONTENT_ARCHITECTURE.md. */
 export {
-  CHENNAI_CITY_SLUG,
+  SITE_CITY_SLUG,
   featuredArticlesForHome,
   getPublishedArticleBySlug,
-  getPublishedSlugsForChennai,
+  getPublishedSlugsForSite,
   latestArticlesForHome,
-  listArticlesByCategoryForChennai,
+  listArticlesByCategoryForSite,
   listArticlesForSitemap,
-  listPublishedArticlesForChennai,
-  listTopicKeysForChennai,
-  relatedArticlesForChennai,
+  listPublishedArticlesForSite,
+  listTopicKeysForSite,
+  relatedArticlesForSite,
   type PublicArticleRow,
 } from "./queries";

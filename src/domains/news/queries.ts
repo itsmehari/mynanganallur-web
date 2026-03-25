@@ -2,16 +2,17 @@ import { and, desc, eq, isNotNull, ne } from "drizzle-orm";
 import { getDb } from "@/db/client";
 import { articles, cities } from "@/db/schema/tables";
 
-export const CHENNAI_CITY_SLUG = "chennai";
+/** Primary city row for this deployment (seed + queries). */
+export const SITE_CITY_SLUG = "nanganallur";
 
 export type PublicArticleRow = typeof articles.$inferSelect;
 
-async function getChennaiCityId(): Promise<string | null> {
+async function getSiteCityId(): Promise<string | null> {
   const db = getDb();
   const row = await db
     .select({ id: cities.id })
     .from(cities)
-    .where(eq(cities.slug, CHENNAI_CITY_SLUG))
+    .where(eq(cities.slug, SITE_CITY_SLUG))
     .limit(1);
   return row[0]?.id ?? null;
 }
@@ -21,8 +22,8 @@ const publishedCond = and(
   isNotNull(articles.publishedAt),
 );
 
-export async function listPublishedArticlesForChennai(limit = 50) {
-  const cityId = await getChennaiCityId();
+export async function listPublishedArticlesForSite(limit = 50) {
+  const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   return db
@@ -36,7 +37,7 @@ export async function listPublishedArticlesForChennai(limit = 50) {
 export async function getPublishedArticleBySlug(
   slug: string,
 ): Promise<PublicArticleRow | null> {
-  const cityId = await getChennaiCityId();
+  const cityId = await getSiteCityId();
   if (!cityId) return null;
   const db = getDb();
   const rows = await db
@@ -54,7 +55,7 @@ export async function getPublishedArticleBySlug(
 }
 
 export async function featuredArticlesForHome(limit = 3) {
-  const cityId = await getChennaiCityId();
+  const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   return db
@@ -72,7 +73,7 @@ export async function featuredArticlesForHome(limit = 3) {
 }
 
 export async function latestArticlesForHome(limit = 8) {
-  const cityId = await getChennaiCityId();
+  const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   return db
@@ -83,8 +84,8 @@ export async function latestArticlesForHome(limit = 8) {
     .limit(limit);
 }
 
-export async function getPublishedSlugsForChennai(): Promise<string[]> {
-  const cityId = await getChennaiCityId();
+export async function getPublishedSlugsForSite(): Promise<string[]> {
+  const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   const rows = await db
@@ -97,7 +98,7 @@ export async function getPublishedSlugsForChennai(): Promise<string[]> {
 export async function listArticlesForSitemap(): Promise<
   { slug: string; lastModified: Date }[]
 > {
-  const cityId = await getChennaiCityId();
+  const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   const rows = await db
@@ -114,11 +115,11 @@ export async function listArticlesForSitemap(): Promise<
   }));
 }
 
-export async function listArticlesByCategoryForChennai(
+export async function listArticlesByCategoryForSite(
   category: string,
   limit = 30,
 ) {
-  const cityId = await getChennaiCityId();
+  const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   return db
@@ -135,12 +136,12 @@ export async function listArticlesByCategoryForChennai(
     .limit(limit);
 }
 
-export async function relatedArticlesForChennai(
+export async function relatedArticlesForSite(
   slug: string,
   category: string | null,
   limit = 4,
 ) {
-  const cityId = await getChennaiCityId();
+  const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   const conds = [
@@ -159,9 +160,9 @@ export async function relatedArticlesForChennai(
     .limit(limit);
 }
 
-/** Distinct categories that have at least one published article (Chennai). */
-export async function listTopicKeysForChennai(): Promise<string[]> {
-  const cityId = await getChennaiCityId();
+/** Distinct categories that have at least one published article. */
+export async function listTopicKeysForSite(): Promise<string[]> {
+  const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   const rows = await db

@@ -28,5 +28,5 @@ jobs:
         env:
           # NextAuth / Auth.js expects a secret during build when auth routes are compiled
           AUTH_SECRET: ci-build-placeholder-secret-min-32-chars-long
-          AUTH_URL: https://mychennaicity.in
-          NEXT_PUBLIC_SITE_URL: https://mychennaicity.in
+          AUTH_URL: https://mynanganallur.in
+          NEXT_PUBLIC_SITE_URL: https://mynanganallur.in

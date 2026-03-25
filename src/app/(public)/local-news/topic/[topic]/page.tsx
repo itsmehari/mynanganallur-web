@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StoryCardCompact } from "@/components/news/newspaper-layout";
-import { listArticlesByCategoryForChennai } from "@/domains/news";
+import { listArticlesByCategoryForSite } from "@/domains/news";
 import { getSiteUrl } from "@/lib/env";
 import { topicSlugToCategory } from "@/lib/news-topics";
 
@@ -17,10 +17,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Topic" };
   }
   const base = getSiteUrl();
-  const url = `${base}/chennai-local-news/topic/${topic}`;
+  const url = `${base}/local-news/topic/${topic}`;
   return {
-    title: `${category} — Chennai local news`,
-    description: `Latest ${category} coverage and analysis for Greater Chennai.`,
+    title: `${category} — Local news`,
+    description: `Latest ${category} coverage and analysis for Nanganallur and south Chennai.`,
     alternates: { canonical: url },
   };
 }
@@ -31,9 +31,9 @@ export default async function TopicPage({ params }: Props) {
   if (!category) {
     notFound();
   }
-  let items: Awaited<ReturnType<typeof listArticlesByCategoryForChennai>> = [];
+  let items: Awaited<ReturnType<typeof listArticlesByCategoryForSite>> = [];
   try {
-    items = await listArticlesByCategoryForChennai(category, 40);
+    items = await listArticlesByCategoryForSite(category, 40);
   } catch {
     items = [];
   }
@@ -46,7 +46,7 @@ export default async function TopicPage({ params }: Props) {
         <p className="mt-4 text-[var(--muted)]">
           No published stories in this desk yet.
         </p>
-        <Link href="/chennai-local-news" className="mt-6 text-[var(--accent)]">
+        <Link href="/local-news" className="mt-6 text-[var(--accent)]">
           Back to front page
         </Link>
       </div>
@@ -63,7 +63,7 @@ export default async function TopicPage({ params }: Props) {
       </h1>
       <p className="mt-3 max-w-2xl text-sm text-[var(--muted)]">
         Reverse-chronological feed for this desk. Each story includes a factual
-        summary, Chennai-focused analysis, and a small interactive.
+        summary, local analysis, and a small interactive.
       </p>
       <div className="mt-10 max-w-2xl">
         {items.map((a) => (
@@ -71,7 +71,7 @@ export default async function TopicPage({ params }: Props) {
         ))}
       </div>
       <Link
-        href="/chennai-local-news"
+        href="/local-news"
         className="mt-10 inline-block text-sm font-semibold text-[var(--accent)]"
       >
         Back to front page

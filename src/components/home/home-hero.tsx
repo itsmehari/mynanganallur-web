@@ -13,7 +13,7 @@ import { homeStats } from "@/lib/home-mock";
 
 const AUTO_MS = 7000;
 const TOPICS = [
-  { slug: "chennai", label: "City & GCC" },
+  { slug: "local", label: "Local & civic" },
   { slug: "mobility", label: "Travel & Metro" },
   { slug: "elections", label: "Elections" },
   { slug: "consumer", label: "Shops & prices" },
@@ -48,20 +48,20 @@ const SLIDES: Slide[] = [
     key: "news",
     eyebrow: "News you can use",
     lineBefore: "See what’s happening in",
-    lineBold: "your part of Chennai",
+    lineBold: "Nanganallur and around",
     lineAfter: "— in clear language, on",
     brandInHeadline: true,
-    sub: "Traffic, Metro, elections, GCC updates, and everyday costs (fuel, essentials). Pick a topic and open the news hub.",
+    sub: "Traffic, Metro, elections, GCC updates, and everyday costs (fuel, essentials) — framed for south Chennai readers.",
     footerNote:
-      "We cover the whole city: beaches to OMR, Ambattur to Adyar — not just one corridor.",
+      "We anchor on Nanganallur and nearby pockets: Madipakkam, Adambakkam, Alandur, and the OMR commute belt.",
     searchPlaceholder: "Type a topic (optional)",
     filterLabel: "Topic",
     filterOptions: TOPICS.map((t) => ({ value: t.slug, label: t.label })),
     submitLabel: "Open news",
     searchMode: "topic",
-    hrefOnSubmit: "/chennai-local-news",
-    primaryCta: { href: "/chennai-local-news", label: "Browse all local news" },
-    secondaryCta: { href: "/chennai-local-news/feed.xml", label: "RSS feed" },
+    hrefOnSubmit: "/local-news",
+    primaryCta: { href: "/local-news", label: "Browse all local news" },
+    secondaryCta: { href: "/local-news/feed.xml", label: "RSS feed" },
     monogram: "N",
     floatTags: ["Road & rain", "Election dates", "Petrol price"],
     statLabel: "How often we refresh",
@@ -87,8 +87,8 @@ const SLIDES: Slide[] = [
     ],
     submitLabel: "See events",
     searchMode: "link",
-    hrefOnSubmit: "/chennai-local-events",
-    primaryCta: { href: "/chennai-local-events", label: "Chennai local events" },
+    hrefOnSubmit: "/local-events",
+    primaryCta: { href: "/local-events", label: "Local events" },
     secondaryCta: { href: "#areas", label: "Pick your area on the map" },
     monogram: "E",
     floatTags: ["This weekend", "Temple season", "Family-friendly"],
@@ -101,10 +101,10 @@ const SLIDES: Slide[] = [
     eyebrow: "Places & services",
     lineBefore: "Look up",
     lineBold: "schools, hospitals, food, and transit",
-    lineAfter: "across Greater Chennai.",
+    lineAfter: "around Nanganallur.",
     sub: "Use the directory when you need a number, a location, or a starting point — we’re growing verified listings over time.",
     footerNote:
-      "Ten big neighbourhood zones: tap your side of the city on the map for a shorter list.",
+      "Eight neighbourhood tiles: tap your pocket on the map for a shorter list.",
     searchPlaceholder: "What do you need? (optional)",
     filterLabel: "Start with",
     filterOptions: [
@@ -119,10 +119,10 @@ const SLIDES: Slide[] = [
     primaryCta: { href: "/directory", label: "Search the directory" },
     secondaryCta: { href: "/directory", label: "List your business (soon)" },
     monogram: "D",
-    floatTags: ["Near home", "OMR & ECR", "Central Chennai"],
+    floatTags: ["Near home", "GST Road", "OMR commute"],
     statLabel: "Area hubs",
-    statValue: "10",
-    statHint: "Macro zones you can open in one tap",
+    statValue: "8",
+    statHint: "Area tiles you can open in one tap",
   },
   {
     key: "jobs",
@@ -130,7 +130,7 @@ const SLIDES: Slide[] = [
     lineBefore: "Browse",
     lineBold: "open roles",
     lineAfter: "in IT, offices, retail, and more — free to read.",
-    sub: "See who’s hiring in Chennai and nearby. Applying inside the site is on the way; for now, use the board to discover companies and roles.",
+    sub: "See who’s hiring in Chennai and within a reasonable commute from Nanganallur. Applying inside the site is on the way; for now, use the board to discover companies and roles.",
     footerNote:
       "Good for freshers and switches alike — filter by how you prefer to work.",
     searchPlaceholder: "Job title or skill (optional)",
@@ -147,7 +147,7 @@ const SLIDES: Slide[] = [
     primaryCta: { href: "/jobs", label: "Go to job board" },
     secondaryCta: { href: "/jobs", label: "Post a job (soon)" },
     monogram: "J",
-    floatTags: ["IT & product", "Chennai HQ", "Startups"],
+    floatTags: ["IT & product", "OMR offices", "Startups"],
     statLabel: "Sample roles shown",
     statValue: `${homeStats.jobsLive}+`,
     statHint: "Representative picks on the homepage",
@@ -253,7 +253,7 @@ export function HomeHero() {
     if (!slide) return;
     if (slide.searchMode === "topic") {
       const q = query.trim();
-      const base = `/chennai-local-news/topic/${filter}`;
+      const base = `/local-news/topic/${filter}`;
       router.push(q ? `${base}?q=${encodeURIComponent(q)}` : base);
       return;
     }
@@ -298,7 +298,7 @@ export function HomeHero() {
                   <>
                     {" "}
                     <span className="font-bold text-[var(--accent)]">
-                      mychennaicity.in
+                      mynanganallur.in
                     </span>
                   </>
                 ) : null}

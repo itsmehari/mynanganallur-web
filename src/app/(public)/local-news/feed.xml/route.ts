@@ -1,13 +1,13 @@
-import { listPublishedArticlesForChennai } from "@/domains/news";
+import { listPublishedArticlesForSite } from "@/domains/news";
 import { getSiteUrl } from "@/lib/env";
 
 export const revalidate = 300;
 
 export async function GET() {
   const base = getSiteUrl();
-  let items: Awaited<ReturnType<typeof listPublishedArticlesForChennai>> = [];
+  let items: Awaited<ReturnType<typeof listPublishedArticlesForSite>> = [];
   try {
-    items = await listPublishedArticlesForChennai(30);
+    items = await listPublishedArticlesForSite(30);
   } catch {
     items = [];
   }
@@ -15,13 +15,13 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>mychennaicity.in — Chennai local news</title>
-    <link>${base}/chennai-local-news</link>
-    <description>Greater Chennai news with editorial analysis.</description>
+    <title>mynanganallur.in — Local news</title>
+    <link>${base}/local-news</link>
+    <description>Nanganallur and south Chennai news with editorial analysis.</description>
     <language>en-in</language>
     ${items
       .map((a) => {
-        const link = `${base}/chennai-local-news/${a.slug}`;
+        const link = `${base}/local-news/${a.slug}`;
         const pub = a.publishedAt
           ? new Date(a.publishedAt).toUTCString()
           : new Date(a.createdAt).toUTCString();

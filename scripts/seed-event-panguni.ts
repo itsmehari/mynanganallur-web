@@ -63,11 +63,11 @@ async function main() {
   const [city] = await db
     .select({ id: cities.id })
     .from(cities)
-    .where(eq(cities.slug, "chennai"))
+    .where(eq(cities.slug, "nanganallur"))
     .limit(1);
 
   if (!city) {
-    console.error("City slug 'chennai' not found. Seed cities first.");
+    console.error("City slug 'nanganallur' not found. Seed cities first.");
     process.exit(1);
   }
 

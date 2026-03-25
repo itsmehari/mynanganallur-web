@@ -1,89 +1,74 @@
 import type { MetadataRoute } from "next";
-import { listArticlesForSitemap, listTopicKeysForChennai } from "@/domains/news";
-import { chennaiZones } from "@/lib/chennai-zones";
+import { listArticlesForSitemap, listTopicKeysForSite } from "@/domains/news";
+import { nanganallurAreas } from "@/lib/nanganallur-areas";
 import { categoryToTopicSlug } from "@/lib/news-topics";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://mychennaicity.in";
-  const now = new Date();
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://mynanganallur.in";
 
-  let articleRows: { slug: string; lastModified: Date }[] = [];
   let topicKeys: string[] = [];
+  let articleEntries: { slug: string; lastModified: Date }[] = [];
   try {
-    articleRows = await listArticlesForSitemap();
-    topicKeys = await listTopicKeysForChennai();
+    topicKeys = await listTopicKeysForSite();
+    articleEntries = await listArticlesForSitemap();
   } catch {
-    /* DATABASE_URL unset or DB unreachable */
+    /* DATABASE_URL unset or DB unreachable at build */
   }
 
-  const hubLastModified =
-    articleRows.length > 0
-      ? new Date(
-          Math.max(
-            ...articleRows.map((r) => r.lastModified.getTime()),
-          ),
-        )
-      : now;
-
   const staticEntries: MetadataRoute.Sitemap = [
+    { url: base, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     {
-      url: `${base}/`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 1,
+      url: `${base}/local-news`,
+      lastModified: new Date(),
+      changeFrequency: "hourly",
+      priority: 0.95,
     },
     {
-      url: `${base}/chennai-local-news`,
-      lastModified: hubLastModified,
+      url: `${base}/local-events`,
+      lastModified: new Date(),
       changeFrequency: "daily",
-      priority: 0.9,
+      priority: 0.85,
     },
     {
-      url: `${base}/chennai-local-events`,
-      lastModified: now,
+      url: `${base}/directory`,
+      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.7,
     },
     {
       url: `${base}/jobs`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/directory`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.75,
     },
   ];
 
-  const areaEntries: MetadataRoute.Sitemap = chennaiZones.map((z) => ({
+  const areaEntries: MetadataRoute.Sitemap = nanganallurAreas.map((z) => ({
     url: `${base}/areas/${z.slug}`,
-    lastModified: now,
+    lastModified: new Date(),
     changeFrequency: "weekly",
+    priority: 0.65,
+  }));
+
+  const articleSitemap: MetadataRoute.Sitemap = articleEntries.map((a) => ({
+    url: `${base}/local-news/${a.slug}`,
+    lastModified: a.lastModified,
+    changeFrequency: "weekly" as const,
     priority: 0.6,
   }));
 
-  const articleEntries: MetadataRoute.Sitemap = articleRows.map((a) => ({
-    url: `${base}/chennai-local-news/${a.slug}`,
-    lastModified: a.lastModified,
-    changeFrequency: "weekly" as const,
-    priority: 0.75,
-  }));
-
-  const topicEntries: MetadataRoute.Sitemap = topicKeys.map((cat) => ({
-    url: `${base}/chennai-local-news/topic/${categoryToTopicSlug(cat)}`,
-    lastModified: hubLastModified,
-    changeFrequency: "weekly" as const,
+  const topicSitemap: MetadataRoute.Sitemap = topicKeys.map((cat) => ({
+    url: `${base}/local-news/topic/${categoryToTopicSlug(cat)}`,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
     priority: 0.55,
   }));
 
   return [
     ...staticEntries,
     ...areaEntries,
-    ...articleEntries,
-    ...topicEntries,
+    ...topicSitemap,
+    ...articleSitemap,
   ];
 }

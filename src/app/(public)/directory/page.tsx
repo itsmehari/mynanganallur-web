@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Directory",
   description:
-    "Chennai schools, hospitals, food, parks, and more — directory hub coming soon.",
+    "Nanganallur schools, hospitals, food, parks, and more — directory hub coming soon.",
 };
 
 export default function DirectoryPage() {

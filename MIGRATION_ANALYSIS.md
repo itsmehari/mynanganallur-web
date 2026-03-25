@@ -1,7 +1,7 @@
-# Migration analysis: legacy local portal → mychennaicity.in
+# Migration analysis: legacy local portal → mynanganallur.in
 
 **Source:** Read-only audit of reference tree `E:\OneDrive\_myomr\_Root` (MyOMR-style PHP/MySQL codebase, March 2026 snapshot).  
-**Target:** Greenfield platform in `E:\OneDrive\_mychennaicity` (Next.js App Router, Neon Postgres, Vercel).  
+**Target:** Greenfield platform in `E:\OneDrive\_mynanganallur` (Next.js App Router, Neon Postgres, Vercel).  
 **Rule:** Extract **intelligence and patterns only**—no copying of branding, OMR-specific content, media, slugs, or locality data.
 
 **Assumptions:** Production MySQL may contain tables/columns not present in repo migrations; behavior inferred from code paths where possible. Items marked **(assumption)** are not fully proven by repo files alone.
@@ -17,7 +17,7 @@
 - **Monetization / B2B (partial):** Employer-pack style caps and featured placement for jobs (see migrations and `AGENTS.md`).
 - **Ops on shared hosting:** Procedural PHP, MySQL, Apache rewrites, cPanel deployment, remote MySQL for migrations.
 
-**Mychennaicity reframing:** Same **category** of product (city-scale local news + discovery + listings) but **Chennai-wide** first, with **multi-city** readiness in data model—not a corridor microsite.
+**mynanganallur reframing:** Same **category** of product (city-scale local news + discovery + listings) but **Chennai-wide** first, with **multi-city** readiness in data model—not a corridor microsite.
 
 ---
 

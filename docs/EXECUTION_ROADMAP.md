@@ -34,7 +34,7 @@
 ## Dependencies
 
 - Neon project + `DATABASE_URL` on Vercel
-- Domain DNS for mychennaicity.in
+- Domain DNS for mynanganallur.in
 - Search Console / GA4 properties for new brand
 
 ## Exit criteria per phase

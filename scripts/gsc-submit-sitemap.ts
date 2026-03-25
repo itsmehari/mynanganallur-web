@@ -8,8 +8,8 @@
  *    (e.g. name@project.iam.gserviceaccount.com) with Full permission.
  *
  * GSC_SITE_URL must match the property exactly:
- * - URL-prefix property: https://mychennaicity.in/ (note trailing slash)
- * - Domain property: sc-domain:mychennaicity.in
+ * - URL-prefix property: https://mynanganallur.in/ (note trailing slash)
+ * - Domain property: sc-domain:mynanganallur.in
  *
  * Run: npm run gsc:submit-sitemap
  */

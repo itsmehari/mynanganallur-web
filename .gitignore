@@ -40,6 +40,9 @@ yarn-error.log*
 # Cursor IDE (local skills; do not ship in app repo)
 .cursor/
 
+# Local scratch / PII (never commit)
+facebook-group-contacts.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

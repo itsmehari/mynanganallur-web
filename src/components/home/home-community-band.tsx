@@ -13,7 +13,7 @@ export function HomeCommunityBand() {
       <div className="grid gap-6 rounded-[1.75rem] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-sm lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
           <p className="text-sm font-semibold text-[var(--foreground)]">
-            Weekly Chennai digest
+            Weekly Nanganallur digest
           </p>
           <p className="mt-1 text-sm text-[var(--muted)]">
             Jobs, civic deadlines, weekend events — one concise email. No spam.

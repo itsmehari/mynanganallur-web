@@ -1,4 +1,4 @@
-import { chennaiZones } from "@/lib/chennai-zones";
+import { nanganallurAreas } from "@/lib/nanganallur-areas";
 import { TOPIC_SLUG_TO_CATEGORY } from "@/lib/news-topics";
 
 export type MegaNavLink = {
@@ -28,19 +28,19 @@ export type MegaNavSection = {
 
 const topicLinks: MegaNavLink[] = Object.entries(TOPIC_SLUG_TO_CATEGORY).map(
   ([slug, category]) => ({
-    href: `/chennai-local-news/topic/${slug}`,
+    href: `/local-news/topic/${slug}`,
     label: category,
     description: `Stories filed under ${category}`,
   }),
 );
 
-const areaLinks: MegaNavLink[] = chennaiZones.map((z) => ({
+const areaLinks: MegaNavLink[] = nanganallurAreas.map((z) => ({
   href: `/areas/${z.slug}`,
   label: z.label,
   description: z.blurb,
 }));
 
-/** Split zones into two balanced columns for the bento grid */
+/** Split areas into two balanced columns for the mega nav */
 function splitAreas(): [MegaNavLink[], MegaNavLink[]] {
   const mid = Math.ceil(areaLinks.length / 2);
   return [areaLinks.slice(0, mid), areaLinks.slice(mid)];
@@ -53,10 +53,10 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
     id: "news",
     label: "News",
     featured: {
-      title: "Chennai newsroom",
+      title: "Nanganallur newsroom",
       description:
-        "GCC beats, mobility, elections, and neighbourhood explainers — updated on a living hub.",
-      href: "/chennai-local-news",
+        "GCC beats, mobility, elections, and neighbourhood explainers for the south belt.",
+      href: "/local-news",
       cta: "Open latest",
     },
     columns: [
@@ -64,12 +64,12 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
         heading: "Hub",
         links: [
           {
-            href: "/chennai-local-news",
+            href: "/local-news",
             label: "All local news",
             description: "Reverse-chronological feed and signals.",
           },
           {
-            href: "/chennai-local-news/feed.xml",
+            href: "/local-news/feed.xml",
             label: "RSS feed",
             description: "Subscribe in your reader.",
           },
@@ -122,23 +122,23 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
           {
             href: "/jobs",
             label: "Job board",
-            description: "Roles across Greater Chennai and OMR.",
+            description: "Roles across Nanganallur, OMR, and south Chennai.",
           },
         ],
       },
     ],
   },
   {
-    id: "chennai-local-events",
+    id: "local-events",
     label: "Local events",
     columns: [
       {
         heading: "Happening",
         links: [
           {
-            href: "/chennai-local-events",
-            label: "Chennai local events",
-            description: "Temple festivals, meetups, culture, and civic dates.",
+            href: "/local-events",
+            label: "Local events calendar",
+            description: "Temple utsavams, meetups, culture, and civic dates.",
           },
         ],
       },
@@ -149,11 +149,11 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
     label: "Areas",
     columns: [
       {
-        heading: "North & central",
+        heading: "Core & nearby",
         links: areasColA,
       },
       {
-        heading: "South & west",
+        heading: "Corridors",
         links: areasColB,
       },
     ],

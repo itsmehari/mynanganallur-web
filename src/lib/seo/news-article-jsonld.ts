@@ -12,7 +12,7 @@ function stripMarkdownLite(s: string): string {
 
 export function buildNewsArticleJsonLd(article: PublicArticleRow) {
   const base = getSiteUrl();
-  const url = `${base}/chennai-local-news/${article.slug}`;
+  const url = `${base}/local-news/${article.slug}`;
   const desc =
     article.summary ??
     article.dek ??
@@ -31,12 +31,12 @@ export function buildNewsArticleJsonLd(article: PublicArticleRow) {
     dateModified: modified,
     author: {
       "@type": "Organization",
-      name: "mychennaicity.in editorial",
+      name: "mynanganallur.in editorial",
       url: base,
     },
     publisher: {
       "@type": "Organization",
-      name: "mychennaicity.in",
+      name: "mynanganallur.in",
       url: base,
       logo: {
         "@type": "ImageObject",
@@ -64,14 +64,14 @@ export function buildBreadcrumbJsonLd(slug: string, title: string) {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Chennai local news",
-        item: `${base}/chennai-local-news`,
+        name: "Local news",
+        item: `${base}/local-news`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: title,
-        item: `${base}/chennai-local-news/${slug}`,
+        item: `${base}/local-news/${slug}`,
       },
     ],
   };

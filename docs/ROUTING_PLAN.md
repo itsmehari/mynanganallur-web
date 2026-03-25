@@ -2,8 +2,8 @@
 
 ## Principles
 
-- **City-first URLs** for public content: prefix with `/chennai` (or use subdomain later). v1 may use **single city** with implicit Chennai and add prefix when second city launches.
-- **No legacy paths** — do not mirror `/omr-*` or `/local-news/` structure.
+- **v1 locality:** Nanganallur — public news at `/local-news`, events at `/local-events`; optional multi-city prefix later.
+- **Legacy redirects** — `/chennai-local-*` → `/local-*` (see `next.config.ts`).
 - **Stable slugs** — unique within scope (city + type).
 
 ## Suggested public routes
@@ -35,5 +35,5 @@
 ## Multi-city (future)
 
 - Option A: `/{citySlug}/news/...`
-- Option B: subdomain `chennai.mychennaicity.in`
+- Option B: subdomain e.g. `city.mynanganallur.in`
 - Persist `city_id` on all scoped entities regardless of URL choice.

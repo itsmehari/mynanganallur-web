@@ -19,7 +19,7 @@ export function HomeDbNewsSections({
         title="News bulletin"
         subtitle="Stories load from our Neon database — report, analysis, and one interactive per piece."
         action={{
-          href: "/chennai-local-news",
+          href: "/local-news",
           label: "Newspaper layout",
         }}
       >
@@ -30,7 +30,7 @@ export function HomeDbNewsSections({
         title="Editor's picks"
         subtitle="Featured on the desk — hover a card on desktop, tap on mobile to reveal the deck."
         action={{
-          href: "/chennai-local-news",
+          href: "/local-news",
           label: "All stories",
         }}
       >

@@ -1,7 +1,7 @@
-/** URL segment → exact `articles.category` value (Chennai news). */
+/** URL segment → exact `articles.category` value (local news). */
 export const TOPIC_SLUG_TO_CATEGORY: Record<string, string> = {
   politics: "Politics",
-  chennai: "Chennai",
+  local: "Local",
   elections: "Elections",
   economy: "Economy",
   consumer: "Consumer",

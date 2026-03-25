@@ -3,7 +3,7 @@ import Link from "next/link";
 const ALERT = {
   message:
     "Northeast monsoon readiness: GCC desilting dashboards and ward helplines — guides coming soon.",
-  href: "/chennai-local-news",
+  href: "/local-news",
   cta: "Read civic desk",
 };
 

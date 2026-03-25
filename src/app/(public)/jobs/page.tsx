@@ -5,7 +5,7 @@ import { mockJobs } from "@/lib/home-mock";
 export const metadata: Metadata = {
   title: "Jobs",
   description:
-    "Chennai jobs: curated tech and editorial picks — links to employer career sites. Full apply-on-site flow coming soon.",
+    "Jobs for Chennai-area employers — curated tech and editorial picks with links to career sites. Full apply-on-site flow coming soon.",
 };
 
 export default function JobsPage() {
@@ -13,10 +13,10 @@ export default function JobsPage() {
     <div className="mx-auto max-w-[1280px] px-4 py-14">
       <p className="text-sm font-medium text-[var(--accent)]">Jobs</p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-        Work in Greater Chennai
+        Work near Nanganallur
       </h1>
       <p className="mt-4 max-w-2xl text-[var(--muted)]">
-        Hand-picked openings from Chennai tech employers (snapshot{" "}
+        Hand-picked openings from Chennai tech employers many locals commute to (snapshot{" "}
         <strong className="font-medium text-[var(--foreground)]">25 Mar 2026</strong>
         ). External rows open the company careers site — always confirm the JD
         there. In-product applications will use our job board model later.

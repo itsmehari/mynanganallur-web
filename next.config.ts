@@ -5,12 +5,32 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/events",
-        destination: "/chennai-local-events",
+        destination: "/local-events",
         permanent: true,
       },
       {
         source: "/events/:path*",
-        destination: "/chennai-local-events/:path*",
+        destination: "/local-events/:path*",
+        permanent: true,
+      },
+      {
+        source: "/chennai-local-news",
+        destination: "/local-news",
+        permanent: true,
+      },
+      {
+        source: "/chennai-local-news/:path*",
+        destination: "/local-news/:path*",
+        permanent: true,
+      },
+      {
+        source: "/chennai-local-events",
+        destination: "/local-events",
+        permanent: true,
+      },
+      {
+        source: "/chennai-local-events/:path*",
+        destination: "/local-events/:path*",
         permanent: true,
       },
     ];

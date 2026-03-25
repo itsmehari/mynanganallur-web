@@ -2,33 +2,33 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { mockEvents } from "@/lib/home-mock";
 
-const canonicalPath = "/chennai-local-events";
+const canonicalPath = "/local-events";
 
 export const metadata: Metadata = {
-  title: "Chennai local events — festivals, culture & civic calendar",
+  title: "Local events — festivals, culture & civic calendar",
   description:
-    "Chennai local events: temple festivals, neighbourhood meetups, culture, and civic dates across Greater Chennai. Browse what’s on and submit listings.",
+    "Local events around Nanganallur: temple festivals, neighbourhood meetups, culture, and civic dates. Browse what’s on and submit listings.",
   alternates: { canonical: canonicalPath },
   openGraph: {
-    title: "Chennai local events | mychennaicity.in",
+    title: "Local events | mynanganallur.in",
     description:
-      "Festivals, meetups, and civic calendars for Greater Chennai — from core city to OMR and suburbs.",
+      "Festivals, meetups, and civic calendars from Nanganallur to OMR and GST Road.",
     url: canonicalPath,
   },
 };
 
-export default function ChennaiLocalEventsPage() {
+export default function LocalEventsPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-14">
       <p className="text-sm font-medium text-[var(--accent-warm)]">
-        Chennai local events
+        Local events
       </p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-        What&apos;s on in Chennai
+        What&apos;s on near Nanganallur
       </h1>
       <p className="mt-4 max-w-2xl text-[var(--muted)]">
         Temple utsavams, concerts, theatre, and neighbourhood gatherings across
-        Greater Chennai. Below is a{" "}
+        south Chennai. Below is a{" "}
         <strong className="font-medium text-[var(--foreground)]">
           curated snapshot (updated 25 Mar 2026)
         </strong>

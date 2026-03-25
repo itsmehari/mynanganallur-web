@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { PublicArticleRow } from "@/domains/news";
-import { relatedArticlesForChennai } from "@/domains/news";
+import { relatedArticlesForSite } from "@/domains/news";
 import { categoryToTopicSlug } from "@/lib/news-topics";
 import { ArticleProse } from "./article-prose";
 import { InteractiveBlock } from "./interactive-block";
@@ -10,9 +10,9 @@ export async function EditorialArticle({
 }: {
   article: PublicArticleRow;
 }) {
-  let related: Awaited<ReturnType<typeof relatedArticlesForChennai>> = [];
+  let related: Awaited<ReturnType<typeof relatedArticlesForSite>> = [];
   try {
-    related = await relatedArticlesForChennai(
+    related = await relatedArticlesForSite(
       article.slug,
       article.category,
       4,
@@ -28,7 +28,7 @@ export async function EditorialArticle({
       <header className="border-b border-[var(--border)] pb-8">
         {article.category ? (
           <Link
-            href={`/chennai-local-news/topic/${categoryToTopicSlug(article.category)}`}
+            href={`/local-news/topic/${categoryToTopicSlug(article.category)}`}
             className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--accent)] hover:underline"
           >
             {article.category}
@@ -83,7 +83,7 @@ export async function EditorialArticle({
             id="analysis-heading"
             className="text-lg font-semibold text-[var(--foreground)]"
           >
-            Analysis: what this means in Chennai
+            Analysis: what this means locally
           </h2>
           <div className="mt-4">
             <ArticleProse content={analysis} />
@@ -138,13 +138,13 @@ export async function EditorialArticle({
           aria-label="Related"
         >
           <h2 className="text-sm font-semibold text-[var(--foreground)]">
-            Related in Chennai
+            Related nearby
           </h2>
           <ul className="mt-3 space-y-2">
             {related.map((r) => (
               <li key={r.id}>
                 <Link
-                  href={`/chennai-local-news/${r.slug}`}
+                  href={`/local-news/${r.slug}`}
                   className="text-sm font-medium text-[var(--accent)] hover:underline"
                 >
                   {r.title}
@@ -157,10 +157,10 @@ export async function EditorialArticle({
 
       <p className="mt-8">
         <Link
-          href="/chennai-local-news"
+          href="/local-news"
           className="text-sm font-semibold text-[var(--accent)] hover:underline"
         >
-          Back to Chennai local news
+          Back to local news
         </Link>
       </p>
     </article>

@@ -20,7 +20,7 @@ export function NewsRevealCard({
   variant?: "bulletin" | "pick";
 }) {
   const [open, setOpen] = useState(false);
-  const href = `/chennai-local-news/${article.slug}`;
+  const href = `/local-news/${article.slug}`;
   const isPick = variant === "pick";
 
   return (
@@ -44,7 +44,7 @@ export function NewsRevealCard({
               : "text-[var(--accent)]"
           }`}
         >
-          {article.category ?? "Chennai"}
+          {article.category ?? "Local"}
         </span>
         <span
           className={`mt-2 text-sm font-semibold leading-snug ${
@@ -93,7 +93,7 @@ export function NewsRevealCard({
                 : "text-[var(--accent)]"
             }`}
           >
-            {article.category ?? "Chennai"}
+            {article.category ?? "Local"}
           </span>
           <Link href={href}>
             <h3

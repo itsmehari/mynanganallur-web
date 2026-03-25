@@ -27,14 +27,14 @@ import { getSiteUrl } from "@/lib/env";
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "Chennai-wide local news, jobs, events, listings, and interactive Greater Chennai area hubs.",
+    "Nanganallur local news, jobs, events, listings, and interactive area hubs for south Chennai.",
   alternates: { canonical: getSiteUrl() },
   openGraph: {
-    title: "mychennaicity.in — Chennai news, jobs, events & listings",
+    title: "mynanganallur.in — Nanganallur news, jobs, events & listings",
     description:
-      "Discover Greater Chennai by area: news, directory, jobs, and events.",
+      "Discover Nanganallur and nearby pockets: news, directory, jobs, and events.",
     url: getSiteUrl(),
-    siteName: "mychennaicity.in",
+    siteName: "mynanganallur.in",
     locale: "en_IN",
     type: "website",
   },
@@ -67,7 +67,7 @@ export default async function Home() {
         <Section
           id="areas"
           eyebrow="Neighbourhoods"
-          title="Greater Chennai area map"
+          title="Nanganallur area map"
           subtitle="Click a tile to open its hub — listings and filters wire in as the database goes live."
           action={{ href: "/directory", label: "Browse all listings" }}
         >

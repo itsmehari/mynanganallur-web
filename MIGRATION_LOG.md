@@ -1,4 +1,4 @@
-# Migration log — mychennaicity.in
+# Migration log — mynanganallur.in
 
 Living record of intelligence extraction and implementation. Update as the platform evolves.
 

@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "mynanganallur-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,8 @@
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx scripts/seed-articles.ts",
     "db:seed:live": "tsx scripts/seed-articles.ts --live",
+    "db:seed:directory": "tsx scripts/seed-directory.ts",
+    "db:seed:directory:live": "tsx scripts/seed-directory.ts --live",
     "db:seed:event:panguni:live": "tsx scripts/seed-event-panguni.ts --live",
     "db:push:live": "node --env-file=.env.production.local ./node_modules/drizzle-kit/bin.cjs push",
     "gsc:submit-sitemap": "tsx scripts/gsc-submit-sitemap.ts"

@@ -4,8 +4,8 @@ import type { PublicArticleRow } from "@/domains/news";
 import { categoryToTopicSlug } from "@/lib/news-topics";
 
 export function NewspaperMasthead({
-  title = "Chennai local news",
-  tagline = "Greater Chennai — report, analysis, and what to do next",
+  title = "Local news",
+  tagline = "Nanganallur & south Chennai — report, analysis, and what to do next",
 }: {
   title?: string;
   tagline?: string;
@@ -22,7 +22,7 @@ export function NewspaperMasthead({
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--muted)]">
-            mychennaicity.in
+            mynanganallur.in
           </p>
           <h1 className="mt-1 font-serif text-4xl font-bold tracking-tight text-[var(--foreground)] sm:text-5xl">
             {title}
@@ -35,11 +35,11 @@ export function NewspaperMasthead({
         <span className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
           Topics
         </span>
-        {["Politics", "Chennai", "Elections", "Economy", "Consumer", "Mobility"].map(
+        {["Local", "Mobility", "Consumer"].map(
           (cat) => (
             <Link
               key={cat}
-              href={`/chennai-local-news/topic/${categoryToTopicSlug(cat)}`}
+              href={`/local-news/topic/${categoryToTopicSlug(cat)}`}
               className="rounded-full border border-[var(--border)] px-3 py-1 text-xs font-medium text-[var(--foreground)] hover:border-[var(--accent)]"
             >
               {cat}
@@ -47,7 +47,7 @@ export function NewspaperMasthead({
           ),
         )}
         <Link
-          href="/chennai-local-news/feed.xml"
+          href="/local-news/feed.xml"
           className="ml-auto text-xs font-medium text-[var(--accent)] hover:underline"
         >
           RSS
@@ -64,7 +64,7 @@ export function LeadStory({
 }) {
   return (
     <article className="group lg:col-span-2">
-      <Link href={`/chennai-local-news/${article.slug}`} className="block">
+      <Link href={`/local-news/${article.slug}`} className="block">
         {article.category ? (
           <span className="text-xs font-bold uppercase tracking-wider text-[var(--accent-warm)]">
             {article.category}
@@ -95,7 +95,7 @@ export function LeadStory({
 export function StoryCardCompact({ article }: { article: PublicArticleRow }) {
   return (
     <article className="group border-b border-[var(--border)] py-4 last:border-0">
-      <Link href={`/chennai-local-news/${article.slug}`} className="block">
+      <Link href={`/local-news/${article.slug}`} className="block">
         {article.category ? (
           <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--accent)]">
             {article.category}

@@ -23,11 +23,11 @@ export function SiteHeader() {
             className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--accent)] text-sm font-bold text-[var(--accent-fg)] shadow-md transition group-hover:scale-[1.03] group-hover:shadow-lg md:h-12 md:w-12 md:rounded-2xl md:text-base"
             aria-hidden
           >
-            MC
+            MN
           </span>
           <span className="hidden min-w-0 flex-col leading-tight sm:flex">
             <span className="font-serif text-base font-bold tracking-tight text-[var(--foreground)] md:text-lg">
-              mychennaicity
+              mynanganallur
             </span>
             <span className="text-[11px] text-[var(--muted)] md:text-xs">
               News · directory · jobs · local events
