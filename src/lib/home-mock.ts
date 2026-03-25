@@ -17,6 +17,8 @@ export type MockEvent = {
   when: string;
   where: string;
   href: string;
+  /** Opens publisher / ticket site in a new tab. */
+  external?: boolean;
 };
 
 export type MockJob = {
@@ -24,6 +26,8 @@ export type MockJob = {
   company: string;
   location: string;
   href: string;
+  /** Opens employer careers in a new tab. */
+  external?: boolean;
 };
 
 export type MockListing = {
@@ -35,28 +39,35 @@ export type MockListing = {
 
 export const homeStats = {
   jobsLive: 128,
-  eventsWeek: 24,
+  eventsWeek: 18,
   guidesNew: 6,
 };
 
+/**
+ * Curated Mar 25 2026 from public job boards and employer sites.
+ * Always confirm role and location on the employer’s careers page before applying.
+ */
 export const mockJobs: MockJob[] = [
   {
-    title: "Senior React developer",
-    company: "Coastal SaaS Labs",
-    location: "Sholinganallur",
-    href: "/jobs",
+    title: "Software Engineer",
+    company: "Chargebee",
+    location: "Chennai",
+    href: "https://careers.chargebee.com/",
+    external: true,
   },
   {
-    title: "Civil site engineer",
-    company: "GCC contractor partner",
-    location: "Guindy",
-    href: "/jobs",
+    title: "Software Development Engineer",
+    company: "Comcast",
+    location: "Chennai",
+    href: "https://jobs.comcast.com/",
+    external: true,
   },
   {
-    title: "Emergency medicine resident",
-    company: "Adyar tertiary hospital",
-    location: "Adyar",
-    href: "/jobs",
+    title: "Senior Staff Software Engineer — Full Stack",
+    company: "Freshworks",
+    location: "Chennai",
+    href: "https://www.freshworks.com/company/careers/",
+    external: true,
   },
   {
     title: "Content editor — Tamil & English",
@@ -66,30 +77,37 @@ export const mockJobs: MockJob[] = [
   },
 ];
 
+/**
+ * Upcoming picks around Greater Chennai (Mar–Apr 2026).
+ * Confirm dates, venue, and tickets on the organiser or ticket site.
+ */
 export const mockEvents: MockEvent[] = [
   {
-    title: "Beach clean-up — Thiruvanmiyur to Besant Nagar",
-    when: "Sun · 6:30 am",
-    where: "Karl Schmidt Memorial",
+    title: "Rajadhiraaj Yatra — musical theatre (Krishna)",
+    when: "Fri 27 Mar – Sun 29 Mar 2026",
+    where: "Sir Mutha Venkatasubba Rao Concert Hall",
+    href: "https://happeningnext.com/event/rajadhiraaj-yatra-chennai-eid3a0dhj2fm9",
+    external: true,
+  },
+  {
+    title: "Sam Vishal & Priyanka — live at theme park",
+    when: "Sat 28 Mar 2026 · evening",
+    where: "VGP Universal Kingdom, ECR",
+    href: "https://happeningnext.com/event/sam-vishal-andamp-priyanka-live-eid1xhv2wspveu",
+    external: true,
+  },
+  {
+    title: "Subramanya Swamy — Panguni Uthiram Vaibhavam",
+    when: "Wed 1 Apr 2026",
+    where: "Sholinganallur (Classic Farms Road)",
     href: "/chennai-local-events",
   },
   {
-    title: "Metro corridor photography walk",
-    when: "Sat · 5:00 pm",
-    where: "Anna Nagar Tower",
-    href: "/chennai-local-events",
-  },
-  {
-    title: "Startup pitch open mic",
-    when: "Fri · 7:00 pm",
-    where: "OMR coworking hub",
-    href: "/chennai-local-events",
-  },
-  {
-    title: "Carnatic fusion — monsoon edition",
-    when: "Next Thu · 6:45 pm",
-    where: "Mylapore Sabha",
-    href: "/chennai-local-events",
+    title: "Candlelight — Best of Bollywood",
+    when: "Sun 12 Apr 2026",
+    where: "Museum Theatre, Egmore",
+    href: "https://concerts50.com/show/candlelight-best-of-bollywood-in-chennai-tickets-apr-12-2026",
+    external: true,
   },
 ];
 

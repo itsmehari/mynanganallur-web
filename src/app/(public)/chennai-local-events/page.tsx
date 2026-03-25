@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { mockEvents } from "@/lib/home-mock";
 
 const canonicalPath = "/chennai-local-events";
 
@@ -26,14 +27,47 @@ export default function ChennaiLocalEventsPage() {
         What&apos;s on in Chennai
       </h1>
       <p className="mt-4 max-w-2xl text-[var(--muted)]">
-        Public listings for temple utsavams, cultural programmes, meetups, and civic
-        dates will connect to our events data. This page is the home for{" "}
-        <span className="whitespace-nowrap">Greater Chennai</span> local events on
-        mychennaicity.in.
+        Temple utsavams, concerts, theatre, and neighbourhood gatherings across
+        Greater Chennai. Below is a{" "}
+        <strong className="font-medium text-[var(--foreground)]">
+          curated snapshot (updated 25 Mar 2026)
+        </strong>
+        — confirm dates and tickets on the organiser site.
       </p>
+
+      <ul className="mt-10 space-y-4">
+        {mockEvents.map((e) => (
+          <li
+            key={`${e.href}-${e.title}`}
+            className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4 shadow-sm"
+          >
+            {e.external ? (
+              <a
+                href={e.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-[var(--foreground)] transition hover:text-[var(--accent)]"
+              >
+                <span className="text-sm font-semibold">{e.title}</span>
+                <span className="mt-1 block text-xs text-[var(--muted)]">
+                  {e.when} · {e.where} · opens in new tab
+                </span>
+              </a>
+            ) : (
+              <div className="text-[var(--foreground)]">
+                <span className="text-sm font-semibold">{e.title}</span>
+                <span className="mt-1 block text-xs text-[var(--muted)]">
+                  {e.when} · {e.where}
+                </span>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+
       <Link
         href="/"
-        className="mt-8 inline-flex text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
+        className="mt-10 inline-flex text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
       >
         ← Back to home
       </Link>

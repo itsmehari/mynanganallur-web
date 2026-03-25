@@ -213,26 +213,21 @@ export function HomeJobsSpotlight() {
     <Section
       eyebrow="Careers"
       title="Jobs spotlight"
-      subtitle="Employer accounts and applications ship in P1 — today’s cards are representative mock data."
+      subtitle="Curated Mar 25 2026 from Chennai tech employers and public listings — external cards open the company careers site. Always verify the role before you apply."
       action={{ href: "/jobs", label: "Browse all jobs" }}
     >
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {mockJobs.map((j, i) => (
-          <li
-            key={j.title + j.company}
-            className={i === 0 ? "sm:col-span-2" : ""}
-          >
-            <Link
-              href={j.href}
-              className={`home-bento-tile flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${
-                i === 0
-                  ? "relative overflow-hidden bg-[color-mix(in_srgb,var(--accent)_7%,var(--surface))] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent_40%,color-mix(in_srgb,var(--accent)_12%,transparent)_100%)] lg:min-h-[11rem] lg:flex-row lg:items-center lg:gap-8 lg:p-8"
-                  : ""
-              }`}
-            >
+        {mockJobs.map((j, i) => {
+          const className = `home-bento-tile flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${
+            i === 0
+              ? "relative overflow-hidden bg-[color-mix(in_srgb,var(--accent)_7%,var(--surface))] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent_40%,color-mix(in_srgb,var(--accent)_12%,transparent)_100%)] lg:min-h-[11rem] lg:flex-row lg:items-center lg:gap-8 lg:p-8"
+              : ""
+          }`;
+          const inner = (
+            <>
               <div className={i === 0 ? "lg:max-w-md" : ""}>
                 <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--accent)]">
-                  {i === 0 ? "Featured role" : "Open role"}
+                  {i === 0 ? "Featured role" : j.external ? "Employer site" : "Open role"}
                 </p>
                 <p
                   className={`mt-1 font-semibold text-[var(--foreground)] ${
@@ -249,10 +244,32 @@ export function HomeJobsSpotlight() {
                 }`}
               >
                 {j.location}
+                {j.external ? " · ↗" : ""}
               </p>
-            </Link>
-          </li>
-        ))}
+            </>
+          );
+          return (
+            <li
+              key={`${j.href}-${j.title}`}
+              className={i === 0 ? "sm:col-span-2" : ""}
+            >
+              {j.external ? (
+                <a
+                  href={j.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {inner}
+                </a>
+              ) : (
+                <Link href={j.href} className={className}>
+                  {inner}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </Section>
   );
@@ -263,23 +280,21 @@ export function HomeEventsFeatured() {
     <Section
       eyebrow="Calendar"
       title="Featured events"
-      subtitle="Community calendars, workshops, and civic meets — filtered by area soon."
+      subtitle="Picked Mar 25 2026 from public listings (Mar–Apr). External rows open the organiser or ticket page — confirm time and price before you go."
       action={{ href: "/chennai-local-events", label: "All local events" }}
     >
       <ul className="grid gap-4 lg:grid-cols-2">
-        {mockEvents.map((e, i) => (
-          <li key={e.title} className={i === 0 ? "lg:col-span-2" : ""}>
-            <Link
-              href={e.href}
-              className={`home-bento-tile flex rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${
-                i === 0
-                  ? "flex-col gap-4 border-l-4 border-l-[var(--accent-warm)] p-6 sm:flex-row sm:items-center sm:justify-between"
-                  : "flex-col p-5"
-              }`}
-            >
+        {mockEvents.map((e, i) => {
+          const className = `home-bento-tile flex rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${
+            i === 0
+              ? "flex-col gap-4 border-l-4 border-l-[var(--accent-warm)] p-6 sm:flex-row sm:items-center sm:justify-between"
+              : "flex-col p-5"
+          }`;
+          const inner = (
+            <>
               <div className="flex min-w-0 flex-1 flex-col gap-1">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--accent-warm)]">
-                  {i === 0 ? "Headline" : "Event"}
+                  {i === 0 ? "Headline" : e.external ? "Tickets / info" : "On our calendar"}
                 </p>
                 <p
                   className={`font-semibold text-[var(--foreground)] ${
@@ -292,10 +307,29 @@ export function HomeEventsFeatured() {
               </div>
               <p className="shrink-0 rounded-xl bg-[color-mix(in_srgb,var(--accent-warm)_12%,var(--surface))] px-4 py-2 text-center text-xs font-bold text-[var(--accent-warm)] sm:text-left">
                 {e.where}
+                {e.external ? " · ↗" : ""}
               </p>
-            </Link>
-          </li>
-        ))}
+            </>
+          );
+          return (
+            <li key={`${e.href}-${e.title}`} className={i === 0 ? "lg:col-span-2" : ""}>
+              {e.external ? (
+                <a
+                  href={e.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={className}
+                >
+                  {inner}
+                </a>
+              ) : (
+                <Link href={e.href} className={className}>
+                  {inner}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </Section>
   );
