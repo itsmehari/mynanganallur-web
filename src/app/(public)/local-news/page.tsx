@@ -7,7 +7,7 @@ import { getSiteUrl } from "@/lib/env";
 export const metadata: Metadata = {
   title: "Local news",
   description:
-    "Nanganallur and south Chennai news with editorial analysis — newspaper-style front page from mynanganallur.in.",
+    "Nanganallur local news with editorial analysis — newspaper-style front page from mynanganallur.in.",
   alternates: {
     canonical: `${getSiteUrl()}/local-news`,
     types: {

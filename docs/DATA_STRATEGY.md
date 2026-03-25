@@ -18,7 +18,7 @@
 
 ## Seeding
 
-- Minimal seed: one `cities` row (Chennai), optional sample categories — **no** fake articles in production pipeline.
+- Minimal seed: one `cities` row (Nanganallur as primary site city), optional sample categories — **no** fake articles in production pipeline.
 
 ## Analytics credentials
 

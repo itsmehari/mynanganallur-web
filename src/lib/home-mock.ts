@@ -51,28 +51,28 @@ export const mockJobs: MockJob[] = [
   {
     title: "Software Engineer",
     company: "Chargebee",
-    location: "Chennai · Nanganallur commute",
+    location: "City offices · commute from Nanganallur",
     href: "https://careers.chargebee.com/",
     external: true,
   },
   {
     title: "Software Development Engineer",
     company: "Comcast",
-    location: "Chennai · Nanganallur commute",
+    location: "City offices · commute from Nanganallur",
     href: "https://jobs.comcast.com/",
     external: true,
   },
   {
     title: "Senior Staff Software Engineer — Full Stack",
     company: "Freshworks",
-    location: "Chennai · Nanganallur commute",
+    location: "City offices · commute from Nanganallur",
     href: "https://www.freshworks.com/company/careers/",
     external: true,
   },
   {
     title: "Content editor — Tamil & English",
     company: "mynanganallur.in",
-    location: "Remote · Nanganallur / Chennai",
+    location: "Remote · Nanganallur (Tamil Nadu)",
     href: "/jobs",
   },
 ];
@@ -282,8 +282,8 @@ export const zoneShortcuts = [
 
 export const sponsors = [
   {
-    name: "GCC reference",
-    blurb: "Greater Chennai Corporation open info — cross-check ward and zone facts.",
+    name: "Ward & civic reference",
+    blurb: "Official corporation open data — cross-check ward and zone facts for Nanganallur.",
     href: "https://chennaicorporation.gov.in",
     external: true,
   },

@@ -17,7 +17,7 @@ export async function GET() {
   <channel>
     <title>mynanganallur.in — Local news</title>
     <link>${base}/local-news</link>
-    <description>Nanganallur and south Chennai news with editorial analysis.</description>
+    <description>Nanganallur local news with editorial analysis from mynanganallur.in.</description>
     <language>en-in</language>
     ${items
       .map((a) => {

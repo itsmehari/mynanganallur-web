@@ -108,8 +108,7 @@ export function SiteFooter() {
             </Link>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--footer-muted)]">
               Nanganallur and nearby neighbourhoods — news, directory, jobs,
-              events, and area hubs. Built for residents and commuters on the
-              south Chennai belt.
+              events, and area hubs. Built for residents and local commuters.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {tagLinks.map((t) => (
@@ -165,7 +164,7 @@ export function SiteFooter() {
             © {new Date().getFullYear()} mynanganallur.in
           </p>
           <p>
-            Nanganallur · Chennai · Tamil Nadu · India · Content in English
+            Nanganallur · Tamil Nadu · India · Content in English
             (தமிழ் soon)
           </p>
         </div>

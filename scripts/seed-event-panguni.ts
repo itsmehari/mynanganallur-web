@@ -91,7 +91,7 @@ async function main() {
     endsAt: new Date("2026-04-01T17:30:00.000Z"),
     allDay: false,
     venueName: "Sri Subramanya Swamy Temple, Sholinganallur",
-    venueAddress: "Classic Farms Road, Sholinganallur, Chennai – 600119",
+    venueAddress: "Classic Farms Road, Sholinganallur, Tamil Nadu – 600119",
     localityLabel: "Sholinganallur",
     status: "scheduled",
     featured: false,

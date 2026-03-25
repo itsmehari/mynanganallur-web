@@ -15,7 +15,7 @@ Living record of intelligence extraction and implementation. Update as the platf
 
 ### Transformed (into this repo)
 
-- **`MIGRATION_ANALYSIS.md`** — fourteen-section audit, classification table, Chennai reframing, risk register.
+- **`MIGRATION_ANALYSIS.md`** — fourteen-section audit, classification table, Nanganallur positioning, risk register.
 - **`docs/`** — 12 design documents (PRD through execution roadmap).
 - **Next.js scaffold:** `src/app/(public)/` home, `src/app/admin/` placeholder, `sitemap.ts`, `robots.ts`, root metadata.
 - **Neon + Drizzle:** `drizzle.config.ts`, `src/db/client.ts`, `src/db/schema/tables.ts` (cities, users, articles, events, employers, job_postings, directory_entries), `drizzle/0000_init.sql` generated.

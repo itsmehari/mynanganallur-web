@@ -213,7 +213,7 @@ export function HomeJobsSpotlight() {
     <Section
       eyebrow="Careers"
       title="Jobs spotlight"
-      subtitle="Curated Mar 25 2026 from Chennai-area tech employers (many Nanganallur residents commute here) — external cards open the company careers site. Always verify the role before you apply."
+      subtitle="Curated Mar 25 2026 from tech employers many Nanganallur residents commute to — external cards open the company careers site. Always verify the role before you apply."
       action={{ href: "/jobs", label: "Browse all jobs" }}
     >
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -434,7 +434,7 @@ export function HomeSeasonalHub() {
             Seasonal hub
           </p>
           <h2 className="mt-3 font-serif text-2xl font-bold tracking-tight text-[var(--foreground)] sm:text-3xl">
-            Tamil Nadu Assembly Election 2026 — voter desk (south Chennai)
+            Tamil Nadu Assembly Election 2026 — voter desk (Nanganallur focus)
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted)] sm:text-base">
             Constituency explainers, roll updates, and polling-day checklists —

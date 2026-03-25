@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `${base}/local-news/topic/${topic}`;
   return {
     title: `${category} — Local news`,
-    description: `Latest ${category} coverage and analysis for Nanganallur and south Chennai.`,
+    description: `Latest ${category} coverage and analysis for Nanganallur from mynanganallur.in.`,
     alternates: { canonical: url },
   };
 }

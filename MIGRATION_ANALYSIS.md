@@ -17,7 +17,7 @@
 - **Monetization / B2B (partial):** Employer-pack style caps and featured placement for jobs (see migrations and `AGENTS.md`).
 - **Ops on shared hosting:** Procedural PHP, MySQL, Apache rewrites, cPanel deployment, remote MySQL for migrations.
 
-**mynanganallur reframing:** Same **category** of product (city-scale local news + discovery + listings) but **Chennai-wide** first, with **multi-city** readiness in data model—not a corridor microsite.
+**mynanganallur reframing:** Same **category** of product (local news + discovery + listings) but **Nanganallur-first** (**mynanganallur.in**), with **multi-city** readiness in the data model—not a legacy corridor microsite.
 
 ---
 
@@ -247,15 +247,15 @@
 
 | Feature / module | Classification | Notes |
 |-------------------|----------------|-------|
-| Editorial news (DB articles) | **REBUILD** | CMS patterns + Chennai-first; no content copy. |
+| Editorial news (DB articles) | **REBUILD** | CMS patterns + Nanganallur-first; no content copy. |
 | Static legacy news files | **DROP** (as pattern) | Prefer single content pipeline; migrate selected content manually if ever needed. |
-| Events hub | **REBUILD** | City-wide localities; same UX patterns. |
+| Events hub | **REBUILD** | Locality-scoped listings; same UX patterns. |
 | Jobs + employers | **REBUILD** | Employer packs → **reinterpret** as subscription tiers in Postgres. |
 | Job applications | **REBUILD** | Same-flow; unique application per user/job. |
 | Directories (multi-vertical) | **REINTERPRET** | Unified `directory` + `type` or separate tables; avoid 8+ parallel PHP templates. |
 | Buy/sell | **REBUILD** | Same semantics; fresh schema. |
 | Classifieds | **REBUILD** | Expiry + reports + optional auth—reimplement cleanly. |
-| Hostels / PG | **REBUILD** | Chennai-wide filters. |
+| Hostels / PG | **REBUILD** | Locality-wide filters. |
 | Rent/lease | **REBUILD** | Same listing types concept. |
 | Coworking | **REBUILD** | |
 | Discover / marketing pages | **REINTERPRET** | Fewer static pages; editorial + program pages as needed. |
@@ -280,17 +280,17 @@
 
 ---
 
-## 13. Chennai reframing strategy
+## 13. Local positioning strategy (mynanganallur.in)
 
-| Legacy scope | Chennai expansion |
-|--------------|-------------------|
-| Corridor copy | **City-level** positioning; optional **zones** (e.g. North Chennai, OMR) as **filters**, not brand. |
+| Legacy scope | mynanganallur expansion |
+|--------------|-------------------------|
+| Corridor copy | **Neighbourhood-first** positioning; optional **area tiles** (e.g. Madipakkam, OMR nearby) as **filters**, not legacy brand. |
 | Single `locality` string | **Normalized** localities or zones + `city_id` FK; avoid free-text-only for scale. |
-| Events/jobs “OMR” | **Metro-wide** taxonomy; employer location as structured data. |
+| Events/jobs “OMR” | **Commute-aware** taxonomy; employer location as structured data. |
 | Directory density | Start with **categories** that scale; moderate seed; avoid implying exhaustive coverage day one. |
 | Marketing hubs | **Topic** and **neighborhood** landing pages generated from DB + editorial, not hardcoded PHP forests. |
 
-**Multi-city future:** `cities` table; `city_id` on articles, events, jobs, listings; URL prefix `/chennai/...` or subdomain strategy—**decide in design docs** (see `ROUTING_PLAN.md`).
+**Multi-city future:** `cities` table; `city_id` on articles, events, jobs, listings; URL prefix `/[city-slug]/...` or subdomain strategy—**decide in design docs** (see `ROUTING_PLAN.md`).
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## Vision
 
-A **city-scale** discovery and information platform for **Chennai**, combining editorial content, events, jobs, and structured local listings. The product is **not** a migration of any legacy site: it reuses **learned patterns** (SEO discipline, listing lifecycles, employer tooling) with a **fresh** brand, data model, and UX.
+A **neighbourhood-first** discovery and information platform for **Nanganallur** (**mynanganallur.in**), combining editorial content, events, jobs, and structured local listings. The product is **not** a migration of any legacy site: it reuses **learned patterns** (SEO discipline, listing lifecycles, employer tooling) with a **fresh** brand, data model, and UX.
 
 ## Goals
 

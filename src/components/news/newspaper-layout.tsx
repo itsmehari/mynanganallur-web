@@ -5,7 +5,7 @@ import { categoryToTopicSlug } from "@/lib/news-topics";
 
 export function NewspaperMasthead({
   title = "Local news",
-  tagline = "Nanganallur & south Chennai — report, analysis, and what to do next",
+  tagline = "Nanganallur & neighbourhood — report, analysis, and what to do next",
 }: {
   title?: string;
   tagline?: string;

@@ -65,7 +65,7 @@ const seeds: SeedDir[] = [
     type: "temple",
     name: "Arulmigu Adivyadhihara Bhaktha Anjaneyar Temple (32-ft Hanuman)",
     slug: "adi-anjaneyar-temple-32ft",
-    address: "1, Ram Nagar, 8th Street, Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "1, Ram Nagar, 8th Street, Nanganallur, Tamil Nadu 600061",
     localityLabel: "Ram Nagar",
     phone: "044-22670132",
     websiteUrl: "https://hrce.tn.gov.in/hrcehome/index_temple.php?tid=19",
@@ -81,7 +81,7 @@ const seeds: SeedDir[] = [
     type: "temple",
     name: "Sri Varasiddhi Vinayagar Temple",
     slug: "sri-varasiddhi-vinayagar-temple",
-    address: "Hindu Colony, Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Hindu Colony, Nanganallur, Tamil Nadu 600061",
     localityLabel: "Hindu Colony",
     phone: "044-22242854",
     websiteUrl: "https://www.nangainallur.com/hindu/temples/sri-varasiddhi-vinayagar-temple-nanganallur/",
@@ -97,7 +97,7 @@ const seeds: SeedDir[] = [
     type: "temple",
     name: "Sri Rajarajeshwari Temple",
     slug: "sri-rajarajeshwari-temple-nanganallur",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://en.wikipedia.org/wiki/Nanganallur"],
@@ -108,7 +108,7 @@ const seeds: SeedDir[] = [
     type: "temple",
     name: "Sri Lakshmi Hayagrivar Temple",
     slug: "sri-lakshmi-hayagrivar-temple-nanganallur",
-    address: "Adjacent to Varasiddhi Vinayagar complex, Hindu Colony, Nanganallur, Chennai 600061",
+    address: "Adjacent to Varasiddhi Vinayagar complex, Hindu Colony, Nanganallur, Tamil Nadu 600061",
     localityLabel: "Hindu Colony",
     metadata: JSON.stringify({
       sources: [
@@ -122,7 +122,7 @@ const seeds: SeedDir[] = [
     type: "school",
     name: "The Hindu Colony Chellammal Vidyalaya Senior Secondary School",
     slug: "chellammal-vidyalaya-senior-secondary",
-    address: "Hindu Colony, Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Hindu Colony, Nanganallur, Tamil Nadu 600061",
     localityLabel: "Hindu Colony",
     metadata: JSON.stringify({
       sources: ["https://en.wikipedia.org/wiki/Nanganallur"],
@@ -133,7 +133,7 @@ const seeds: SeedDir[] = [
     type: "school",
     name: "P.M.S. Matriculation Higher Secondary School",
     slug: "pms-matriculation-higher-secondary",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://en.wikipedia.org/wiki/Nanganallur"],
@@ -143,7 +143,7 @@ const seeds: SeedDir[] = [
     type: "school",
     name: "St. Peter's Matriculation Higher Secondary School",
     slug: "st-peters-matriculation-higher-secondary",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://en.wikipedia.org/wiki/Nanganallur"],
@@ -154,7 +154,7 @@ const seeds: SeedDir[] = [
     type: "school",
     name: "Jaigopal Garodia Girls' Higher Secondary School",
     slug: "jaigopal-garodia-girls-higher-secondary",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://en.wikipedia.org/wiki/Nanganallur"],
@@ -164,21 +164,21 @@ const seeds: SeedDir[] = [
     type: "school",
     name: "Rajkumar Sulochana Matriculation Higher Secondary School",
     slug: "radhika-rajkumar-sulochana-matric-hss",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: [
         "https://en.wikipedia.org/wiki/Nanganallur",
         "https://www.livechennai.com/nanganallur/index_nanganallur.asp",
       ],
-      note: "Also listed on LiveChennai Nanganallur index.",
+      note: "Also cross-listed on public Nanganallur locality indexes.",
     }),
   },
   {
     type: "hospital",
     name: "Sri Chakra Multi Speciality Hospital",
     slug: "sri-chakra-multi-speciality-hospital",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://en.wikipedia.org/wiki/Nanganallur"],
@@ -188,7 +188,7 @@ const seeds: SeedDir[] = [
     type: "hospital",
     name: "Pankajam Memorial Hospital",
     slug: "pankajam-memorial-hospital",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://en.wikipedia.org/wiki/Nanganallur"],
@@ -198,7 +198,7 @@ const seeds: SeedDir[] = [
     type: "hospital",
     name: "Dr Agarwal's Eye Hospital (Nanganallur)",
     slug: "dr-agarwals-eye-hospital-nanganallur",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: [
@@ -223,7 +223,7 @@ const seeds: SeedDir[] = [
     type: "hospital",
     name: "Dr Hariharan Diabetes & Heart Care Institute",
     slug: "hariharan-diabetes-heart-care",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://en.wikipedia.org/wiki/Nanganallur"],
@@ -234,7 +234,7 @@ const seeds: SeedDir[] = [
     type: "hospital",
     name: "Apollo Multispeciality Clinic",
     slug: "apollo-multispeciality-clinic-nanganallur",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     phone: "044-45605000",
     metadata: JSON.stringify({
@@ -246,7 +246,7 @@ const seeds: SeedDir[] = [
     type: "bank",
     name: "State Bank of India",
     slug: "sbi-nanganallur",
-    address: "Nanganallur main commercial area, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur main commercial area, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: [
@@ -260,7 +260,7 @@ const seeds: SeedDir[] = [
     type: "bank",
     name: "ICICI Bank",
     slug: "icici-bank-nanganallur",
-    address: "Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://www.proptiger.com/chennai/nanganallur-51155/banks"],
@@ -270,7 +270,7 @@ const seeds: SeedDir[] = [
     type: "atm",
     name: "ATM cluster — Nanganallur high street",
     slug: "atm-high-street-nanganallur",
-    address: "100 Feet Road / bazaar lanes, Nanganallur, Chennai 600061",
+    address: "100 Feet Road / bazaar lanes, Nanganallur, Tamil Nadu 600061",
     localityLabel: "Nanganallur",
     metadata: JSON.stringify({
       sources: ["https://www.livechennai.com/nanganallur/index_nanganallur.asp"],
@@ -281,7 +281,7 @@ const seeds: SeedDir[] = [
     type: "restaurant",
     name: "Adyar Ananda Bhavan (A2B) — Ram Nagar",
     slug: "a2b-adyar-ananda-bhavan-ram-nagar",
-    address: "6, 6th Main Road, Ram Nagar, Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "6, 6th Main Road, Ram Nagar, Nanganallur, Tamil Nadu 600061",
     localityLabel: "Ram Nagar",
     phone: "044-42657094",
     websiteUrl: "https://www.nangainallur.com/food/veg-restaurant/adyar-ananda-bhavan/",
@@ -296,7 +296,7 @@ const seeds: SeedDir[] = [
     type: "government_office",
     name: "India Post — Nanganallur Sub Post Office (600061)",
     slug: "india-post-nanganallur-so",
-    address: "6th Main Road, Macmillan Colony, Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "6th Main Road, Macmillan Colony, Nanganallur, Tamil Nadu 600061",
     localityLabel: "Macmillan Colony",
     phone: "044-22241425",
     websiteUrl: "https://www.indiapost.gov.in",
@@ -312,7 +312,7 @@ const seeds: SeedDir[] = [
     type: "park",
     name: "Nanganallur roller skating rink (GCC / erstwhile Alandur Municipality)",
     slug: "nanganallur-roller-skating-rink",
-    address: "100 Feet Road, near Civil Aviation Colony, Nanganallur, Chennai, Tamil Nadu 600061",
+    address: "100 Feet Road, near Civil Aviation Colony, Nanganallur, Tamil Nadu 600061",
     localityLabel: "100 Feet Road",
     metadata: JSON.stringify({
       sources: [

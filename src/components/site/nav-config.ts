@@ -122,7 +122,7 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
           {
             href: "/jobs",
             label: "Job board",
-            description: "Roles across Nanganallur, OMR, and south Chennai.",
+            description: "Roles across Nanganallur, OMR, and nearby corridors.",
           },
         ],
       },

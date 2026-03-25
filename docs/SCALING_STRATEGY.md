@@ -12,7 +12,7 @@
 
 ## Multi-city
 
-- **Data:** `city_id` on all location-scoped entities; avoid hardcoded Chennai in application code — use config or DB.
+- **Data:** `city_id` on all location-scoped entities; avoid hardcoding a legacy city name in application code — use config or DB (`SITE_CITY_SLUG`, etc.).
 - **Traffic:** Optional geographic routing later; not required at launch.
 
 ## Background processing

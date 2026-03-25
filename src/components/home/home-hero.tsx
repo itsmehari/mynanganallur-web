@@ -51,7 +51,7 @@ const SLIDES: Slide[] = [
     lineBold: "Nanganallur and around",
     lineAfter: "— in clear language, on",
     brandInHeadline: true,
-    sub: "Traffic, Metro, elections, GCC updates, and everyday costs (fuel, essentials) — framed for south Chennai readers.",
+    sub: "Traffic, Metro, elections, civic updates, and everyday costs (fuel, essentials) — framed for Nanganallur readers.",
     footerNote:
       "We anchor on Nanganallur and nearby pockets: Madipakkam, Adambakkam, Alandur, and the OMR commute belt.",
     searchPlaceholder: "Type a topic (optional)",
@@ -130,7 +130,7 @@ const SLIDES: Slide[] = [
     lineBefore: "Browse",
     lineBold: "open roles",
     lineAfter: "in IT, offices, retail, and more — free to read.",
-    sub: "See who’s hiring in Chennai and within a reasonable commute from Nanganallur. Applying inside the site is on the way; for now, use the board to discover companies and roles.",
+    sub: "See who’s hiring within a reasonable commute from Nanganallur. Applying inside the site is on the way; for now, use the board to discover companies and roles.",
     footerNote:
       "Good for freshers and switches alike — filter by how you prefer to work.",
     searchPlaceholder: "Job title or skill (optional)",

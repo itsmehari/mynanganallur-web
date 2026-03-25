@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s · mynanganallur.in",
   },
   description:
-    "Nanganallur-focused local platform: news, directory, jobs, events, and neighbourhood hubs for south Chennai.",
+    "Nanganallur-focused local platform: news, directory, jobs, events, and neighbourhood hubs from mynanganallur.in.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://mynanganallur.in",
   ),

@@ -28,7 +28,7 @@ export default function LocalEventsPage() {
       </h1>
       <p className="mt-4 max-w-2xl text-[var(--muted)]">
         Temple utsavams, concerts, theatre, and neighbourhood gatherings across
-        south Chennai. Below is a{" "}
+        Nanganallur and nearby. Below is a{" "}
         <strong className="font-medium text-[var(--foreground)]">
           curated snapshot (updated 25 Mar 2026)
         </strong>

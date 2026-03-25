@@ -14,7 +14,7 @@
 ## Locality attachment
 
 - Prefer **`locality_id`** FK to normalized table; allow `location_label` override for edge cases.
-- **City** always set for Chennai-scoped content; nullable only for India-wide editorial.
+- **City** always set for locality-scoped content (Nanganallur desk); nullable only for India-wide editorial.
 
 ## Media
 

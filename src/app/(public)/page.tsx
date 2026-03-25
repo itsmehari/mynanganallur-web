@@ -27,7 +27,7 @@ import { getSiteUrl } from "@/lib/env";
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "Nanganallur local news, jobs, events, listings, and interactive area hubs for south Chennai.",
+    "Nanganallur local news, jobs, events, listings, and interactive area hubs from mynanganallur.in.",
   alternates: { canonical: getSiteUrl() },
   openGraph: {
     title: "mynanganallur.in — Nanganallur news, jobs, events & listings",

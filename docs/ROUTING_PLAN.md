@@ -3,7 +3,7 @@
 ## Principles
 
 - **v1 locality:** Nanganallur — public news at `/local-news`, events at `/local-events`; optional multi-city prefix later.
-- **Legacy redirects** — `/chennai-local-*` → `/local-*` (see `next.config.ts`).
+- **Legacy redirects** — old public paths → `/local-news` and `/local-events` (see `next.config.ts`; kept for inbound links).
 - **Stable slugs** — unique within scope (city + type).
 
 ## Suggested public routes

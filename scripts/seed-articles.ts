@@ -82,7 +82,7 @@ The same report notes a **₹29 crore** state allocation to link **Fifth Main Ro
 
 Apartment clusters and AC load profiles mean **evening peak** is when dips hurt most. If your RWA documents recurring outages with **time stamps and feeder names**, that data helps zone engineers prioritise.
 
-Pair **discom** follow-up with **GCC** street-light tickets where dark stretches appear after outages—pedestrian safety compounds the inconvenience.`,
+Pair **discom** follow-up with **corporation** street-light tickets where dark stretches appear after outages—pedestrian safety compounds the inconvenience.`,
     interactiveJson: {
       type: "checklist",
       title: "If outages are disrupting your lane",
@@ -113,7 +113,7 @@ Coverage describes **uneven carriageways** on **4th Main Road** and nearby stret
 Ward-level officials quoted in the report indicated that a large share of drainage scope was already complete, with **remaining work** expected within a **two-month** window—readers should treat dates as press snapshots and confirm on the ground.`,
     analysisBody: `## Safer riding until resurfacing lands
 
-Treat **night rain + fresh fill** as higher skid risk. If GCC opens a **patch complaint** channel for your ward, photograph **GPS-tagged** potholes rather than forwarding anonymous forwards.
+Treat **night rain + fresh fill** as higher skid risk. If the **corporation** opens a **patch complaint** channel for your ward, photograph **GPS-tagged** potholes rather than forwarding anonymous forwards.
 
 When **bus routes** deviate around works, note whether **seniors and schoolchildren** still have a safe walking line—sometimes the motorable lane heals before the footpath does.`,
     interactiveJson: {
@@ -143,7 +143,7 @@ When **bus routes** deviate around works, note whether **seniors and schoolchild
 
 The same **The Hindu** downtown brief that catalogued Nanganallur power grievances notes a **₹29 crore** government allocation to connect **Fifth Main Road** with the **Pazhavanthangal subway**—described as a **long-standing demand** to reduce **vehicular congestion** and **accident risk** on approaches toward **GST Road**.
 
-Exact **DPR milestones**, lane closures, and **night working windows** were not detailed in the short item; residents should watch **GCC / highways** notices once contractors mobilise.`,
+Exact **DPR milestones**, lane closures, and **night working windows** were not detailed in the short item; residents should watch **corporation / highways** notices once contractors mobilise.`,
     analysisBody: `## Why Palavanthangal commuters should care
 
 Many residents already use **Palavanthangal suburban station**; a cleaner road geometry to the subway can shorten **last-mile** time if pedestrian crossings are designed in the same package—not only car lanes.
@@ -153,7 +153,7 @@ Heavy rain history at the **subway** means **pumping readiness** matters as much
       type: "checklist",
       title: "Track the project responsibly",
       items: [
-        { id: "1", "label": "Save GCC / CMRL diversion PDFs when posted" },
+        { id: "1", "label": "Save corporation / CMRL diversion PDFs when posted" },
         { id: "2", "label": "Note school-zone timings before shortcutting through side streets" },
         { id: "3", "label": "Report unfinished barricade stubs after each phase" },
       ],
@@ -180,7 +180,7 @@ The same entry notes an **inner ring road** from **Thillai Ganga Nagar** toward 
 
 Save **two routes** in your maps app: one via **subway** when dry, one via **inner ring / Velachery** when waterlogging warnings appear. If you pick **share autos**, agree **fare bands** for detours in advance—surge behaviour spikes when everyone reroutes at once.
 
-mynanganallur.in treats Wikipedia as a **starting map**, not gospel—verify closures with **traffic police** or **GCC** on the day.`,
+mynanganallur.in treats Wikipedia as a **starting map**, not gospel—verify closures with **traffic police** or the **corporation** on the day.`,
     interactiveJson: {
       type: "poll",
       question: "During heavy rain, which backup route do you use most?",
@@ -205,7 +205,7 @@ mynanganallur.in treats Wikipedia as a **starting map**, not gospel—verify clo
     sourceName: "Hindu Religious & Charitable Endowments Department, Tamil Nadu",
     reportBody: `## What we know
 
-The **HRCE** portal lists **Arulmigu Adivyadhihara Bhaktha Anjaneyar Temple** in **Nanganallur** (temple reference **TM000019**) among Tamil Nadu’s controlled temples. Public guides and community sites describe the **32-foot Hanuman** icon carved from a single granite block—drawing steady **weekend** and **festival** footfall from across Chennai.
+The **HRCE** portal lists **Arulmigu Adivyadhihara Bhaktha Anjaneyar Temple** in **Nanganallur** (temple reference **TM000019**) among Tamil Nadu’s controlled temples. Public guides and community sites describe the **32-foot Hanuman** icon carved from a single granite block—drawing steady **weekend** and **festival** footfall from around Nanganallur and the wider metro area.
 
 Neighbouring **Varasiddhi Vinayagar** and **Lakshmi Hayagrivar** shrines in **Hindu Colony** form a compact **temple corridor** visitors often combine in one trip.`,
     analysisBody: `## Visiting without snarling Ram Nagar
@@ -237,14 +237,14 @@ For **archana** slots during **Panguni / Hanuman Jayanthi**, assume **queue disc
     sourceName: "Wikipedia — Nanganallur",
     reportBody: `## What we know
 
-Wikipedia’s **Nanganallur** infobox places the neighbourhood in **Greater Chennai Corporation** (**Alandur / Zone 12**, wards **166–167**), PIN **600061**, with **Palavanthangal** and **Meenambakkam** suburban stations nearby and **Nanganallur Road** / **Meenambakkam** on the **Chennai Metro** network.
+Wikipedia’s **Nanganallur** infobox places the neighbourhood under the **municipal corporation** (**Alandur / Zone 12**, wards **166–167**), PIN **600061**, with **Palavanthangal** and **Meenambakkam** suburban stations nearby and **Nanganallur Road** / **Meenambakkam** on the **CMRL Metro** network.
 
 The article also lists **MTC** routes such as **52K, 52L, 52P, M18C, M152N** that pass through or serve the area—useful when Metro ends early or airport trips need a **first-mile** bus.`,
     analysisBody: `## Pick the mode for the job
 
 **Early international departures** often favour **ride-hail + Metro** to avoid GST surprises. **Shift workers** near **Meenambakkam** industrial pockets may prefer **suburban** frequency checks on **Southern Railway** apps.
 
-Always verify **last train** and **last bus** the night before—Chennai schedules shift with **curtailed services** on maintenance days.`,
+Always verify **last train** and **last bus** the night before—**city transit** schedules shift with **curtailed services** on maintenance days.`,
     interactiveJson: {
       type: "poll",
       question: "Your most reliable airport run from Nanganallur is usually:",
@@ -260,8 +260,8 @@ Always verify **last train** and **last bus** the night before—Chennai schedul
     title:
       "Nanganallur’s roller-skating rink on 100 Feet Road — a neighbourhood sporting landmark",
     summary:
-      "Wikipedia cites a GCC-era rink near Civil Aviation Colony; legacy press noted TN’s longest public rink length when it opened.",
-    dek: "Call GCC recreation desk for current hours before visiting.",
+      "Wikipedia cites a pre-merger municipal-era rink near Civil Aviation Colony; legacy press noted TN’s longest public rink length when it opened.",
+    dek: "Call the corporation recreation desk for current hours before visiting.",
     category: "Local",
     featured: false,
     publishedAt: new Date("2011-06-20T08:00:00Z"),
@@ -271,7 +271,7 @@ Always verify **last train** and **last bus** the night before—Chennai schedul
 
 The **Nanganallur** Wikipedia article describes a **roller-skating rink** on **100 Feet Road** near the **Civil Aviation Colony**, developed on roughly **12,000 sq ft** of open ground by the then **Alandur Municipality** and opened in **June 2011**. A **New Indian Express** piece (archived) cited dimensions of roughly **325 ft by 30 ft**, described at the time as among the **longest** such public rinks in Tamil Nadu.
 
-**Operating hours, coaching fees, and maintenance** change with civic budgets—readers should confirm with **Greater Chennai Corporation** recreation / parks channels before planning lessons.`,
+**Operating hours, coaching fees, and maintenance** change with civic budgets—readers should confirm with **municipal corporation** recreation / parks channels before planning lessons.`,
     analysisBody: `## Why it still matters
 
 For families on **100 Feet Road** and **Civil Aviation Colony**, the rink is a rare **public play asset** in a dense ward. If sessions are cancelled, ask whether **storm damage** or **power** to floodlights is the cause—those tickets land in different departments.
@@ -281,7 +281,7 @@ Coaching groups sometimes run **evening batches**; respect **noise curfew** comp
       type: "checklist",
       title: "Before kids lace up",
       items: [
-        { id: "1", "label": "WhatsApp GCC zone park helpline if listed" },
+        { id: "1", "label": "WhatsApp corporation zone park helpline if listed" },
         { id: "2", "label": "Carry helmets + guards even for open sessions" },
         { id: "3", "label": "Check evening flood history on 100 Feet stretch" },
       ],
@@ -290,7 +290,7 @@ Coaching groups sometimes run **evening batches**; respect **noise curfew** comp
   {
     slug: "nanganallur-dharmalingeshwar-osr-land-dispute",
     title:
-      "Open Space Reservation plot near Dharmalingeshwarar Temple: GCC reclaim still contested",
+      "Open Space Reservation plot near Dharmalingeshwarar Temple: corporation reclaim still contested",
     summary:
       "Residents raised encroachment worries at the same grievance forum that discussed power and roads.",
     dek: "Legal outcomes and on-ground fencing can diverge — track corporation notices.",
@@ -302,19 +302,19 @@ Coaching groups sometimes run **evening batches**; respect **noise curfew** comp
     sourceName: "The Hindu",
     reportBody: `## What we know
 
-The **July 2025** downtown brief on Nanganallur grievances notes an **Open Space Reservation (OSR)** parcel near **Dharmalingeshwarar Temple** where **encroachment** concerns lingered despite a **court direction** returning land to **Greater Chennai Corporation**. Residents asked authorities to **enforce** the verdict visibly.
+The **July 2025** downtown brief on Nanganallur grievances notes an **Open Space Reservation (OSR)** parcel near **Dharmalingeshwarar Temple** where **encroachment** concerns lingered despite a **court direction** returning land to the **municipal corporation**. Residents asked authorities to **enforce** the verdict visibly.
 
 We are not summarising the judgment text here—only the **public reporting** of resident demands.`,
     analysisBody: `## How neighbours can engage responsibly
 
-**OSR** fights are slow. Document **boundary stones**, **GCC board orders**, and **councillor replies** rather than circulating unverifiable aerial images.
+**OSR** fights are slow. Document **boundary stones**, **corporation board orders**, and **councillor replies** rather than circulating unverifiable aerial images.
 
-If **walking paths** shrink because of temp structures, route complaints through **311 / Namma Chennai** style tickets so they attach to a **ward audit trail**.`,
+If **walking paths** shrink because of temp structures, route complaints through **civic helpline / ward complaint** tickets so they attach to a **ward audit trail**.`,
     interactiveJson: {
       type: "checklist",
       title: "If you want clarity on the plot",
       items: [
-        { id: "1", "label": "Request copy of GCC council resolution if available" },
+        { id: "1", "label": "Request copy of corporation council resolution if available" },
         { id: "2", "label": "Cross-check survey numbers with RTI if you represent an RWA" },
         { id: "3", "label": "Avoid naming private individuals without court records" },
       ],
@@ -326,7 +326,7 @@ If **walking paths** shrink because of temp structures, route complaints through
       "Pre-monsoon electrical safety for Nanganallur lanes: tight plots, common walls, terrace inverters",
     summary:
       "TANGEDCO seasonal advice matters more where compounds share walls and street flooding touches meters.",
-    dek: "Pair discom checks with GCC drain clearing tickets on your street.",
+    dek: "Pair discom checks with corporation drain clearing tickets on your street.",
     category: "Consumer",
     featured: false,
     publishedAt: new Date("2026-03-21T12:00:00Z"),
@@ -341,7 +341,7 @@ Recent **The Hindu** coverage from the area also highlighted **voltage fluctuati
 
 RWAs on **4th Main**, **Ram Nagar**, and **Hindu Colony** grids can run **joint walk-throughs** with a licensed contractor pool—cheaper per home and easier for **discom** crews to schedule **pole-top** fixes in one pass.
 
-If you see **sparking** near a **street light** junction box after rain, log it as **both** electrical risk and **pedestrian** risk—GCC and TANGEDCO hand-offs are smoother when tickets cite **pole numbers**.`,
+If you see **sparking** near a **street light** junction box after rain, log it as **both** electrical risk and **pedestrian** risk—the **corporation** and TANGEDCO hand-offs are smoother when tickets cite **pole numbers**.`,
     interactiveJson: {
       type: "checklist",
       title: "10-minute pre-monsoon electrical pass",

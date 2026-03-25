@@ -86,7 +86,7 @@ export function HomeAreaMap() {
       >
         <div className="animate-gentle-float pointer-events-none absolute -right-6 -top-10 h-40 w-40 rounded-full bg-[var(--accent)] opacity-15 blur-3xl" />
         <p className="text-sm font-semibold text-[var(--foreground)]">
-          South Chennai anchor
+          Nanganallur hub
         </p>
         <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">
           This bento grid is a navigational map: tap a tile for hyperlocal hubs

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /** Legacy path redirects (old public URLs → current /local-* routes). Keep for bookmarks and inbound links. */
   async redirects() {
     return [
       {
