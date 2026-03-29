@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { AdSlot, buildRotationSeed } from "@/ads";
+import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import type { PublicArticleRow } from "@/domains/news";
 import { relatedArticlesForSite } from "@/domains/news";
 import { categoryToTopicSlug } from "@/lib/news-topics";
@@ -7,8 +9,11 @@ import { InteractiveBlock } from "./interactive-block";
 
 export async function EditorialArticle({
   article,
+  adSeedPath,
 }: {
   article: PublicArticleRow;
+  /** Canonical path for deterministic ad rotation, e.g. `/local-news/my-slug` */
+  adSeedPath: string;
 }) {
   let related: Awaited<ReturnType<typeof relatedArticlesForSite>> = [];
   try {
@@ -62,6 +67,13 @@ export async function EditorialArticle({
         </div>
       </header>
 
+      <AdSlot
+        slotId="article-top"
+        size="728x90"
+        seed={buildRotationSeed(adSeedPath, "article-top")}
+        className="mt-8"
+      />
+
       <section className="mt-10" aria-labelledby="report-heading">
         <h2
           id="report-heading"
@@ -73,6 +85,13 @@ export async function EditorialArticle({
           <ArticleProse content={report} />
         </div>
       </section>
+
+      <AdSlot
+        slotId="article-mid"
+        size="336x280"
+        seed={buildRotationSeed(adSeedPath, "article-mid")}
+        className="mt-10"
+      />
 
       {analysis ? (
         <section
@@ -131,6 +150,12 @@ export async function EditorialArticle({
           </p>
         ) : null}
       </footer>
+
+      <AmazonAffiliateBlock
+        variant="compact"
+        placement="article-endcap"
+        className="mt-10"
+      />
 
       {related.length > 0 ? (
         <nav

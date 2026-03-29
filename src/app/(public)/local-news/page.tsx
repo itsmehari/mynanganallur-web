@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { NewspaperGrid, NewspaperMasthead } from "@/components/news/newspaper-layout";
 import { listPublishedArticlesForSite } from "@/domains/news";
 import { getSiteUrl } from "@/lib/env";
+import { AdSlot, buildRotationSeed } from "@/ads";
 
 export const metadata: Metadata = {
   title: "Local news",
@@ -45,6 +47,17 @@ export default async function LocalNewsPage() {
           </code>{" "}
           set.
         </p>
+        <AdSlot
+          slotId="content-top"
+          size="728x90"
+          seed={buildRotationSeed("/local-news", "content-top")}
+          className="mt-10 max-w-full"
+        />
+        <AmazonAffiliateBlock
+          variant="compact"
+          placement="hub-local-news"
+          className="mt-10 max-w-md"
+        />
         <Link href="/" className="mt-6 inline-block text-[var(--accent)]">
           Home
         </Link>
@@ -61,6 +74,12 @@ export default async function LocalNewsPage() {
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-10 sm:py-14">
       <NewspaperMasthead />
+      <AdSlot
+        slotId="content-top"
+        size="728x90"
+        seed={buildRotationSeed("/local-news", "content-top")}
+        className="mt-6 max-w-full"
+      />
       <NewspaperGrid
         lead={lead}
         rest={rest}
@@ -84,6 +103,17 @@ export default async function LocalNewsPage() {
                 </li>
               ))}
             </ul>
+            <AdSlot
+              slotId="sidebar"
+              size="300x250"
+              seed={buildRotationSeed("/local-news", "sidebar")}
+              className="mt-6"
+            />
+            <AmazonAffiliateBlock
+              variant="rail"
+              placement="hub-local-news"
+              className="mt-8"
+            />
             <Link
               href="/"
               className="mt-6 inline-block text-xs font-semibold text-[var(--muted)] hover:text-[var(--accent)]"

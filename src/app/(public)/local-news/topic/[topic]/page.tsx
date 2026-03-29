@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { StoryCardCompact } from "@/components/news/newspaper-layout";
 import { listArticlesByCategoryForSite } from "@/domains/news";
 import { getSiteUrl } from "@/lib/env";
+import { AdSlot, buildRotationSeed } from "@/ads";
 import { topicSlugToCategory } from "@/lib/news-topics";
 
 type Props = { params: Promise<{ topic: string }> };
@@ -46,6 +48,17 @@ export default async function TopicPage({ params }: Props) {
         <p className="mt-4 text-[var(--muted)]">
           No published stories in this desk yet.
         </p>
+        <AdSlot
+          slotId="content-mid"
+          size="728x90"
+          seed={buildRotationSeed(`/local-news/topic/${topic}`, "content-mid")}
+          className="mt-10 max-w-xl"
+        />
+        <AmazonAffiliateBlock
+          variant="compact"
+          placement="hub-topic"
+          className="mt-10 max-w-xl"
+        />
         <Link href="/local-news" className="mt-6 text-[var(--accent)]">
           Back to front page
         </Link>
@@ -70,6 +83,17 @@ export default async function TopicPage({ params }: Props) {
           <StoryCardCompact key={a.id} article={a} />
         ))}
       </div>
+      <AdSlot
+        slotId="content-mid"
+        size="728x90"
+        seed={buildRotationSeed(`/local-news/topic/${topic}`, "content-mid")}
+        className="mt-10 max-w-2xl"
+      />
+      <AmazonAffiliateBlock
+        variant="compact"
+        placement="hub-topic"
+        className="mt-10 max-w-2xl"
+      />
       <Link
         href="/local-news"
         className="mt-10 inline-block text-sm font-semibold text-[var(--accent)]"

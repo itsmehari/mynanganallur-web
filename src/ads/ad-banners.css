@@ -1,0 +1,263 @@
+/* Display ads — BEM; uses site tokens from globals.css :root */
+
+.ad-banner-host {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-width: 100%;
+}
+
+.ad-banner-host__label {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ad-banner {
+  display: block;
+  box-sizing: border-box;
+  max-width: 100%;
+  text-decoration: none;
+  color: var(--foreground);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ad-banner:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--foreground) 6%, transparent);
+}
+
+.ad-banner:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ad-banner__inner {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.ad-banner__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.ad-banner__svg {
+  display: block;
+}
+
+.ad-banner__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.ad-banner__headline {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+
+.ad-banner__tagline {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.ad-banner__cta {
+  margin-top: 0.15rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+/* --- Sizes --- */
+
+.ad-banner--728x90 {
+  width: 728px;
+  max-width: 100%;
+  min-height: 90px;
+}
+
+.ad-banner--728x90 .ad-banner__inner {
+  flex-direction: row;
+  align-items: center;
+  padding: 0.65rem 1rem;
+}
+
+.ad-banner--728x90 .ad-banner__headline {
+  font-size: 0.9375rem;
+}
+
+.ad-banner--728x90 .ad-banner__tagline {
+  font-size: 0.75rem;
+}
+
+.ad-banner--336x280,
+.ad-banner--300x250 {
+  width: 100%;
+  max-width: 336px;
+}
+
+.ad-banner--300x250 {
+  max-width: 300px;
+}
+
+.ad-banner--336x280 {
+  min-height: 280px;
+}
+
+.ad-banner--300x250 {
+  min-height: 250px;
+}
+
+.ad-banner--336x280 .ad-banner__inner,
+.ad-banner--300x250 .ad-banner__inner {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem 1.1rem;
+}
+
+.ad-banner--336x280 .ad-banner__icon,
+.ad-banner--300x250 .ad-banner__icon {
+  margin-bottom: 0.25rem;
+}
+
+.ad-banner--320x50 {
+  width: 320px;
+  max-width: 100%;
+  min-height: 50px;
+}
+
+.ad-banner--320x50 .ad-banner__inner {
+  flex-direction: row;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  gap: 0.5rem;
+}
+
+.ad-banner--320x50 .ad-banner__headline {
+  font-size: 0.7rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.ad-banner--320x50 .ad-banner__cta {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.ad-banner--320x50 .ad-banner__icon .ad-banner__svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Narrow: scale leaderboard */
+@media (max-width: 760px) {
+  .ad-banner--728x90 {
+    min-height: auto;
+  }
+
+  .ad-banner--728x90 .ad-banner__inner {
+    flex-wrap: wrap;
+    padding: 0.75rem;
+  }
+
+  .ad-banner--728x90 .ad-banner__headline {
+    font-size: 0.8125rem;
+  }
+
+  .ad-banner--728x90 .ad-banner__tagline {
+    font-size: 0.65rem;
+  }
+}
+
+/* --- Per-design accents (border / icon tint) --- */
+
+.ad-banner--resumedoctor {
+  border-top: 3px solid #2563eb;
+}
+
+.ad-banner--resumedoctor .ad-banner__icon {
+  color: #2563eb;
+}
+
+.ad-banner--mycovai {
+  border-top: 3px solid #059669;
+}
+
+.ad-banner--mycovai .ad-banner__icon {
+  color: #059669;
+}
+
+.ad-banner--colourchemist {
+  border-top: 3px solid #c026d3;
+}
+
+.ad-banner--colourchemist .ad-banner__icon {
+  color: #a21caf;
+}
+
+.ad-banner--bseri {
+  border-top: 3px solid #b45309;
+}
+
+.ad-banner--bseri .ad-banner__icon {
+  color: #b45309;
+}
+
+.ad-banner--default {
+  border-top: 3px solid var(--accent);
+}
+
+.ad-banner--default .ad-banner__icon {
+  color: var(--accent);
+}
+
+/* Legacy class name parity */
+.ad-banner--resumebuilder {
+  border-top: 3px solid #2563eb;
+}
+
+.ad-banner--resumebuilder .ad-banner__icon {
+  color: #2563eb;
+}
+
+/* Row layout */
+.ad-banner-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.ad-banner-row--deduped {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}

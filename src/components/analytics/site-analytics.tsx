@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalyticsAffiliateTracker } from "./google-analytics-affiliate-tracker";
+import { GoogleAnalyticsDisplayAdTracker } from "./google-analytics-display-ad-tracker";
 import { GoogleAnalyticsRouteTracker } from "./google-analytics-route-tracker";
 import { GoogleAnalyticsScripts } from "./google-analytics-scripts";
 
@@ -19,6 +21,8 @@ export function SiteAnalytics() {
           <Suspense fallback={null}>
             <GoogleAnalyticsRouteTracker measurementId={gaId} />
           </Suspense>
+          <GoogleAnalyticsAffiliateTracker />
+          <GoogleAnalyticsDisplayAdTracker />
         </>
       ) : null}
       <Analytics />

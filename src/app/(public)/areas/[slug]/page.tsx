@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AdSlot, buildRotationSeed } from "@/ads";
+import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import {
   NANGANALLUR_GEO_VERSION,
   nanganallurAreas,
@@ -64,6 +66,17 @@ export default async function AreaPage({ params }: Props) {
         Listings and filters for this pocket are coming next — this page is a
         stable URL for search and sharing.
       </p>
+      <AdSlot
+        slotId="listings-detail-mid"
+        size="728x90"
+        seed={buildRotationSeed(`/areas/${slug}`, "listings-detail-mid")}
+        className="mt-10 max-w-full"
+      />
+      <AmazonAffiliateBlock
+        variant="compact"
+        placement="hub-area"
+        className="mt-10 max-w-xl"
+      />
     </div>
   );
 }

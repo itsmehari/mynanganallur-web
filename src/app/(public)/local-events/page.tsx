@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdSlot, buildRotationSeed } from "@/ads";
+import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { mockEvents } from "@/lib/home-mock";
 
 const canonicalPath = "/local-events";
@@ -65,6 +67,17 @@ export default function LocalEventsPage() {
         ))}
       </ul>
 
+      <AdSlot
+        slotId="events-index-mid"
+        size="728x90"
+        seed={buildRotationSeed("/local-events", "events-index-mid")}
+        className="mt-10 max-w-full"
+      />
+      <AmazonAffiliateBlock
+        variant="compact"
+        placement="hub-events"
+        className="mt-10 max-w-xl"
+      />
       <Link
         href="/"
         className="mt-10 inline-flex text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"

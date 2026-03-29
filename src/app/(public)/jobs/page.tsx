@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdSlot, buildRotationSeed } from "@/ads";
+import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { mockJobs } from "@/lib/home-mock";
 
 export const metadata: Metadata = {
@@ -52,6 +54,17 @@ export default function JobsPage() {
         ))}
       </ul>
 
+      <AdSlot
+        slotId="jobs-index-mid"
+        size="728x90"
+        seed={buildRotationSeed("/jobs", "jobs-index-mid")}
+        className="mt-10 max-w-full"
+      />
+      <AmazonAffiliateBlock
+        variant="compact"
+        placement="hub-jobs"
+        className="mt-10 max-w-xl"
+      />
       <Link
         href="/"
         className="mt-10 inline-flex text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"

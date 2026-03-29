@@ -3,6 +3,7 @@ import { Section } from "@/components/home/section";
 import { HomeAreaMap } from "@/components/home/home-area-map";
 import { HomeDbNewsSections } from "@/components/home/db-news-sections";
 import {
+  HomeAmazonAffiliateCard,
   HomeCategoryMosaic,
   HomeCityPulse,
   HomeEventsFeatured,
@@ -18,6 +19,7 @@ import {
 } from "@/components/home/home-content";
 import { HomeCommunityBand } from "@/components/home/home-community-band";
 import { HomeJsonLd } from "@/components/seo/home-json-ld";
+import { AdSlot, AdSlotRow, buildRotationSeed } from "@/ads";
 import {
   featuredArticlesForHome,
   latestArticlesForHome,
@@ -58,6 +60,12 @@ export default async function Home() {
       <HomeJsonLd />
       <div className="mx-auto max-w-[1280px] space-y-16 px-4 py-10 sm:py-14">
         <HomeHero />
+        <AdSlot
+          slotId="homepage-top"
+          size="728x90"
+          seed={buildRotationSeed("/", "homepage-top")}
+          className="mx-auto w-full max-w-[728px]"
+        />
         <HomeTrustStrip />
 
         <HomeCategoryMosaic />
@@ -76,9 +84,20 @@ export default async function Home() {
 
         <HomeStatsRibbon />
 
+        <AdSlotRow
+          slotId="homepage-mid"
+          size="300x250"
+          seed={buildRotationSeed("/", "homepage-mid-row")}
+          count={2}
+          dedupeAdvertisers
+          className="justify-center sm:flex-row sm:flex-wrap"
+        />
+
         <HomeJobsSpotlight />
         <HomeEventsFeatured />
         <HomeMarketplaceTeaser />
+
+        <HomeAmazonAffiliateCard />
 
         <HomeTrendingTags />
         <HomeDbNewsSections latest={latest} featured={editorPicks} />

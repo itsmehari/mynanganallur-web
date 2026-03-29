@@ -13,6 +13,7 @@ import {
 } from "@/lib/home-mock";
 
 export { HomeHero } from "./home-hero";
+export { HomeAmazonAffiliateCard } from "./home-amazon-affiliate";
 
 function IconBriefcase({ className }: { className?: string }) {
   return (

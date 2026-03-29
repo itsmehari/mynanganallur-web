@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { nanganallurAreas } from "@/lib/nanganallur-areas";
+import { getAmazonAffiliateUrl } from "@/lib/amazon-affiliate";
 
 const newsLinks = [
   { href: "/local-news", label: "Local news" },
@@ -82,6 +84,7 @@ function FooterColumn({
 }
 
 export function SiteFooter() {
+  const affiliateUrl = getAmazonAffiliateUrl();
   const areaLinks = nanganallurAreas.slice(0, 8).map((z) => ({
     href: `/areas/${z.slug}`,
     label: z.label,
@@ -159,7 +162,15 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-[var(--footer-border)] pt-8 text-sm text-[var(--footer-muted)] sm:flex-row sm:items-center sm:justify-between">
+        {affiliateUrl ? (
+          <div className="mt-12 border-t border-[var(--footer-border)] pt-8">
+            <AmazonAffiliateBlock variant="footer" placement="footer-global" />
+          </div>
+        ) : null}
+
+        <div
+          className={`flex flex-col gap-4 text-sm text-[var(--footer-muted)] sm:flex-row sm:items-center sm:justify-between ${affiliateUrl ? "mt-6" : "mt-12 border-t border-[var(--footer-border)] pt-8"}`}
+        >
           <p>
             © {new Date().getFullYear()} mynanganallur.in
           </p>
