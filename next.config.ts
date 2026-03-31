@@ -39,6 +39,20 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "c9admin.cottage9.com",
+        pathname: "/uploads/5581/**",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        pathname: "/wikipedia/commons/thumb/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

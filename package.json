@@ -16,6 +16,7 @@
     "db:seed:directory": "tsx scripts/seed-directory.ts",
     "db:seed:directory:live": "tsx scripts/seed-directory.ts --live",
     "db:seed:event:panguni:live": "tsx scripts/seed-event-panguni.ts --live",
+    "db:seed:event:thirumurai:live": "tsx scripts/seed-event-thirumurai-music.ts --live",
     "db:push:live": "node --env-file=.env.production.local ./node_modules/drizzle-kit/bin.cjs push",
     "gsc:submit-sitemap": "tsx scripts/gsc-submit-sitemap.ts"
   },

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { homeStats } from "@/lib/home-mock";
 function AppPill({ label }: { label: string }) {
   return (
@@ -9,6 +10,11 @@ function AppPill({ label }: { label: string }) {
 }
 
 export function HomeHero() {
+  const anjaneyaImg =
+    "https://c9admin.cottage9.com/uploads/5581/nanganallur-anjaneya.jpg";
+  const streetsImg =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Streets_in_Nanganallur%2CChennai.jpg/1280px-Streets_in_Nanganallur%2CChennai.jpg";
+
   return (
     <section className="rounded-[2rem] border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[0_28px_70px_-36px_color-mix(in_srgb,var(--foreground)_25%,transparent)] sm:p-8 lg:p-10">
       <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -45,9 +51,29 @@ export function HomeHero() {
           </div>
         </div>
 
-        <div className="relative min-h-[300px] rounded-[1.6rem] bg-[linear-gradient(135deg,#6fa2ff_0%,#7a82ff_35%,#9a7fff_70%,#ff8f66_100%)] p-4 sm:min-h-[360px]">
+        <div className="relative min-h-[300px] overflow-hidden rounded-[1.6rem] p-4 sm:min-h-[360px]">
+          <div className="absolute inset-0">
+            <Image
+              src={streetsImg}
+              alt=""
+              fill
+              priority={false}
+              className="object-cover opacity-75"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(11,15,26,0.15)_0%,rgba(11,15,26,0.55)_70%,rgba(11,15,26,0.8)_100%)]" />
+          </div>
+
           <div className="absolute left-1/2 top-1/2 h-[250px] w-[170px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[999px] bg-[var(--surface)] ring-4 ring-[color-mix(in_srgb,var(--surface)_84%,transparent)] sm:h-[290px] sm:w-[200px]">
-            <div className="h-full w-full bg-[linear-gradient(160deg,#d8e9ff_0%,#f6e4ff_50%,#ffd9c7_100%)]" />
+            <div className="absolute inset-0">
+              <Image
+                src={anjaneyaImg}
+                alt="Anjaneya"
+                fill
+                priority
+                className="object-cover"
+              />
+            </div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0)_55%)]" />
           </div>
 
           <div className="absolute right-4 top-5 h-20 w-20 overflow-hidden rounded-full bg-[var(--surface)] ring-4 ring-[color-mix(in_srgb,var(--surface)_86%,transparent)]">
