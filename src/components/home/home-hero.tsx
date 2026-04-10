@@ -37,6 +37,10 @@ const forest = "#1a2a24";
 const lime = "#76c043";
 const gold = "#f5d442";
 
+/** Nanganallur Anjaneyar Temple — local landmark (Cottage9 asset). */
+const HERO_IMAGE_SRC =
+  "https://c9admin.cottage9.com/uploads/5581/nanganallur-anjaneya.jpg";
+
 export function HomeHero() {
   return (
     <section
@@ -192,11 +196,11 @@ export function HomeHero() {
         {/* Right: hero image */}
         <div className="relative min-h-[260px] sm:min-h-[320px] lg:min-h-[420px] order-1 lg:order-2">
           <Image
-            src="/home-hero-scene.png"
-            alt="Warm, modern living room with deep green walls, leather seating, and framed art"
+            src={HERO_IMAGE_SRC}
+            alt="Lord Hanuman at Nanganallur Anjaneyar Temple, garlanded — a landmark of the neighbourhood"
             fill
             priority
-            className="object-cover"
+            className="object-cover object-[center_25%]"
             sizes="(max-width: 1024px) 100vw, 52vw"
           />
           <div
