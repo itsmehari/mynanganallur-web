@@ -14,7 +14,7 @@ export type AdSize = (typeof AD_SIZES)[number];
  */
 export type AdDesign =
   | "resumedoctor"
-  | "mycovai"
+  | "mynanganallur"
   | "colourchemist"
   | "bseri"
   | "default";

@@ -17,7 +17,15 @@
     "db:seed:directory:live": "tsx scripts/seed-directory.ts --live",
     "db:seed:event:panguni:live": "tsx scripts/seed-event-panguni.ts --live",
     "db:seed:event:thirumurai:live": "tsx scripts/seed-event-thirumurai-music.ts --live",
+    "db:seed:jobs": "tsx scripts/seed-jobs-sample.ts",
+    "db:seed:jobs:live": "tsx scripts/seed-jobs-sample.ts --live",
+    "db:seed:job:shreyas": "tsx scripts/seed-job-shreyas-tutors.ts",
+    "db:seed:job:shreyas:live": "tsx scripts/seed-job-shreyas-tutors.ts --live",
+    "db:seed:property:guruvayoorappan": "tsx scripts/seed-property-guruvayoorappan.ts",
+    "db:seed:property:guruvayoorappan:live": "tsx scripts/seed-property-guruvayoorappan.ts --live",
+    "db:ensure:faq-column": "tsx scripts/ensure-article-faq-column.ts",
     "db:push:live": "node --env-file=.env.production.local ./node_modules/drizzle-kit/bin.cjs push",
+    "db:apply:live-ddl": "tsx scripts/apply-live-schema-ddl.ts",
     "gsc:submit-sitemap": "tsx scripts/gsc-submit-sitemap.ts"
   },
   "dependencies": {

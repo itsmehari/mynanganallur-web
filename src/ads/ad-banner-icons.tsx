@@ -5,7 +5,7 @@ export function normalizeAdDesign(raw: string): AdDesign {
   if (raw === "resumebuilder") return "resumedoctor";
   if (
     raw === "resumedoctor" ||
-    raw === "mycovai" ||
+    raw === "mynanganallur" ||
     raw === "colourchemist" ||
     raw === "bseri"
   ) {
@@ -119,7 +119,7 @@ export function AdBannerIcon({
   switch (d) {
     case "resumedoctor":
       return <IconDocument className={className} />;
-    case "mycovai":
+    case "mynanganallur":
       return <IconMapPin className={className} />;
     case "colourchemist":
       return <IconPalette className={className} />;

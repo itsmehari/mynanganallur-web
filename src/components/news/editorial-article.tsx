@@ -4,6 +4,7 @@ import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-bl
 import type { PublicArticleRow } from "@/domains/news";
 import { relatedArticlesForSite } from "@/domains/news";
 import { categoryToTopicSlug } from "@/lib/news-topics";
+import { normalizeArticleFaq } from "@/lib/seo/faq-jsonld";
 import { ArticleProse } from "./article-prose";
 import { InteractiveBlock } from "./interactive-block";
 
@@ -27,9 +28,10 @@ export async function EditorialArticle({
   }
   const report = article.reportBody ?? article.body;
   const analysis = article.analysisBody ?? "";
+  const faqItems = normalizeArticleFaq(article.faqJson);
 
   return (
-    <article className="mx-auto max-w-[720px]">
+    <article className="mx-auto min-w-0 max-w-[720px]">
       <header className="border-b border-[var(--border)] pb-8">
         {article.category ? (
           <Link
@@ -39,11 +41,13 @@ export async function EditorialArticle({
             {article.category}
           </Link>
         ) : null}
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)] sm:text-4xl">
+        <h1 className="mt-2 min-w-0 break-words text-3xl font-semibold tracking-tight text-[var(--foreground)] sm:text-4xl">
           {article.title}
         </h1>
         {article.dek ? (
-          <p className="mt-4 text-lg text-[var(--muted)]">{article.dek}</p>
+          <p className="mt-4 min-w-0 break-words text-lg text-[var(--muted)]">
+            {article.dek}
+          </p>
         ) : null}
         <div className="mt-4 flex flex-wrap gap-3 text-xs text-[var(--muted)]">
           {article.publishedAt ? (
@@ -74,6 +78,23 @@ export async function EditorialArticle({
         className="mt-8"
       />
 
+      {article.summary ? (
+        <section
+          className="mt-8 rounded-2xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_96%,var(--accent)_4%)] px-5 py-4"
+          aria-labelledby="in-short-heading"
+        >
+          <h2
+            id="in-short-heading"
+            className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent)]"
+          >
+            In short
+          </h2>
+          <p className="mt-2 min-w-0 break-words text-[15px] leading-relaxed text-[var(--foreground)]">
+            {article.summary}
+          </p>
+        </section>
+      ) : null}
+
       <section className="mt-10" aria-labelledby="report-heading">
         <h2
           id="report-heading"
@@ -92,6 +113,32 @@ export async function EditorialArticle({
         seed={buildRotationSeed(adSeedPath, "article-mid")}
         className="mt-10"
       />
+
+      {faqItems.length > 0 ? (
+        <section
+          className="mt-12 border-t border-[var(--border)] pt-10"
+          aria-labelledby="faq-heading"
+        >
+          <h2
+            id="faq-heading"
+            className="text-lg font-semibold text-[var(--foreground)]"
+          >
+            Common questions
+          </h2>
+          <dl className="mt-6 space-y-6">
+            {faqItems.map((item, i) => (
+              <div key={i}>
+                <dt className="min-w-0 break-words text-sm font-semibold text-[var(--foreground)]">
+                  {item.q}
+                </dt>
+                <dd className="mt-2 min-w-0 break-words text-sm leading-relaxed text-[var(--muted)]">
+                  {item.a}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ) : null}
 
       {analysis ? (
         <section
@@ -138,12 +185,12 @@ export async function EditorialArticle({
           publisher. Read the original for full context.
         </p>
         {article.sourceUrl && article.sourceName ? (
-          <p className="mt-3 text-sm">
+          <p className="mt-3 min-w-0 text-sm">
             <a
               href={article.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"
+              className="break-words font-medium text-[var(--accent)] underline-offset-4 hover:underline"
             >
               Original reporting: {article.sourceName}
             </a>
@@ -170,7 +217,7 @@ export async function EditorialArticle({
               <li key={r.id}>
                 <Link
                   href={`/local-news/${r.slug}`}
-                  className="text-sm font-medium text-[var(--accent)] hover:underline"
+                  className="min-w-0 break-words text-sm font-medium text-[var(--accent)] hover:underline"
                 >
                   {r.title}
                 </Link>

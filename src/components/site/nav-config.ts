@@ -98,6 +98,11 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
             label: "City directory",
             description: "Schools, services, and local listings.",
           },
+          {
+            href: "/properties",
+            label: "Properties",
+            description: "Houses and flats for rent or sale.",
+          },
         ],
       },
       {
@@ -115,6 +120,13 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
   {
     id: "jobs",
     label: "Jobs",
+    featured: {
+      title: "Tutors — Math & Science (CBSE)",
+      description:
+        "Shreyas School of Education, Nanganallur — evening batches, Grades 6–12.",
+      href: "/jobs/shreyas-tutors-math-science-nanganallur",
+      cta: "View listing",
+    },
     columns: [
       {
         heading: "Work",

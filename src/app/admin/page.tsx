@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth } from "@/auth";
+import { RevalidatePublicButton } from "./revalidate-button";
 import { signOutAction } from "./actions";
 
 export default async function AdminHome() {
@@ -26,6 +27,15 @@ export default async function AdminHome() {
           <p className="mt-1 text-zinc-600 dark:text-zinc-400">
             Role: {session.user.role ?? "reader"}
           </p>
+          {(session.user.role === "admin" || session.user.role === "editor") && (
+            <div className="mt-4 border-t border-zinc-200 pt-4 dark:border-zinc-600">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                After changing articles, events, jobs, properties, or directory
+                data in the database, refresh cached public pages:
+              </p>
+              <RevalidatePublicButton />
+            </div>
+          )}
           <form className="mt-3" action={signOutAction}>
             <button
               type="submit"

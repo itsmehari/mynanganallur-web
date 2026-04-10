@@ -31,6 +31,7 @@ export type AmazonAffiliatePlacement =
   | "hub-local-news"
   | "hub-directory"
   | "hub-jobs"
+  | "hub-properties"
   | "hub-events"
   | "hub-area"
   | "hub-topic"

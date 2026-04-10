@@ -24,7 +24,7 @@ export function NewspaperMasthead({
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--muted)]">
             mynanganallur.in
           </p>
-          <h1 className="mt-1 font-serif text-4xl font-bold tracking-tight text-[var(--foreground)] sm:text-5xl">
+          <h1 className="mt-1 min-w-0 break-words font-serif text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl md:text-5xl">
             {title}
           </h1>
           <p className="mt-2 max-w-xl text-sm text-[var(--muted)]">{tagline}</p>
@@ -48,7 +48,7 @@ export function NewspaperMasthead({
         )}
         <Link
           href="/local-news/feed.xml"
-          className="ml-auto text-xs font-medium text-[var(--accent)] hover:underline"
+          className="max-sm:mt-2 max-sm:basis-full max-sm:text-end sm:ml-auto text-xs font-medium text-[var(--accent)] hover:underline"
         >
           RSS
         </Link>

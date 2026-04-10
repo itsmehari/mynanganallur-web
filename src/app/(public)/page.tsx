@@ -58,8 +58,8 @@ export default async function Home() {
   return (
     <>
       <HomeJsonLd />
-      <div className="mx-auto max-w-[1280px] space-y-16 px-4 py-10 sm:py-14">
-        <HomeHero />
+      <HomeHero />
+      <div className="mx-auto max-w-[1280px] space-y-16 px-4 pb-10 pt-8 sm:pb-14 sm:pt-10">
         <AdSlot
           slotId="homepage-top"
           size="728x90"

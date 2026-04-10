@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Section } from "@/components/home/section";
+import { listUpcomingEventsForSite } from "@/domains/events";
+import { listOpenJobsForSite } from "@/domains/jobs";
 import {
   categoryTiles,
   cityPulseBullets,
   homeStats,
-  mockEvents,
-  mockJobs,
   mockListings,
   sponsors,
   trendingTags,
@@ -209,16 +209,42 @@ export function HomeStatsRibbon() {
   );
 }
 
-export function HomeJobsSpotlight() {
+export async function HomeJobsSpotlight() {
+  let rows: Awaited<ReturnType<typeof listOpenJobsForSite>> = [];
+  try {
+    rows = await listOpenJobsForSite(4);
+  } catch {
+    /* DATABASE_URL unset */
+  }
+
+  if (rows.length === 0) {
+    return (
+      <Section
+        eyebrow="Careers"
+        title="Jobs spotlight"
+        subtitle="Open roles from the site job board. Nothing listed yet — browse jobs for the full feed once employers publish."
+        action={{ href: "/jobs", label: "Jobs" }}
+      >
+        <p className="max-w-xl text-sm text-[var(--muted)]">
+          Sample listings can be added with{" "}
+          <code className="rounded bg-[var(--background)] px-1 text-xs">
+            npm run db:seed:jobs
+          </code>
+          .
+        </p>
+      </Section>
+    );
+  }
+
   return (
     <Section
       eyebrow="Careers"
       title="Jobs spotlight"
-      subtitle="Curated Mar 25 2026 from tech employers many Nanganallur residents commute to — external cards open the company careers site. Always verify the role before you apply."
+      subtitle="Open roles on mynanganallur.in — open a card for the full description. Confirm details with the employer before you apply."
       action={{ href: "/jobs", label: "Browse all jobs" }}
     >
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {mockJobs.map((j, i) => {
+        {rows.map(({ job, employer }, i) => {
           const className = `home-bento-tile flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${
             i === 0
               ? "relative overflow-hidden bg-[color-mix(in_srgb,var(--accent)_7%,var(--surface))] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent_40%,color-mix(in_srgb,var(--accent)_12%,transparent)_100%)] lg:min-h-[11rem] lg:flex-row lg:items-center lg:gap-8 lg:p-8"
@@ -228,46 +254,33 @@ export function HomeJobsSpotlight() {
             <>
               <div className={i === 0 ? "lg:max-w-md" : ""}>
                 <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--accent)]">
-                  {i === 0 ? "Featured role" : j.external ? "Employer site" : "Open role"}
+                  {i === 0 ? "Featured role" : "Open role"}
                 </p>
                 <p
                   className={`mt-1 font-semibold text-[var(--foreground)] ${
                     i === 0 ? "text-lg sm:text-xl" : "text-sm"
                   }`}
                 >
-                  {j.title}
+                  {job.title}
                 </p>
-                <p className="mt-1 text-xs text-[var(--muted)]">{j.company}</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">
+                  {employer.name}
+                </p>
               </div>
               <p
                 className={`mt-3 text-xs font-bold text-[var(--accent)] lg:mt-0 ${
                   i === 0 ? "lg:ml-auto lg:text-sm" : ""
                 }`}
               >
-                {j.location}
-                {j.external ? " · ↗" : ""}
+                {job.locationLabel ?? "Chennai area"}
               </p>
             </>
           );
           return (
-            <li
-              key={`${j.href}-${j.title}`}
-              className={i === 0 ? "sm:col-span-2" : ""}
-            >
-              {j.external ? (
-                <a
-                  href={j.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={className}
-                >
-                  {inner}
-                </a>
-              ) : (
-                <Link href={j.href} className={className}>
-                  {inner}
-                </Link>
-              )}
+            <li key={job.id} className={i === 0 ? "sm:col-span-2" : ""}>
+              <Link href={`/jobs/${job.slug}`} className={className}>
+                {inner}
+              </Link>
             </li>
           );
         })}
@@ -276,16 +289,45 @@ export function HomeJobsSpotlight() {
   );
 }
 
-export function HomeEventsFeatured() {
+export async function HomeEventsFeatured() {
+  let rows: Awaited<ReturnType<typeof listUpcomingEventsForSite>> = [];
+  try {
+    rows = await listUpcomingEventsForSite(4);
+  } catch {
+    /* DATABASE_URL unset */
+  }
+
+  if (rows.length === 0) {
+    return (
+      <Section
+        eyebrow="Calendar"
+        title="Featured events"
+        subtitle="Upcoming listings from the site calendar. Nothing scheduled right now — see all events for the full feed."
+        action={{ href: "/local-events", label: "Local events" }}
+      >
+        <p className="max-w-xl text-sm text-[var(--muted)]">
+          When organisers publish dates here, they will appear in this row and
+          on the events page.
+        </p>
+      </Section>
+    );
+  }
+
   return (
     <Section
       eyebrow="Calendar"
       title="Featured events"
-      subtitle="Picked Mar 25 2026 from public listings (Mar–Apr). External rows open the organiser or ticket page — confirm time and price before you go."
+      subtitle="Next up from the Nanganallur calendar — open an event for full details. Confirm time and venue with the organiser when listed."
       action={{ href: "/local-events", label: "All local events" }}
     >
       <ul className="grid gap-4 lg:grid-cols-2">
-        {mockEvents.map((e, i) => {
+        {rows.map((e, i) => {
+          const when = e.startsAt.toLocaleString("en-IN", {
+            dateStyle: "medium",
+            timeStyle: e.allDay ? undefined : "short",
+            timeZone: "Asia/Kolkata",
+          });
+          const where = e.venueName ?? e.localityLabel ?? "Details inside";
           const className = `home-bento-tile flex rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] ${
             i === 0
               ? "flex-col gap-4 border-l-4 border-l-[var(--accent-warm)] p-6 sm:flex-row sm:items-center sm:justify-between"
@@ -295,7 +337,7 @@ export function HomeEventsFeatured() {
             <>
               <div className="flex min-w-0 flex-1 flex-col gap-1">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--accent-warm)]">
-                  {i === 0 ? "Headline" : e.external ? "Tickets / info" : "On our calendar"}
+                  {i === 0 ? "Next up" : "On our calendar"}
                 </p>
                 <p
                   className={`font-semibold text-[var(--foreground)] ${
@@ -304,30 +346,18 @@ export function HomeEventsFeatured() {
                 >
                   {e.title}
                 </p>
-                <p className="text-xs text-[var(--muted)]">{e.when}</p>
+                <p className="text-xs text-[var(--muted)]">{when}</p>
               </div>
               <p className="shrink-0 rounded-xl bg-[color-mix(in_srgb,var(--accent-warm)_12%,var(--surface))] px-4 py-2 text-center text-xs font-bold text-[var(--accent-warm)] sm:text-left">
-                {e.where}
-                {e.external ? " · ↗" : ""}
+                {where}
               </p>
             </>
           );
           return (
-            <li key={`${e.href}-${e.title}`} className={i === 0 ? "lg:col-span-2" : ""}>
-              {e.external ? (
-                <a
-                  href={e.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={className}
-                >
-                  {inner}
-                </a>
-              ) : (
-                <Link href={e.href} className={className}>
-                  {inner}
-                </Link>
-              )}
+            <li key={e.id} className={i === 0 ? "lg:col-span-2" : ""}>
+              <Link href={`/local-events/${e.slug}`} className={className}>
+                {inner}
+              </Link>
             </li>
           );
         })}

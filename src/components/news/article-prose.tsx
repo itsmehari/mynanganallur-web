@@ -13,14 +13,14 @@ function formatInline(text: string) {
 export function ArticleProse({ content }: { content: string }) {
   const blocks = content.split(/\n\n+/);
   return (
-    <div className="space-y-4 text-[15px] leading-relaxed text-[var(--foreground)]">
+    <div className="min-w-0 space-y-4 break-words text-[15px] leading-relaxed text-[var(--foreground)]">
       {blocks.map((block, i) => {
         const line = block.trim();
         if (line.startsWith("## ")) {
           return (
             <h2
               key={i}
-              className="mt-8 scroll-mt-28 text-xl font-semibold tracking-tight text-[var(--foreground)] first:mt-0"
+              className="mt-8 min-w-0 scroll-mt-28 break-words text-xl font-semibold tracking-tight text-[var(--foreground)] first:mt-0"
             >
               {formatInline(line.slice(3).trim())}
             </h2>
@@ -30,7 +30,7 @@ export function ArticleProse({ content }: { content: string }) {
           return (
             <h3
               key={i}
-              className="mt-6 text-lg font-semibold text-[var(--foreground)]"
+              className="mt-6 min-w-0 break-words text-lg font-semibold text-[var(--foreground)]"
             >
               {formatInline(line.slice(4).trim())}
             </h3>
@@ -41,11 +41,15 @@ export function ArticleProse({ content }: { content: string }) {
           return (
             <div key={i} className="space-y-2">
               {intro ? (
-                <p className="text-[var(--muted)]">{formatInline(intro)}</p>
+                <p className="min-w-0 break-words text-[var(--muted)]">
+                  {formatInline(intro)}
+                </p>
               ) : null}
               <ul className="list-disc space-y-1 pl-5">
                 {rest.map((item, j) => (
-                  <li key={j}>{formatInline(item.trim())}</li>
+                  <li key={j} className="min-w-0 break-words">
+                    {formatInline(item.trim())}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -56,13 +60,18 @@ export function ArticleProse({ content }: { content: string }) {
           return (
             <ul key={i} className="list-disc space-y-1 pl-5">
               {items.map((item, j) => (
-                <li key={j}>{formatInline(item)}</li>
+                <li key={j} className="min-w-0 break-words">
+                  {formatInline(item)}
+                </li>
               ))}
             </ul>
           );
         }
         return (
-          <p key={i} className="text-[color-mix(in_srgb,var(--foreground)_92%,var(--muted))]">
+          <p
+            key={i}
+            className="min-w-0 break-words text-[color-mix(in_srgb,var(--foreground)_92%,var(--muted))]"
+          >
             {formatInline(line)}
           </p>
         );

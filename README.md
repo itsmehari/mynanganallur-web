@@ -31,11 +31,15 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run db:seed` | Seed city + news articles (`nanganallur`) |
 | `npm run db:seed:directory` | Seed `directory_entries` from public web sources (Wikipedia, HRCE, etc.) — after `db:seed` |
 | `npm run db:seed:live` / `db:seed:directory:live` | Same seeds using `.env.production.local` |
+| `npm run db:seed:jobs` / `db:seed:jobs:live` | Sample employers + open job postings (after city seed) |
+| `npm run db:ensure:faq-column` | Adds `articles.faq_json` if missing (uses `.env` chain) |
 | `npm run db:studio` | Drizzle Studio |
 
 ## Documentation
 
 - [docs/DEPLOY.md](docs/DEPLOY.md) — GitHub, Vercel, Neon, DNS, GA4, OAuth, Search Console
+- [docs/SEARCH_IMPLEMENTATION_PLAN.md](docs/SEARCH_IMPLEMENTATION_PLAN.md) — SEO, AEO, GEO, Local SEO, phased search work
+- [docs/CONTENT_BRIEF_TEMPLATE.md](docs/CONTENT_BRIEF_TEMPLATE.md) — editorial brief + QC (articles, events, areas)
 - [docs/SEARCH_CONSOLE.md](docs/SEARCH_CONSOLE.md) — GSC checklist
 - [MIGRATION_ANALYSIS.md](MIGRATION_ANALYSIS.md) — legacy system intelligence extraction
 - [docs/](docs/) — PRD, architecture, feature map

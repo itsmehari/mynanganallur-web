@@ -42,7 +42,7 @@ export default async function TopicPage({ params }: Props) {
   if (!items.length) {
     return (
       <div className="mx-auto max-w-[1280px] px-4 py-14">
-        <h1 className="font-serif text-3xl font-bold text-[var(--foreground)]">
+        <h1 className="min-w-0 break-words font-serif text-3xl font-bold text-[var(--foreground)] sm:text-4xl">
           {category}
         </h1>
         <p className="mt-4 text-[var(--muted)]">
@@ -71,7 +71,7 @@ export default async function TopicPage({ params }: Props) {
       <p className="text-xs font-bold uppercase tracking-wider text-[var(--accent)]">
         Topic
       </p>
-      <h1 className="mt-2 font-serif text-4xl font-bold text-[var(--foreground)]">
+      <h1 className="mt-2 min-w-0 break-words font-serif text-3xl font-bold text-[var(--foreground)] sm:text-4xl">
         {category}
       </h1>
       <p className="mt-3 max-w-2xl text-sm text-[var(--muted)]">

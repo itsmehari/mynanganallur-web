@@ -11,6 +11,7 @@ import type { Creative } from "./types";
  * - content-mid → `/local-news/topic/[topic]`
  * - listings-index-top → `/directory`
  * - jobs-index-mid → `/jobs`
+ * - properties-index-mid, properties-detail-top → `/properties`
  * - events-index-mid → `/local-events`
  * - listings-detail-mid → `/areas/[slug]`
  */
@@ -27,6 +28,8 @@ export const ALL_SLOTS = [
   "jobs-index-top",
   "jobs-index-mid",
   "jobs-detail-mid",
+  "properties-index-mid",
+  "properties-detail-top",
   "hostels-index-top",
   "hostels-index-mid",
   "hostels-detail-mid",
@@ -66,14 +69,14 @@ export const ADS: Creative[] = [
     active: true,
   },
   {
-    id: "mycovai-1",
-    advertiser: "MyCovai",
-    url: "https://mycovai.in",
+    id: "mynanganallur-1",
+    advertiser: "mynanganallur.in",
+    url: "https://mynanganallur.in",
     slot_ids: ALL,
     sizes: ["728x90", "336x280", "300x250", "320x50"],
-    design: "mycovai",
-    headline: "MyCovai — Your Covai Community",
-    tagline: "News, local info & community for Coimbatore",
+    design: "mynanganallur",
+    headline: "mynanganallur.in — Your Nanganallur hub",
+    tagline: "Local news, jobs, events & neighbourhood listings",
     active: true,
   },
   {

@@ -118,7 +118,7 @@ export function MegaNavDesktop() {
 
         {active ? (
           <div
-            className="mega-nav-surface mega-nav-dropdown absolute left-1/2 top-full z-[55] w-screen max-w-[100vw] -translate-x-1/2 border-b border-[var(--border)] shadow-[0_28px_56px_-16px_color-mix(in_srgb,var(--foreground)_14%,transparent)]"
+            className="mega-nav-surface mega-nav-dropdown absolute left-1/2 top-full z-[55] w-[100dvw] max-w-[100dvw] -translate-x-1/2 border-b border-[var(--border)] shadow-[0_28px_56px_-16px_color-mix(in_srgb,var(--foreground)_14%,transparent)]"
             id={`mega-panel-${active.id}`}
             role="region"
             aria-labelledby={`mega-trigger-${active.id}`}

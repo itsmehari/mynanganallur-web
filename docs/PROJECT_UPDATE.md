@@ -4,6 +4,15 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-03-31 — Jobs, directory public pages, article FAQ JSON-LD, admin revalidate
+
+- **Jobs:** `src/domains/jobs/`, `/jobs` + `/jobs/[slug]` with **JobPosting** JSON-LD; home spotlight from DB; `npm run db:seed:jobs` (+ `:live`).
+- **Directory:** `/directory` lists seeded `directory_entries` by type; `/directory/[type]/[slug]` with LocalBusiness-style JSON-LD; sitemap entries.
+- **News AEO:** `articles.faq_json` column (see `drizzle/0002_article_faq_json.sql` or `db:ensure:faq-column`); visible FAQ + FAQPage when set; sample Q&A on power-cuts article via `db:seed` upsert.
+- **Admin:** `revalidatePublicContentAction` + button for editor/admin after DB changes.
+
+---
+
 ## 2026-03-31 — Home hero updated with provided images
 
 - **UI:** Updated `HomeHero` to use your provided images:

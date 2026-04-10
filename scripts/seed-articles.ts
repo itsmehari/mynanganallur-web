@@ -383,6 +383,22 @@ async function main() {
         and(eq(articles.cityId, cityId), eq(articles.slug, s.slug)),
       )
       .limit(1);
+    const faqJson =
+      s.slug === "nanganallur-power-cuts-substation-upgrade-demand"
+        ? {
+            items: [
+              {
+                q: "What did residents ask TANGEDCO for at the forum?",
+                a: "Upgrading the 33 kV substation on 100 Feet Road toward 110 kV capacity, replacing ageing transformers, and completing underground high-tension cabling where works were promised.",
+              },
+              {
+                q: "Which newspaper reported this grievance meeting?",
+                a: "The Hindu — use the original reporting link in the source section on this page for full context.",
+              },
+            ],
+          }
+        : null;
+
     const values = {
       cityId,
       slug: s.slug,
@@ -399,6 +415,7 @@ async function main() {
       status: "published" as const,
       publishedAt: s.publishedAt,
       featured: s.featured,
+      faqJson,
     };
     if (row[0]) {
       await db
@@ -417,6 +434,7 @@ async function main() {
           status: "published",
           publishedAt: s.publishedAt,
           featured: s.featured,
+          faqJson,
           updatedAt: new Date(),
         })
         .where(eq(articles.id, row[0].id));

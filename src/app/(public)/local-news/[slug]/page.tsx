@@ -7,6 +7,10 @@ import {
 } from "@/domains/news";
 import { getSiteUrl } from "@/lib/env";
 import {
+  buildFaqPageJsonLd,
+  normalizeArticleFaq,
+} from "@/lib/seo/faq-jsonld";
+import {
   buildBreadcrumbJsonLd,
   buildNewsArticleJsonLd,
 } from "@/lib/seo/news-article-jsonld";
@@ -78,6 +82,11 @@ export default async function ArticlePage({ params }: Props) {
   }
   const newsLd = buildNewsArticleJsonLd(article);
   const crumbLd = buildBreadcrumbJsonLd(article.slug, article.title);
+  const faqItems = normalizeArticleFaq(article.faqJson);
+  const base = getSiteUrl();
+  const articleUrl = `${base}/local-news/${article.slug}`;
+  const faqLd =
+    faqItems.length > 0 ? buildFaqPageJsonLd(faqItems, articleUrl) : null;
 
   return (
     <>
@@ -89,6 +98,12 @@ export default async function ArticlePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbLd) }}
       />
+      {faqLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
+      ) : null}
       <div className="mx-auto max-w-[1280px] px-4 py-10 sm:py-14">
         <EditorialArticle
           article={article}
