@@ -21,6 +21,8 @@
     "db:seed:jobs:live": "tsx scripts/seed-jobs-sample.ts --live",
     "db:seed:job:shreyas": "tsx scripts/seed-job-shreyas-tutors.ts",
     "db:seed:job:shreyas:live": "tsx scripts/seed-job-shreyas-tutors.ts --live",
+    "db:seed:job:beevee": "tsx scripts/seed-job-beevee-healthcare.ts",
+    "db:seed:job:beevee:live": "tsx scripts/seed-job-beevee-healthcare.ts --live",
     "db:seed:property:guruvayoorappan": "tsx scripts/seed-property-guruvayoorappan.ts",
     "db:seed:property:guruvayoorappan:live": "tsx scripts/seed-property-guruvayoorappan.ts --live",
     "db:ensure:faq-column": "tsx scripts/ensure-article-faq-column.ts",
