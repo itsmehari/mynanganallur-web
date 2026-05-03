@@ -10,7 +10,7 @@ export const AD_SIZES = [
 export type AdSize = (typeof AD_SIZES)[number];
 
 /**
- * Visual theme key for CSS (`ad-banner--{design}`).
+ * Visual theme key for CSS (`mn-promo-card--{design}`).
  * `resumebuilder` is a legacy alias — normalize to `resumedoctor` for icons/classes.
  */
 export type AdDesign =

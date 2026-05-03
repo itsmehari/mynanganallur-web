@@ -25,39 +25,39 @@ function AdBannerCreative({
   className?: string;
 }) {
   const designClass = normalizeAdDesign(creative.design);
-  const bannerClass = `ad-banner ad-banner--${size} ad-banner--${designClass}`;
-  const ariaLabel = `${creative.advertiser} - ${creative.headline}`;
+  const bannerClass = `mn-promo-card mn-promo-card--${size} mn-promo-card--${designClass}`;
+  const ariaLabel = `${creative.advertiser} — ${creative.headline}`;
   const showTagline = size !== "320x50" && size !== "468x60";
 
   return (
-    <section
-      className={`ad-banner-host ${className}`.trim()}
-      aria-label="Sponsored content"
-      data-display-ad-placement={slotId}
+    <aside
+      className={`mn-promo-host ${className}`.trim()}
+      aria-label="Partner tip"
+      data-mn-promo-slot={slotId}
     >
-      <span className="ad-banner-host__label">Ad</span>
+      <span className="mn-promo-host__label">Partner</span>
       <a
         href={creative.url}
         target="_blank"
         rel="sponsored noopener noreferrer"
         aria-label={ariaLabel}
         className={bannerClass}
-        data-display-ad-creative={creative.id}
+        data-mn-promo-id={creative.id}
       >
-        <span className="ad-banner__inner">
-          <span className="ad-banner__icon" aria-hidden>
-            <AdBannerIcon design={creative.design} className="ad-banner__svg" />
+        <span className="mn-promo-card__inner">
+          <span className="mn-promo-card__icon" aria-hidden>
+            <AdBannerIcon design={creative.design} className="mn-promo-card__svg" />
           </span>
-          <span className="ad-banner__body">
-            <span className="ad-banner__headline">{creative.headline}</span>
+          <span className="mn-promo-card__body">
+            <span className="mn-promo-card__headline">{creative.headline}</span>
             {showTagline ? (
-              <span className="ad-banner__tagline">{creative.tagline}</span>
+              <span className="mn-promo-card__tagline">{creative.tagline}</span>
             ) : null}
-            <span className="ad-banner__cta">{ctaForSize(size)}</span>
+            <span className="mn-promo-card__cta">{ctaForSize(size)}</span>
           </span>
         </span>
       </a>
-    </section>
+    </aside>
   );
 }
 
@@ -111,7 +111,7 @@ export function AdSlotRow({
 
   if (!dedupeAdvertisers) {
     return (
-      <div className={`ad-banner-row ${className}`.trim()}>
+      <div className={`mn-promo-row ${className}`.trim()}>
         {Array.from({ length: count }, (_, i) => (
           <AdSlot
             key={i}
@@ -131,7 +131,7 @@ export function AdSlotRow({
   }
 
   return (
-    <div className={`ad-banner-row ad-banner-row--deduped ${className}`.trim()}>
+    <div className={`mn-promo-row mn-promo-row--deduped ${className}`.trim()}>
       {picked.map((creative) => (
         <AdBannerCreative
           key={creative.id}

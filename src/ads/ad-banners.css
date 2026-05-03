@@ -1,13 +1,15 @@
-/* Display ads — BEM; uses site tokens from globals.css :root */
+/* Inline promos — BEM with neutral class names so common ad blockers do not
+   hide partner placements (EasyList often targets `.ad-banner`, "Ad", etc.).
+   Uses site tokens from globals.css :root */
 
-.ad-banner-host {
+.mn-promo-host {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
   max-width: 100%;
 }
 
-.ad-banner-host__label {
+.mn-promo-host__label {
   display: inline-block;
   width: fit-content;
   font-size: 0.65rem;
@@ -17,7 +19,7 @@
   color: var(--muted);
 }
 
-.ad-banner {
+.mn-promo-card {
   display: block;
   box-sizing: border-box;
   max-width: 100%;
@@ -32,17 +34,17 @@
     box-shadow 0.2s ease;
 }
 
-.ad-banner:hover {
+.mn-promo-card:hover {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
   box-shadow: 0 8px 28px color-mix(in srgb, var(--foreground) 6%, transparent);
 }
 
-.ad-banner:focus-visible {
+.mn-promo-card:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-.ad-banner__inner {
+.mn-promo-card__inner {
   display: flex;
   align-items: stretch;
   gap: 0.75rem;
@@ -50,7 +52,7 @@
   box-sizing: border-box;
 }
 
-.ad-banner__icon {
+.mn-promo-card__icon {
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -58,11 +60,11 @@
   color: var(--accent);
 }
 
-.ad-banner__svg {
+.mn-promo-card__svg {
   display: block;
 }
 
-.ad-banner__body {
+.mn-promo-card__body {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,20 +73,20 @@
   flex: 1;
 }
 
-.ad-banner__headline {
+.mn-promo-card__headline {
   font-weight: 700;
   font-size: 0.8125rem;
   line-height: 1.25;
   color: var(--foreground);
 }
 
-.ad-banner__tagline {
+.mn-promo-card__tagline {
   font-size: 0.7rem;
   line-height: 1.35;
   color: var(--muted);
 }
 
-.ad-banner__cta {
+.mn-promo-card__cta {
   margin-top: 0.15rem;
   font-size: 0.65rem;
   font-weight: 700;
@@ -95,71 +97,71 @@
 
 /* --- Sizes --- */
 
-.ad-banner--728x90 {
+.mn-promo-card--728x90 {
   width: 728px;
   max-width: 100%;
   min-height: 90px;
 }
 
-.ad-banner--728x90 .ad-banner__inner {
+.mn-promo-card--728x90 .mn-promo-card__inner {
   flex-direction: row;
   align-items: center;
   padding: 0.65rem 1rem;
 }
 
-.ad-banner--728x90 .ad-banner__headline {
+.mn-promo-card--728x90 .mn-promo-card__headline {
   font-size: 0.9375rem;
 }
 
-.ad-banner--728x90 .ad-banner__tagline {
+.mn-promo-card--728x90 .mn-promo-card__tagline {
   font-size: 0.75rem;
 }
 
-.ad-banner--336x280,
-.ad-banner--300x250 {
+.mn-promo-card--336x280,
+.mn-promo-card--300x250 {
   width: 100%;
   max-width: 336px;
 }
 
-.ad-banner--300x250 {
+.mn-promo-card--300x250 {
   max-width: 300px;
 }
 
-.ad-banner--336x280 {
+.mn-promo-card--336x280 {
   min-height: 280px;
 }
 
-.ad-banner--300x250 {
+.mn-promo-card--300x250 {
   min-height: 250px;
 }
 
-.ad-banner--336x280 .ad-banner__inner,
-.ad-banner--300x250 .ad-banner__inner {
+.mn-promo-card--336x280 .mn-promo-card__inner,
+.mn-promo-card--300x250 .mn-promo-card__inner {
   flex-direction: column;
   align-items: flex-start;
   padding: 1rem 1.1rem;
 }
 
-.ad-banner--336x280 .ad-banner__icon,
-.ad-banner--300x250 .ad-banner__icon {
+.mn-promo-card--336x280 .mn-promo-card__icon,
+.mn-promo-card--300x250 .mn-promo-card__icon {
   margin-bottom: 0.25rem;
 }
 
 /* IAB full banner (horizontal strip) */
-.ad-banner--468x60 {
+.mn-promo-card--468x60 {
   width: 468px;
   max-width: 100%;
   min-height: 60px;
 }
 
-.ad-banner--468x60 .ad-banner__inner {
+.mn-promo-card--468x60 .mn-promo-card__inner {
   flex-direction: row;
   align-items: center;
   padding: 0.4rem 0.75rem;
   gap: 0.5rem;
 }
 
-.ad-banner--468x60 .ad-banner__headline {
+.mn-promo-card--468x60 .mn-promo-card__headline {
   font-size: 0.75rem;
   line-height: 1.2;
   display: -webkit-box;
@@ -168,31 +170,31 @@
   overflow: hidden;
 }
 
-.ad-banner--468x60 .ad-banner__cta {
+.mn-promo-card--468x60 .mn-promo-card__cta {
   margin-top: 0;
   flex-shrink: 0;
   font-size: 0.6rem;
 }
 
-.ad-banner--468x60 .ad-banner__icon .ad-banner__svg {
+.mn-promo-card--468x60 .mn-promo-card__icon .mn-promo-card__svg {
   width: 28px;
   height: 28px;
 }
 
-.ad-banner--320x50 {
+.mn-promo-card--320x50 {
   width: 320px;
   max-width: 100%;
   min-height: 50px;
 }
 
-.ad-banner--320x50 .ad-banner__inner {
+.mn-promo-card--320x50 .mn-promo-card__inner {
   flex-direction: row;
   align-items: center;
   padding: 0.35rem 0.65rem;
   gap: 0.5rem;
 }
 
-.ad-banner--320x50 .ad-banner__headline {
+.mn-promo-card--320x50 .mn-promo-card__headline {
   font-size: 0.7rem;
   line-height: 1.2;
   display: -webkit-box;
@@ -201,96 +203,96 @@
   overflow: hidden;
 }
 
-.ad-banner--320x50 .ad-banner__cta {
+.mn-promo-card--320x50 .mn-promo-card__cta {
   margin-top: 0;
   flex-shrink: 0;
 }
 
-.ad-banner--320x50 .ad-banner__icon .ad-banner__svg {
+.mn-promo-card--320x50 .mn-promo-card__icon .mn-promo-card__svg {
   width: 22px;
   height: 22px;
 }
 
 /* Narrow: scale leaderboard */
 @media (max-width: 760px) {
-  .ad-banner--728x90 {
+  .mn-promo-card--728x90 {
     min-height: auto;
   }
 
-  .ad-banner--728x90 .ad-banner__inner {
+  .mn-promo-card--728x90 .mn-promo-card__inner {
     flex-wrap: wrap;
     padding: 0.75rem;
   }
 
-  .ad-banner--728x90 .ad-banner__headline {
+  .mn-promo-card--728x90 .mn-promo-card__headline {
     font-size: 0.8125rem;
   }
 
-  .ad-banner--728x90 .ad-banner__tagline {
+  .mn-promo-card--728x90 .mn-promo-card__tagline {
     font-size: 0.65rem;
   }
 }
 
 /* --- Per-design accents (border / icon tint) --- */
 
-.ad-banner--resumedoctor {
+.mn-promo-card--resumedoctor {
   border-top: 3px solid #2563eb;
 }
 
-.ad-banner--resumedoctor .ad-banner__icon {
+.mn-promo-card--resumedoctor .mn-promo-card__icon {
   color: #2563eb;
 }
 
-.ad-banner--mynanganallur {
+.mn-promo-card--mynanganallur {
   border-top: 3px solid #059669;
 }
 
-.ad-banner--mynanganallur .ad-banner__icon {
+.mn-promo-card--mynanganallur .mn-promo-card__icon {
   color: #059669;
 }
 
-.ad-banner--colourchemist {
+.mn-promo-card--colourchemist {
   border-top: 3px solid #c026d3;
 }
 
-.ad-banner--colourchemist .ad-banner__icon {
+.mn-promo-card--colourchemist .mn-promo-card__icon {
   color: #a21caf;
 }
 
-.ad-banner--bseri {
+.mn-promo-card--bseri {
   border-top: 3px solid #b45309;
 }
 
-.ad-banner--bseri .ad-banner__icon {
+.mn-promo-card--bseri .mn-promo-card__icon {
   color: #b45309;
 }
 
-.ad-banner--default {
+.mn-promo-card--default {
   border-top: 3px solid var(--accent);
 }
 
-.ad-banner--default .ad-banner__icon {
+.mn-promo-card--default .mn-promo-card__icon {
   color: var(--accent);
 }
 
 /* Legacy class name parity */
-.ad-banner--resumebuilder {
+.mn-promo-card--resumebuilder {
   border-top: 3px solid #2563eb;
 }
 
-.ad-banner--resumebuilder .ad-banner__icon {
+.mn-promo-card--resumebuilder .mn-promo-card__icon {
   color: #2563eb;
 }
 
 /* Row layout */
-.ad-banner-row {
+.mn-promo-row {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   align-items: flex-start;
 }
 
-.ad-banner-row--deduped {
+.mn-promo-row--deduped {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
