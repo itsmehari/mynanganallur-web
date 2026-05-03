@@ -28,8 +28,10 @@ export function PushSubscribeButton() {
 
   if (!supported) return null;
 
-  const vapid = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-  if (!vapid) return null;
+  const vapidRaw = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  if (!vapidRaw) return null;
+  /** Narrowed for closures — TS keeps env vars as `string | undefined` inside nested functions. */
+  const vapidKey: string = vapidRaw;
 
   async function subscribe() {
     setState("subscribing");
@@ -40,7 +42,7 @@ export function PushSubscribeButton() {
         setState("denied");
         return;
       }
-      const applicationServerKey = urlBase64ToUint8Array(vapid) as BufferSource;
+      const applicationServerKey = urlBase64ToUint8Array(vapidKey) as BufferSource;
       const sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey,
