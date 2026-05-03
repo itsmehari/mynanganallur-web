@@ -4,7 +4,7 @@
  * One typed entry-point for every custom event so we have a single grep target
  * and a stable taxonomy across GA4 and Vercel Analytics. Events fired on the
  * server are best-effort logged; client events go through `window.gtag` and
- * `va.track` when present.
+ * `window.va` (Vercel Web Analytics queue) when present.
  *
  * Naming convention: snake_case verb phrases (`submission_success`,
  * `share_click`). Keep payloads small and PII-free.
@@ -28,7 +28,6 @@ export type EventProps = Record<
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
-    va?: (event: "event", name: string, props?: EventProps) => void;
   }
 }
 
@@ -42,7 +41,11 @@ export function track(event: SiteEvent, props: EventProps = {}): void {
       /* swallow — analytics must never break the UI */
     }
     try {
-      window.va?.("event", event, cleaned);
+      const payload =
+        Object.keys(cleaned).length === 0
+          ? { name: event }
+          : { name: event, data: cleaned };
+      window.va?.call(window, "event", payload);
     } catch {
       /* idem */
     }
