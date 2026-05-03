@@ -1,6 +1,7 @@
 /** IAB-style sizes supported by the display-ad renderer */
 export const AD_SIZES = [
   "728x90",
+  "468x60",
   "336x280",
   "300x250",
   "320x50",

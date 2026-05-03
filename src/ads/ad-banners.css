@@ -145,6 +145,40 @@
   margin-bottom: 0.25rem;
 }
 
+/* IAB full banner (horizontal strip) */
+.ad-banner--468x60 {
+  width: 468px;
+  max-width: 100%;
+  min-height: 60px;
+}
+
+.ad-banner--468x60 .ad-banner__inner {
+  flex-direction: row;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  gap: 0.5rem;
+}
+
+.ad-banner--468x60 .ad-banner__headline {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.ad-banner--468x60 .ad-banner__cta {
+  margin-top: 0;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+}
+
+.ad-banner--468x60 .ad-banner__icon .ad-banner__svg {
+  width: 28px;
+  height: 28px;
+}
+
 .ad-banner--320x50 {
   width: 320px;
   max-width: 100%;

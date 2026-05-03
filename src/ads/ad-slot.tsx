@@ -8,6 +8,7 @@ import {
 
 function ctaForSize(size: AdSize): string {
   if (size === "728x90") return "Visit site";
+  if (size === "468x60") return "Visit ResumeDoctor";
   if (size === "320x50") return "Visit";
   return "Learn more";
 }
@@ -26,7 +27,7 @@ function AdBannerCreative({
   const designClass = normalizeAdDesign(creative.design);
   const bannerClass = `ad-banner ad-banner--${size} ad-banner--${designClass}`;
   const ariaLabel = `${creative.advertiser} - ${creative.headline}`;
-  const showTagline = size !== "320x50";
+  const showTagline = size !== "320x50" && size !== "468x60";
 
   return (
     <section

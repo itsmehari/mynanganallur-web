@@ -4,6 +4,14 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-05-03 — Live job: MyFirstStep (Puzhuthivakkam / Sholinganallur)
+
+- **Data:** Seeded open job **Kindergarten teacher & support staff — MyFirstStep** (`slug` `myfirststep-kindergarten-teacher-support-staff`, employer `myfirststep`) via `npm run db:seed:job:myfirststep:live`.
+- **Code:** `scripts/seed-job-myfirststep.ts` (+ npm scripts `db:seed:job:myfirststep` / `:live`).
+- **Jobs UI:** ResumeDoctor **468×60** horizontal strip on `/jobs` and `/jobs/[slug]` (`jobs-posting-468` ad slot, `src/ads/`).
+
+---
+
 ## 2026-03-31 — Jobs, directory public pages, article FAQ JSON-LD, admin revalidate
 
 - **Jobs:** `src/domains/jobs/`, `/jobs` + `/jobs/[slug]` with **JobPosting** JSON-LD; home spotlight from DB; `npm run db:seed:jobs` (+ `:live`).

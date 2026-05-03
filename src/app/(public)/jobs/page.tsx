@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { ListingFilterBar } from "@/components/search/listing-filter-bar";
 import { listOpenJobsForSite } from "@/domains/jobs";
+import { searchAcross } from "@/domains/search";
+import { getSiteUrl } from "@/lib/env";
+import { buildItemListJsonLd } from "@/lib/seo/itemlist-jsonld";
 
 export const revalidate = 120;
 
@@ -27,16 +31,44 @@ function salaryLine(job: {
   return null;
 }
 
-export default async function JobsPage() {
+export default async function JobsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; locality?: string }>;
+}) {
+  const sp = await searchParams;
+  const q = sp.q?.trim() || null;
+  const locality = sp.locality?.trim() || null;
   let rows: Awaited<ReturnType<typeof listOpenJobsForSite>> = [];
   try {
-    rows = await listOpenJobsForSite(80);
+    if (q || locality) {
+      const search = await searchAcross({ q, locality, type: "job", limit: 25 });
+      // Re-fetch full job rows for the matched ids so we get employer joins.
+      const all = await listOpenJobsForSite(200);
+      const ids = new Set(search.hits.job.map((h) => h.id));
+      rows = all.filter((r) => ids.has(r.job.id));
+    } else {
+      rows = await listOpenJobsForSite(80);
+    }
   } catch {
     /* DATABASE_URL unset */
   }
 
+  const itemListLd = buildItemListJsonLd({
+    name: "Jobs near Nanganallur",
+    pageUrl: `${getSiteUrl()}/jobs`,
+    items: rows.map(({ job }) => ({
+      name: job.title,
+      href: `/jobs/${job.slug}`,
+    })),
+  });
+
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+      />
       <p className="text-sm font-medium text-[var(--accent)]">Jobs</p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
         Work near Nanganallur
@@ -46,6 +78,20 @@ export default async function JobsPage() {
         structured data for search. Always verify compensation and requirements
         with the employer.
       </p>
+
+      <ListingFilterBar
+        action="/jobs"
+        q={q ?? undefined}
+        locality={locality ?? undefined}
+        qPlaceholder="Search jobs by title, employer, body…"
+      />
+
+      <AdSlot
+        slotId="jobs-posting-468"
+        size="468x60"
+        seed={buildRotationSeed("/jobs", "jobs-posting-468")}
+        className="mt-8 flex w-full justify-center max-w-full"
+      />
 
       {rows.length === 0 ? (
         <p className="mt-10 max-w-xl text-sm text-[var(--muted)]">

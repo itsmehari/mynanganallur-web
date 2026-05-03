@@ -3,12 +3,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { FaqBlock } from "@/components/faq/faq-block";
+import { RelatedBlock } from "@/components/internal-linking/related-block";
 import { ArticleProse } from "@/components/news/article-prose";
+import { ShareRow } from "@/components/share/share-row";
+import { HelpfulButtons } from "@/components/reactions/helpful";
 import {
   getOpenJobBySlug,
   getOpenJobSlugsForSite,
 } from "@/domains/jobs";
 import { getSiteUrl } from "@/lib/env";
+import { buildOgImageUrl } from "@/lib/seo/og";
 import {
   buildJobBreadcrumbJsonLd,
   buildJobPostingJsonLd,
@@ -58,6 +63,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     stripMarkdownLite(row.job.body).slice(0, 400) ||
       `${row.job.title} at ${row.employer.name}`,
   );
+  const ogImage = buildOgImageUrl({
+    title: row.job.title,
+    kind: "job",
+    locality: row.job.locationLabel ?? null,
+  });
   return {
     title: `${row.job.title} · Jobs`,
     description: desc,
@@ -67,11 +77,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: desc,
       url,
       type: "website",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: row.job.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${row.job.title} · Jobs · mynanganallur.in`,
       description: desc,
+      images: [ogImage],
     },
   };
 }
@@ -130,6 +142,13 @@ export default async function JobDetailPage({ params }: Props) {
       ) : null}
 
       <AdSlot
+        slotId="jobs-posting-468"
+        size="468x60"
+        seed={buildRotationSeed(`/jobs/${slug}`, "jobs-posting-468")}
+        className="mt-6 flex w-full justify-center max-w-full"
+      />
+
+      <AdSlot
         slotId="jobs-detail-top"
         size="728x90"
         seed={buildRotationSeed(`/jobs/${slug}`, "jobs-detail-top")}
@@ -147,6 +166,26 @@ export default async function JobDetailPage({ params }: Props) {
           <ArticleProse content={job.body} />
         </div>
       </section>
+
+      <ShareRow
+        url={`${getSiteUrl()}/jobs/${job.slug}`}
+        title={`${job.title} — ${row.employer.name}`}
+        channelLabel="job"
+      />
+
+      <HelpfulButtons entityType="job" entityId={job.id} />
+
+      <FaqBlock
+        items={job.faqJson?.items ?? null}
+        pageUrl={`${getSiteUrl()}/jobs/${job.slug}`}
+      />
+
+      <RelatedBlock
+        kind="job"
+        excludeId={job.id}
+        locality={job.locationLabel}
+        employerId={row.employer.id}
+      />
 
       <AmazonAffiliateBlock
         variant="compact"

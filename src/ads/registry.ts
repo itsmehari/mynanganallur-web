@@ -11,6 +11,8 @@ import type { Creative } from "./types";
  * - content-mid → `/local-news/topic/[topic]`
  * - listings-index-top → `/directory`
  * - jobs-index-mid → `/jobs`
+ * - jobs-detail-top → `/jobs/[slug]`
+ * - jobs-posting-468 → ResumeDoctor 468×60 strip on `/jobs` + `/jobs/[slug]`
  * - properties-index-mid, properties-detail-top → `/properties`
  * - events-index-mid → `/local-events`
  * - listings-detail-mid → `/areas/[slug]`
@@ -27,6 +29,8 @@ export const ALL_SLOTS = [
   "global-top",
   "jobs-index-top",
   "jobs-index-mid",
+  "jobs-detail-top",
+  "jobs-posting-468",
   "jobs-detail-mid",
   "properties-index-mid",
   "properties-detail-top",
@@ -66,6 +70,17 @@ export const ADS: Creative[] = [
     headline: "Make your resume in minutes",
     tagline:
       "Choose a layout, add your details, download and send to employers",
+    active: true,
+  },
+  {
+    id: "resumedoctor-jobs-468",
+    advertiser: "ResumeDoctor",
+    url: "https://www.resumedoctor.in/",
+    slot_ids: ["jobs-posting-468"],
+    sizes: ["468x60"],
+    design: "resumedoctor",
+    headline: "Make your resume in minutes",
+    tagline: "Layout, details, download — apply with confidence",
     active: true,
   },
   {
