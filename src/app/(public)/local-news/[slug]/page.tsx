@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EditorialArticle } from "@/components/news/editorial-article";
+import { ShareRow } from "@/components/share/share-row";
 import {
   getPublishedArticleBySlug,
   getPublishedSlugsForSite,
 } from "@/domains/news";
 import { getSiteUrl } from "@/lib/env";
+import { buildOgImageUrl } from "@/lib/seo/og";
 import {
   buildFaqPageJsonLd,
   normalizeArticleFaq,
@@ -53,6 +55,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       article.title,
   );
   const titleSegment = `${article.title} · Local news`;
+  const ogImage =
+    article.heroImageUrl ||
+    buildOgImageUrl({
+      title: article.title,
+      kind: "article",
+      locality: article.category ?? null,
+    });
   return {
     title: titleSegment,
     description: desc,
@@ -64,12 +73,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: article.publishedAt?.toISOString(),
       modifiedTime: article.updatedAt.toISOString(),
-      images: article.heroImageUrl ? [{ url: article.heroImageUrl }] : undefined,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: article.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${article.title} · Local news · mynanganallur.in`,
       description: desc,
+      images: [ogImage],
     },
   };
 }
@@ -109,6 +119,13 @@ export default async function ArticlePage({ params }: Props) {
           article={article}
           adSeedPath={`/local-news/${article.slug}`}
         />
+        <div className="mt-6 max-w-[720px]">
+          <ShareRow
+            url={articleUrl}
+            title={article.title}
+            channelLabel="article"
+          />
+        </div>
       </div>
     </>
   );

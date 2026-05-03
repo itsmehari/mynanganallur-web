@@ -3,12 +3,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { FaqBlock } from "@/components/faq/faq-block";
+import { RelatedBlock } from "@/components/internal-linking/related-block";
 import { ArticleProse } from "@/components/news/article-prose";
+import { ShareRow } from "@/components/share/share-row";
+import { HelpfulButtons } from "@/components/reactions/helpful";
 import {
   getPublishedEventBySlug,
   getPublishedEventSlugsForSite,
 } from "@/domains/events";
 import { getSiteUrl } from "@/lib/env";
+import { buildOgImageUrl } from "@/lib/seo/og";
 import {
   buildEventBreadcrumbJsonLd,
   buildEventJsonLd,
@@ -59,6 +64,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? stripMarkdownLite(event.description)
       : `${event.title} — ${event.localityLabel ?? event.venueName ?? "Nanganallur area"}`,
   );
+  const ogImage = buildOgImageUrl({
+    title: event.title,
+    kind: "event",
+    locality: event.localityLabel ?? event.venueName ?? null,
+  });
   return {
     title: `${event.title} · Local events`,
     description: desc,
@@ -68,11 +78,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: desc,
       url,
       type: "website",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: event.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${event.title} · Local events · mynanganallur.in`,
       description: desc,
+      images: [ogImage],
     },
   };
 }
@@ -140,6 +152,25 @@ export default async function EventDetailPage({ params }: Props) {
           </div>
         </section>
       ) : null}
+
+      <ShareRow
+        url={`${getSiteUrl()}/local-events/${event.slug}`}
+        title={event.title}
+        channelLabel="event"
+      />
+
+      <HelpfulButtons entityType="event" entityId={event.id} />
+
+      <FaqBlock
+        items={event.faqJson?.items ?? null}
+        pageUrl={`${getSiteUrl()}/local-events/${event.slug}`}
+      />
+
+      <RelatedBlock
+        kind="event"
+        excludeId={event.id}
+        locality={event.localityLabel}
+      />
 
       <AmazonAffiliateBlock
         variant="compact"

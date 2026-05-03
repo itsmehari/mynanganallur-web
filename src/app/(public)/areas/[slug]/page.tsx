@@ -9,6 +9,8 @@ import {
   nanganallurAreas,
 } from "@/lib/nanganallur-areas";
 import { buildAreaPlaceJsonLd } from "@/lib/seo/area-place-jsonld";
+import { buildBreadcrumbJsonLd } from "@/lib/seo/breadcrumb-jsonld";
+import { buildOgImageUrl } from "@/lib/seo/og";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -25,9 +27,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const raw = `${area.blurb} ${area.geoDirectAnswer}`;
   const description =
     raw.length <= 155 ? raw : `${raw.slice(0, 152).trimEnd()}…`;
+  const ogImage = buildOgImageUrl({
+    title: area.label,
+    kind: "area",
+    locality: "Nanganallur, Chennai",
+  });
   return {
     title: `${area.label} — Nanganallur area hub`,
     description,
+    openGraph: {
+      title: `${area.label} — area hub · mynanganallur.in`,
+      description,
+      type: "website",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: area.label }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${area.label} — area hub · mynanganallur.in`,
+      description,
+      images: [ogImage],
+    },
   };
 }
 
@@ -44,12 +63,21 @@ export default async function AreaPage({ params }: Props) {
     slug: area.slug,
     description: placeDesc,
   });
+  const crumbLd = buildBreadcrumbJsonLd([
+    { name: "Home", href: "/" },
+    { name: "Areas", href: "/" },
+    { name: area.label, href: `/areas/${area.slug}` },
+  ]);
 
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-12 sm:px-6 lg:px-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(placeLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbLd) }}
       />
 
       <p className="text-xs font-medium uppercase tracking-wide text-[var(--muted)]">

@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { ListingFilterBar } from "@/components/search/listing-filter-bar";
 import { listUpcomingEventsForSite } from "@/domains/events";
+import { searchAcross } from "@/domains/search";
+import { getSiteUrl } from "@/lib/env";
+import { buildItemListJsonLd } from "@/lib/seo/itemlist-jsonld";
 
 const canonicalPath = "/local-events";
 
@@ -29,16 +33,43 @@ function formatEventWhen(startsAt: Date, allDay: boolean): string {
   });
 }
 
-export default async function LocalEventsPage() {
+export default async function LocalEventsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; locality?: string }>;
+}) {
+  const sp = await searchParams;
+  const q = sp.q?.trim() || null;
+  const locality = sp.locality?.trim() || null;
   let upcoming: Awaited<ReturnType<typeof listUpcomingEventsForSite>> = [];
   try {
-    upcoming = await listUpcomingEventsForSite(50);
+    if (q || locality) {
+      const search = await searchAcross({ q, locality, type: "event", limit: 25 });
+      const all = await listUpcomingEventsForSite(200);
+      const ids = new Set(search.hits.event.map((h) => h.id));
+      upcoming = all.filter((e) => ids.has(e.id));
+    } else {
+      upcoming = await listUpcomingEventsForSite(50);
+    }
   } catch {
     /* DATABASE_URL unset or DB unreachable */
   }
 
+  const itemListLd = buildItemListJsonLd({
+    name: "Upcoming local events near Nanganallur",
+    pageUrl: `${getSiteUrl()}/local-events`,
+    items: upcoming.map((e) => ({
+      name: e.title,
+      href: `/local-events/${e.slug}`,
+    })),
+  });
+
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+      />
       <p className="text-sm font-medium text-[var(--accent-warm)]">
         Local events
       </p>
@@ -50,6 +81,13 @@ export default async function LocalEventsPage() {
         the Nanganallur site. Open an event for full details — confirm dates
         and tickets with the organiser when contact info is provided.
       </p>
+
+      <ListingFilterBar
+        action="/local-events"
+        q={q ?? undefined}
+        locality={locality ?? undefined}
+        qPlaceholder="Search events…"
+      />
 
       {upcoming.length === 0 ? (
         <p className="mt-10 max-w-xl text-sm text-[var(--muted)]">

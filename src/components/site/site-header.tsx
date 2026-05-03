@@ -38,14 +38,29 @@ export function SiteHeader() {
         <MegaNavDesktop />
 
         <div className="ml-auto flex shrink-0 items-center gap-2">
-          <button
-            type="button"
-            className="focus-ring hidden min-h-11 rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-semibold text-[var(--muted)] shadow-sm transition hover:border-[var(--accent)] hover:text-[var(--foreground)] sm:inline-flex"
-            aria-disabled
-            title="Search coming soon"
+          <form
+            action="/search"
+            method="get"
+            role="search"
+            className="hidden min-h-11 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 sm:inline-flex"
           >
-            Search
-          </button>
+            <label htmlFor="header-search" className="sr-only">
+              Search mynanganallur.in
+            </label>
+            <input
+              id="header-search"
+              type="search"
+              name="q"
+              placeholder="Search…"
+              className="w-44 bg-transparent text-sm text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-semibold text-white"
+            >
+              Go
+            </button>
+          </form>
           <button
             type="button"
             className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl text-[var(--foreground)] md:hidden"

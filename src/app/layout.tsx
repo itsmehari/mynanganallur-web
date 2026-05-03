@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteAnalytics } from "@/components/analytics";
+import { RegisterSW } from "@/components/pwa/register-sw";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,6 +18,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   userScalable: true,
+  themeColor: "#0f766e",
 };
 
 export const metadata: Metadata = {
@@ -43,6 +45,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full min-w-0 flex-col">
         <SiteAnalytics />
+        <RegisterSW />
         {children}
       </body>
     </html>

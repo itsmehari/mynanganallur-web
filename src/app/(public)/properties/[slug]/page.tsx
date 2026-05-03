@@ -3,12 +3,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { FaqBlock } from "@/components/faq/faq-block";
+import { RelatedBlock } from "@/components/internal-linking/related-block";
 import { ArticleProse } from "@/components/news/article-prose";
+import { ShareRow } from "@/components/share/share-row";
+import { HelpfulButtons } from "@/components/reactions/helpful";
 import {
   getPublishedPropertyBySlug,
   getPublishedPropertySlugsForSite,
 } from "@/domains/properties";
 import { getSiteUrl } from "@/lib/env";
+import { buildOgImageUrl } from "@/lib/seo/og";
 import {
   buildPropertyBreadcrumbJsonLd,
   buildPropertyListingJsonLd,
@@ -65,6 +70,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       stripMarkdownLite(row.body).slice(0, 400) ||
       row.title,
   );
+  const ogImage = row.heroImageUrl
+    ? row.heroImageUrl
+    : buildOgImageUrl({
+        title: row.title,
+        kind: "property",
+        locality: row.localityLabel ?? null,
+      });
   return {
     title: `${row.title} · Properties`,
     description: desc,
@@ -74,10 +86,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: desc,
       url,
       type: "website",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: row.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${row.title} · Properties · mynanganallur.in`,
+      images: [ogImage],
       description: desc,
     },
   };
@@ -213,6 +227,25 @@ export default async function PropertyDetailPage({ params }: Props) {
           <ArticleProse content={row.body} />
         </div>
       </section>
+
+      <ShareRow
+        url={`${getSiteUrl()}/properties/${row.slug}`}
+        title={row.title}
+        channelLabel="property"
+      />
+
+      <HelpfulButtons entityType="property" entityId={row.id} />
+
+      <FaqBlock
+        items={row.faqJson?.items ?? null}
+        pageUrl={`${getSiteUrl()}/properties/${row.slug}`}
+      />
+
+      <RelatedBlock
+        kind="property"
+        excludeId={row.id}
+        locality={row.localityLabel}
+      />
 
       <AmazonAffiliateBlock
         variant="compact"

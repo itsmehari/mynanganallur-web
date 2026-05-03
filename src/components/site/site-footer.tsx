@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { nanganallurAreas } from "@/lib/nanganallur-areas";
 import { getAmazonAffiliateUrl } from "@/lib/amazon-affiliate";
 
@@ -154,11 +155,14 @@ export function SiteFooter() {
           <FooterColumn title="Legal" links={legalLinks} />
           <div>
             <p className="border-b border-[var(--footer-border)] pb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--footer-muted)]">
-              Follow
+              Weekly digest
             </p>
             <p className="mt-4 text-sm text-[var(--footer-muted)]">
-              Social links coming soon.
+              5 stories, fresh jobs, events &amp; properties — every Sunday.
             </p>
+            <div className="mt-3">
+              <NewsletterForm source="footer" compact />
+            </div>
           </div>
         </div>
 

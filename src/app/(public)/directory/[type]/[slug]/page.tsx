@@ -3,12 +3,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { FaqBlock } from "@/components/faq/faq-block";
+import { ShareRow } from "@/components/share/share-row";
+import { HelpfulButtons } from "@/components/reactions/helpful";
 import {
   getDirectoryEntryByTypeSlug,
   isDirectoryTypeSlug,
   listDirectoryParamsForStatic,
 } from "@/domains/directory";
 import { getSiteUrl } from "@/lib/env";
+import { buildOgImageUrl } from "@/lib/seo/og";
 import {
   buildDirectoryBreadcrumbJsonLd,
   buildDirectoryEntryJsonLd,
@@ -57,6 +61,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .filter(Boolean)
     .join(" · ")
     .slice(0, 155);
+  const ogImage = buildOgImageUrl({
+    title: entry.name,
+    kind: "business",
+    locality: entry.localityLabel ?? "Nanganallur",
+  });
   return {
     title: `${entry.name} · Directory`,
     description: desc,
@@ -66,6 +75,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: desc,
       url,
       type: "website",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: entry.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${entry.name} · Directory · mynanganallur.in`,
+      description: desc,
+      images: [ogImage],
     },
   };
 }
@@ -167,6 +183,19 @@ export default async function DirectoryEntryPage({ params }: Props) {
         )}
         className="mt-8 max-w-full"
       />
+      <ShareRow
+        url={`${getSiteUrl()}/directory/${type}/${entry.slug}`}
+        title={entry.name}
+        channelLabel="directory"
+      />
+
+      <HelpfulButtons entityType="directory" entityId={entry.id} />
+
+      <FaqBlock
+        items={entry.faqJson?.items ?? null}
+        pageUrl={`${getSiteUrl()}/directory/${type}/${entry.slug}`}
+      />
+
       <AmazonAffiliateBlock
         variant="compact"
         placement="hub-directory"

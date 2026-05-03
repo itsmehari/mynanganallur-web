@@ -6,6 +6,8 @@ import {
   listDirectoryEntriesForSite,
   type DirectoryTypeSlug,
 } from "@/domains/directory";
+import { getSiteUrl } from "@/lib/env";
+import { buildItemListJsonLd } from "@/lib/seo/itemlist-jsonld";
 
 export const revalidate = 120;
 
@@ -38,8 +40,21 @@ export default async function DirectoryPage() {
     byType.set(t, list);
   }
 
+  const itemListLd = buildItemListJsonLd({
+    name: "Local directory — Nanganallur",
+    pageUrl: `${getSiteUrl()}/directory`,
+    items: entries.slice(0, 50).map((e) => ({
+      name: e.name,
+      href: `/directory/${e.type}/${e.slug}`,
+    })),
+  });
+
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+      />
       <p className="text-sm font-medium text-[var(--accent)]">Directory</p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
         Explore places and businesses

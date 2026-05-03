@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { ListingFilterBar } from "@/components/search/listing-filter-bar";
 import { listPublishedPropertiesForSite } from "@/domains/properties";
+import { searchAcross } from "@/domains/search";
+import { getSiteUrl } from "@/lib/env";
+import { buildItemListJsonLd } from "@/lib/seo/itemlist-jsonld";
 
 export const revalidate = 120;
 
@@ -32,16 +36,48 @@ function priceLine(p: {
   return null;
 }
 
-export default async function PropertiesPage() {
+export default async function PropertiesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; locality?: string }>;
+}) {
+  const sp = await searchParams;
+  const q = sp.q?.trim() || null;
+  const locality = sp.locality?.trim() || null;
   let rows: Awaited<ReturnType<typeof listPublishedPropertiesForSite>> = [];
   try {
-    rows = await listPublishedPropertiesForSite(80);
+    if (q || locality) {
+      const search = await searchAcross({
+        q,
+        locality,
+        type: "property",
+        limit: 25,
+      });
+      const all = await listPublishedPropertiesForSite(200);
+      const ids = new Set(search.hits.property.map((h) => h.id));
+      rows = all.filter((p) => ids.has(p.id));
+    } else {
+      rows = await listPublishedPropertiesForSite(80);
+    }
   } catch {
     /* DATABASE_URL unset */
   }
 
+  const itemListLd = buildItemListJsonLd({
+    name: "Properties for rent & sale near Nanganallur",
+    pageUrl: `${getSiteUrl()}/properties`,
+    items: rows.map((p) => ({
+      name: p.title,
+      href: `/properties/${p.slug}`,
+    })),
+  });
+
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+      />
       <p className="text-sm font-medium text-[var(--accent)]">Properties</p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
         Rent &amp; sale near Nanganallur
@@ -51,6 +87,13 @@ export default async function PropertiesPage() {
         advertiser-submitted: visit the property and verify paperwork before you
         transfer money.
       </p>
+
+      <ListingFilterBar
+        action="/properties"
+        q={q ?? undefined}
+        locality={locality ?? undefined}
+        qPlaceholder="Search properties…"
+      />
 
       {rows.length === 0 ? (
         <p className="mt-10 max-w-xl text-sm text-[var(--muted)]">
