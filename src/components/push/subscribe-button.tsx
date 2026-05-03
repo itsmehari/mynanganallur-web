@@ -40,9 +40,10 @@ export function PushSubscribeButton() {
         setState("denied");
         return;
       }
+      const applicationServerKey = urlBase64ToUint8Array(vapid) as BufferSource;
       const sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(vapid as string),
+        applicationServerKey,
       });
       const r = await fetch("/api/push/subscribe", {
         method: "POST",
