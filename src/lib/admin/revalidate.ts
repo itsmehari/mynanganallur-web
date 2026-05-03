@@ -20,7 +20,7 @@ const ENTITY_PATHS: Record<EntityKind, string[]> = {
 
 export function revalidateForEntity(kind: EntityKind, slug?: string): void {
   try {
-    revalidateTag(ENTITY_TAG[kind]);
+    revalidateTag(ENTITY_TAG[kind], "max");
   } catch {
     /* tag may not be registered yet */
   }
