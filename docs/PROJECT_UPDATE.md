@@ -4,6 +4,14 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-05-05 — Live job: Accounts candidate (GST/TDS, Zoho preferred)
+
+- **Data:** Seeded open job **Accounts candidate (GST/TDS filing) - Immediate joiners** (`slug` `accounts-candidate-gst-tds-zoho-nanganallur`, employer `s-manoharan`) via `npm run db:seed:job:manoharan-accounts:live`.
+- **Compensation:** Published CTC range **₹4.80-₹5.50 lakhs per annum** with immediate joining note and contact **+91 63803 51319**.
+- **Code:** `scripts/seed-job-manoharan-accounts.ts` (+ npm scripts `db:seed:job:manoharan-accounts` / `:live`).
+
+---
+
 ## 2026-05-03 — Live job: MyFirstStep (Puzhuthivakkam / Sholinganallur)
 
 - **Data:** Seeded open job **Kindergarten teacher & support staff — MyFirstStep** (`slug` `myfirststep-kindergarten-teacher-support-staff`, employer `myfirststep`) via `npm run db:seed:job:myfirststep:live`.

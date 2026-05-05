@@ -29,6 +29,8 @@
     "db:seed:job:madipakkam-cafe:live": "tsx scripts/seed-job-madipakkam-cafe.ts --live",
     "db:seed:job:myfirststep": "tsx scripts/seed-job-myfirststep.ts",
     "db:seed:job:myfirststep:live": "tsx scripts/seed-job-myfirststep.ts --live",
+    "db:seed:job:manoharan-accounts": "tsx scripts/seed-job-manoharan-accounts.ts",
+    "db:seed:job:manoharan-accounts:live": "tsx scripts/seed-job-manoharan-accounts.ts --live",
     "db:seed:property:guruvayoorappan": "tsx scripts/seed-property-guruvayoorappan.ts",
     "db:seed:property:guruvayoorappan:live": "tsx scripts/seed-property-guruvayoorappan.ts --live",
     "db:ensure:faq-column": "tsx scripts/ensure-article-faq-column.ts",
