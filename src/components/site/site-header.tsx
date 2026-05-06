@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { MegaNavDesktop } from "./mega-nav-desktop";
@@ -19,11 +20,15 @@ export function SiteHeader() {
           className="group flex shrink-0 items-center gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           onClick={closeMobile}
         >
-          <span
-            className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--accent)] text-sm font-bold text-[var(--accent-fg)] shadow-md transition group-hover:scale-[1.03] group-hover:shadow-lg md:h-12 md:w-12 md:rounded-2xl md:text-base"
-            aria-hidden
-          >
-            MN
+          <span className="relative flex h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-[var(--surface)] shadow-md ring-1 ring-[var(--border)] transition group-hover:scale-[1.03] group-hover:shadow-lg md:h-12 md:w-12 md:rounded-2xl">
+            <Image
+              src="/MyNanganallur-logo.png"
+              alt=""
+              width={96}
+              height={96}
+              className="h-full w-full object-contain p-0.5"
+              priority
+            />
           </span>
           <span className="hidden min-w-0 flex-col leading-tight sm:flex">
             <span className="font-serif text-base font-bold tracking-tight text-[var(--foreground)] md:text-lg">

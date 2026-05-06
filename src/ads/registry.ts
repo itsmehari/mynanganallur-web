@@ -67,6 +67,7 @@ export const ADS: Creative[] = [
     slot_ids: ALL,
     sizes: ["728x90", "336x280", "300x250", "320x50"],
     design: "resumedoctor",
+    bannerFeatures: ["Templates", "Fast edit", "Export PDF"],
     headline: "Make your resume in minutes",
     tagline:
       "Choose a layout, add your details, download and send to employers",

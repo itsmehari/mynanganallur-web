@@ -17,7 +17,7 @@ export function buildNewsArticleJsonLd(article: PublicArticleRow) {
     article.summary ??
     article.dek ??
     stripMarkdownLite(article.reportBody ?? article.body ?? "");
-  const image = article.heroImageUrl ?? `${base}/favicon.ico`;
+  const image = article.heroImageUrl ?? `${base}/MyNanganallur-logo.png`;
   const published = article.publishedAt?.toISOString() ?? article.createdAt.toISOString();
   const modified = article.updatedAt.toISOString();
 
@@ -40,7 +40,7 @@ export function buildNewsArticleJsonLd(article: PublicArticleRow) {
       url: base,
       logo: {
         "@type": "ImageObject",
-        url: `${base}/favicon.ico`,
+        url: `${base}/MyNanganallur-logo.png`,
       },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },

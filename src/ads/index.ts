@@ -1,4 +1,5 @@
-export type { AdDesign, AdSize, Creative } from "./types";
+export type { AdDesign, AdSize, BannerTemplate, Creative } from "./types";
+export { resolveBannerTemplate } from "./banner-template";
 export { AD_SIZES } from "./types";
 export { ALL_SLOTS, ADS } from "./registry";
 export type { AdSlotId } from "./registry";

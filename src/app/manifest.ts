@@ -18,7 +18,7 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["news", "lifestyle", "social"],
     icons: [
       {
-        src: "/home-hero-scene.png",
+        src: "/MyNanganallur-logo.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "any",

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { AdSize, Creative } from "./types";
 import { AdBannerIcon, normalizeAdDesign } from "./ad-banner-icons";
+import { resolveBannerTemplate } from "./banner-template";
 import {
   pickCreativesForRow,
   selectCreative,
@@ -34,12 +35,17 @@ function AdBannerCreative({
   className?: string;
 }) {
   const designClass = normalizeAdDesign(creative.design);
+  const template = resolveBannerTemplate(
+    creative.design,
+    creative.bannerTemplate,
+  );
   const showHero =
     Boolean(creative.heroImageUrl?.trim()) && sizeSupportsHero(size);
 
   const bannerClass = [
     "mn-promo-card",
     `mn-promo-card--${size}`,
+    `mn-promo-card--tpl-${template}`,
     `mn-promo-card--${designClass}`,
     showHero ? "mn-promo-card--has-hero" : "",
   ]
@@ -66,6 +72,72 @@ function AdBannerCreative({
         ? "(max-width: 420px) 100vw, 336px"
         : "(max-width: 380px) 100vw, 300px";
 
+  const features = (creative.bannerFeatures ?? []).slice(0, 3);
+  const showFeatureRow =
+    features.length > 0 &&
+    (template === "tech-gradient" || template === "modular") &&
+    !useHorizontalStrip;
+
+  const splitPromoCopyFirst =
+    template === "split-promo" &&
+    !useHorizontalStrip &&
+    (size === "728x90" || size === "336x280" || size === "300x250");
+
+  const showBrandmark = template === "modular" && !useHorizontalStrip;
+
+  const visualBlock = (
+    <span className="mn-promo-card__visual">
+      {showHero ? (
+        <span className="mn-promo-card__hero">
+          <Image
+            src={heroSrc}
+            alt={heroAlt}
+            fill
+            sizes={heroSizes728}
+            className="mn-promo-card__hero-img"
+          />
+        </span>
+      ) : (
+        <span className={railMods} aria-hidden>
+          <AdBannerIcon
+            design={creative.design}
+            className="mn-promo-card__svg"
+          />
+        </span>
+      )}
+    </span>
+  );
+
+  const copyBlock = (
+    <span
+      className={
+        useHorizontalStrip
+          ? "mn-promo-card__body mn-promo-card__body--hstrip"
+          : "mn-promo-card__body"
+      }
+    >
+      {showBrandmark ? (
+        <span className="mn-promo-card__brandmark">{creative.advertiser}</span>
+      ) : null}
+      {showFeatureRow ? (
+        <span className="mn-promo-card__features" aria-hidden>
+          {features.map((label) => (
+            <span key={label} className="mn-promo-card__feature">
+              {label}
+            </span>
+          ))}
+        </span>
+      ) : null}
+      <span className="mn-promo-card__headline">{creative.headline}</span>
+      {showTagline ? (
+        <span className="mn-promo-card__tagline">{creative.tagline}</span>
+      ) : null}
+      <span className="mn-promo-card__cta mn-promo-card__cta--pill">
+        {ctaForSize(size)}
+      </span>
+    </span>
+  );
+
   return (
     <aside
       className={`mn-promo-host ${className}`.trim()}
@@ -82,39 +154,17 @@ function AdBannerCreative({
         data-mn-promo-id={creative.id}
       >
         <span className="mn-promo-card__inner">
-          {showHero ? (
-            <span className="mn-promo-card__hero">
-              <Image
-                src={heroSrc}
-                alt={heroAlt}
-                fill
-                sizes={heroSizes728}
-                className="mn-promo-card__hero-img"
-              />
-            </span>
+          {splitPromoCopyFirst ? (
+            <>
+              {copyBlock}
+              {visualBlock}
+            </>
           ) : (
-            <span className={railMods} aria-hidden>
-              <AdBannerIcon
-                design={creative.design}
-                className="mn-promo-card__svg"
-              />
-            </span>
+            <>
+              {visualBlock}
+              {copyBlock}
+            </>
           )}
-          <span
-            className={
-              useHorizontalStrip
-                ? "mn-promo-card__body mn-promo-card__body--hstrip"
-                : "mn-promo-card__body"
-            }
-          >
-            <span className="mn-promo-card__headline">{creative.headline}</span>
-            {showTagline ? (
-              <span className="mn-promo-card__tagline">{creative.tagline}</span>
-            ) : null}
-            <span className="mn-promo-card__cta mn-promo-card__cta--pill">
-              {ctaForSize(size)}
-            </span>
-          </span>
         </span>
       </a>
     </aside>

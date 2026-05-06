@@ -31,6 +31,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://mynanganallur.in",
   ),
+  icons: {
+    icon: [{ url: "/MyNanganallur-logo.png", type: "image/png" }],
+    apple: "/MyNanganallur-logo.png",
+  },
 };
 
 export default function RootLayout({

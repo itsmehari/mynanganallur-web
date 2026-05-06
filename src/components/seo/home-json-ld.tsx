@@ -20,7 +20,7 @@ export function HomeJsonLd() {
         "@id": `${base}/#org`,
         name: "mynanganallur.in",
         url: base,
-        logo: `${base}/favicon.ico`,
+        logo: `${base}/MyNanganallur-logo.png`,
       },
     ],
   };

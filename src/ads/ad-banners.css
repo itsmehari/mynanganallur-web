@@ -1,6 +1,5 @@
-/* Inline promos — BEM with neutral class names so common ad blockers do not
-   hide partner placements (EasyList often targets `.ad-banner`, "Ad", etc.).
-   Uses site tokens from globals.css :root */
+/* Partner promos — neutral BEM class names (ad-blocker safe).
+   Template system: mn-promo-card--tpl-{diagonal-corporate|minimal-service|tech-gradient|split-promo|modular} */
 
 .mn-promo-host {
   display: flex;
@@ -20,6 +19,7 @@
 }
 
 .mn-promo-card {
+  position: relative;
   display: block;
   box-sizing: border-box;
   max-width: 100%;
@@ -29,6 +29,7 @@
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   overflow: hidden;
+  isolation: isolate;
   --mn-promo-rail-bg: color-mix(in srgb, var(--accent) 12%, var(--surface));
   --mn-promo-rail-edge: color-mix(in srgb, var(--accent) 22%, var(--border));
   --mn-promo-pill-bg: color-mix(in srgb, var(--accent) 18%, transparent);
@@ -36,12 +37,13 @@
   --mn-promo-rail-icon: var(--accent);
   transition:
     border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .mn-promo-card:hover {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
-  box-shadow: 0 8px 28px color-mix(in srgb, var(--foreground) 6%, transparent);
+  box-shadow: 0 12px 36px color-mix(in srgb, var(--foreground) 8%, transparent);
 }
 
 .mn-promo-card:focus-visible {
@@ -54,13 +56,20 @@
   align-items: stretch;
   height: 100%;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 
-/* --- Icon rail (Tier 1) or hero (Tier 2) --- */
+.mn-promo-card__visual {
+  display: flex;
+  flex-shrink: 0;
+  align-items: stretch;
+  align-self: stretch;
+}
 
 .mn-promo-card__rail {
   display: flex;
-  flex-shrink: 0;
+  flex: 1;
   align-items: center;
   justify-content: center;
   align-self: stretch;
@@ -79,7 +88,7 @@
 
 .mn-promo-card__hero {
   position: relative;
-  flex-shrink: 0;
+  flex: 1;
   overflow: hidden;
   background: var(--mn-promo-rail-bg);
 }
@@ -87,8 +96,6 @@
 .mn-promo-card__hero-img {
   object-fit: cover;
 }
-
-/* --- Copy + CTA --- */
 
 .mn-promo-card__svg {
   display: block;
@@ -119,6 +126,37 @@
   margin-top: 0;
 }
 
+.mn-promo-card__body--hstrip .mn-promo-card__features,
+.mn-promo-card__body--hstrip .mn-promo-card__brandmark {
+  display: none;
+}
+
+.mn-promo-card__brandmark {
+  font-size: 0.58rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  opacity: 0.9;
+}
+
+.mn-promo-card__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.05rem;
+}
+
+.mn-promo-card__feature {
+  font-size: 0.52rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.18rem 0.45rem;
+  border-radius: 4px;
+  line-height: 1.2;
+}
+
 .mn-promo-card__headline {
   font-weight: 700;
   font-size: 0.8125rem;
@@ -139,7 +177,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 0.2rem;
-  padding: 0.38rem 0.85rem;
+  padding: 0.4rem 0.95rem;
   border-radius: 999px;
   font-size: 0.625rem;
   font-weight: 700;
@@ -156,10 +194,10 @@
 
 .mn-promo-card:hover .mn-promo-card__cta--pill {
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px color-mix(in srgb, var(--foreground) 10%, transparent);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--foreground) 12%, transparent);
 }
 
-/* --- Leaderboard 728×90 --- */
+/* --- Sizes: leaderboard --- */
 
 .mn-promo-card--728x90 {
   width: 728px;
@@ -169,16 +207,11 @@
 
 .mn-promo-card--728x90 .mn-promo-card__inner {
   flex-direction: row;
-  align-items: stretch;
   gap: 0;
 }
 
-.mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__rail {
+.mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__visual {
   flex: 0 0 5.35rem;
-}
-
-.mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__body {
-  padding: 0.75rem 1.05rem 0.75rem 0.95rem;
 }
 
 .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__rail .mn-promo-card__svg {
@@ -186,30 +219,35 @@
   height: 34px;
 }
 
+.mn-promo-card--728x90 .mn-promo-card__body {
+  padding: 0.75rem 1.05rem 0.75rem 0.95rem;
+}
+
 .mn-promo-card--728x90 .mn-promo-card__headline {
-  font-size: 1rem;
-  line-height: 1.22;
-  letter-spacing: -0.01em;
+  font-size: 1.02rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .mn-promo-card--728x90 .mn-promo-card__tagline {
   font-size: 0.78rem;
-  max-width: 34rem;
+  max-width: 36rem;
+}
+
+.mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__visual {
+  flex: 0 0 clamp(150px, 36%, 268px);
+  min-height: 90px;
 }
 
 .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__hero {
-  flex: 0 0 clamp(150px, 36%, 264px);
   min-height: 90px;
-  clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
 }
 
 .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__body {
   padding: 0.82rem 1.15rem;
-  justify-content: center;
 }
 
-/* --- Rectangles 336×280 / 300×250 --- */
-
+/* Rectangles */
 .mn-promo-card--336x280,
 .mn-promo-card--300x250 {
   width: 100%;
@@ -232,7 +270,12 @@
 .mn-promo-card--300x250:not(.mn-promo-card--has-hero) .mn-promo-card__inner {
   flex-direction: column;
   gap: 0;
-  padding: 0;
+}
+
+.mn-promo-card--336x280:not(.mn-promo-card--has-hero) .mn-promo-card__visual,
+.mn-promo-card--300x250:not(.mn-promo-card--has-hero) .mn-promo-card__visual {
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .mn-promo-card--336x280:not(.mn-promo-card--has-hero) .mn-promo-card__body,
@@ -251,28 +294,31 @@
 }
 
 .mn-promo-card--336x280 .mn-promo-card__headline {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
 }
 
 .mn-promo-card--336x280.mn-promo-card--has-hero .mn-promo-card__inner,
 .mn-promo-card--300x250.mn-promo-card--has-hero .mn-promo-card__inner {
   flex-direction: column;
   gap: 0;
-  padding: 0;
+}
+
+.mn-promo-card--336x280.mn-promo-card--has-hero .mn-promo-card__visual,
+.mn-promo-card--300x250.mn-promo-card--has-hero .mn-promo-card__visual {
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .mn-promo-card--336x280.mn-promo-card--has-hero .mn-promo-card__hero {
   width: 100%;
   height: min(46%, 132px);
   min-height: 118px;
-  clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
 }
 
 .mn-promo-card--300x250.mn-promo-card--has-hero .mn-promo-card__hero {
   width: 100%;
   height: min(44%, 118px);
   min-height: 108px;
-  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
 }
 
 .mn-promo-card--336x280.mn-promo-card--has-hero .mn-promo-card__body,
@@ -281,8 +327,7 @@
   flex: 1;
 }
 
-/* --- Full banner 468×60 --- */
-
+/* 468 × 60 */
 .mn-promo-card--468x60 {
   width: 468px;
   max-width: 100%;
@@ -291,11 +336,10 @@
 
 .mn-promo-card--468x60 .mn-promo-card__inner {
   flex-direction: row;
-  align-items: stretch;
   gap: 0;
 }
 
-.mn-promo-card--468x60 .mn-promo-card__rail {
+.mn-promo-card--468x60 .mn-promo-card__visual {
   flex: 0 0 3.6rem;
 }
 
@@ -315,6 +359,7 @@
 .mn-promo-card--468x60 .mn-promo-card__cta--pill {
   padding: 0.28rem 0.55rem;
   font-size: 0.58rem;
+  border-radius: 6px;
 }
 
 .mn-promo-card--468x60 .mn-promo-card__rail .mn-promo-card__svg {
@@ -322,8 +367,7 @@
   height: 28px;
 }
 
-/* --- Mobile banner 320×50 --- */
-
+/* 320 × 50 */
 .mn-promo-card--320x50 {
   width: 320px;
   max-width: 100%;
@@ -332,11 +376,10 @@
 
 .mn-promo-card--320x50 .mn-promo-card__inner {
   flex-direction: row;
-  align-items: stretch;
   gap: 0;
 }
 
-.mn-promo-card--320x50 .mn-promo-card__rail {
+.mn-promo-card--320x50 .mn-promo-card__visual {
   flex: 0 0 3rem;
 }
 
@@ -356,6 +399,7 @@
 .mn-promo-card--320x50 .mn-promo-card__cta--pill {
   padding: 0.24rem 0.5rem;
   font-size: 0.56rem;
+  border-radius: 6px;
 }
 
 .mn-promo-card--320x50 .mn-promo-card__rail .mn-promo-card__svg {
@@ -363,29 +407,26 @@
   height: 22px;
 }
 
-/* --- Narrow / stacked leaderboard --- */
-
 @media (max-width: 760px) {
   .mn-promo-card--728x90 {
     min-height: auto;
-  }
-
-  .mn-promo-card--728x90 .mn-promo-card__inner {
-    flex-wrap: nowrap;
   }
 
   .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__inner {
     flex-wrap: wrap;
   }
 
-  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__rail {
+  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__visual {
     flex: 0 0 100%;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0.5rem 0.75rem;
-    min-height: 0;
+    width: 100%;
+  }
+
+  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__rail--roof,
+  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__rail {
     border-right: none;
     border-bottom: 1px solid var(--mn-promo-rail-edge);
+    padding: 0.5rem 0.75rem;
+    min-height: 0;
   }
 
   .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__body {
@@ -394,83 +435,392 @@
   }
 
   .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__headline {
-    font-size: 0.875rem;
-  }
-
-  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__tagline {
-    font-size: 0.68rem;
+    font-size: 0.9rem;
   }
 
   .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__inner {
     flex-direction: column;
   }
 
-  .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__hero {
+  .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__visual {
     flex: 0 0 auto;
     width: 100%;
     min-height: 124px;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
   .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__body {
     padding: 0.82rem 0.95rem;
   }
 
-  .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__headline {
-    font-size: 0.9125rem;
+  /* split-promo: stack copy first on mobile */
+  .mn-promo-card--728x90.mn-promo-card--tpl-split-promo .mn-promo-card__inner {
+    flex-direction: column;
+  }
+
+  .mn-promo-card--728x90.mn-promo-card--tpl-split-promo .mn-promo-card__visual {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 100px;
   }
 }
 
-/* --- Per-design accents --- */
+/* ========== Template: Bold diagonal corporate (BSERI) ========== */
+.mn-promo-card--tpl-diagonal-corporate {
+  background: linear-gradient(145deg, #0f172a 0%, #1e293b 45%, #172554 100%);
+  border-color: color-mix(in srgb, #f97316 35%, #334155);
+  color: #f8fafc;
+}
 
+.mn-promo-card--tpl-diagonal-corporate::before,
+.mn-promo-card--tpl-diagonal-corporate::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.mn-promo-card--tpl-diagonal-corporate::before {
+  width: 120%;
+  height: 70%;
+  left: -35%;
+  bottom: -25%;
+  background: linear-gradient(35deg, transparent 40%, color-mix(in srgb, #f97316 75%, transparent) 40%, #ea580c 100%);
+  transform: rotate(-12deg);
+  opacity: 0.85;
+}
+
+.mn-promo-card--tpl-diagonal-corporate::after {
+  width: 45%;
+  height: 100%;
+  right: -8%;
+  top: 0;
+  background: linear-gradient(-55deg, transparent 35%, color-mix(in srgb, #fb923c 55%, transparent) 35%);
+  opacity: 0.5;
+}
+
+.mn-promo-card--tpl-diagonal-corporate .mn-promo-card__rail {
+  background: color-mix(in srgb, #f97316 18%, #0f172a);
+  border-color: color-mix(in srgb, #fb923c 40%, transparent);
+  color: #fed7aa;
+}
+
+.mn-promo-card--tpl-diagonal-corporate .mn-promo-card__headline {
+  color: #f8fafc;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+}
+
+.mn-promo-card--tpl-diagonal-corporate .mn-promo-card__tagline {
+  color: color-mix(in srgb, #f8fafc 72%, transparent);
+}
+
+.mn-promo-card--tpl-diagonal-corporate .mn-promo-card__cta--pill {
+  border-radius: 5px;
+  background: linear-gradient(180deg, #fb923c, #ea580c);
+  color: #fff;
+  border-color: #c2410c;
+  box-shadow: 0 2px 0 #9a3412;
+}
+
+.mn-promo-card--tpl-diagonal-corporate.mn-promo-card--336x280 .mn-promo-card__hero-img,
+.mn-promo-card--tpl-diagonal-corporate.mn-promo-card--728x90 .mn-promo-card__hero-img {
+  filter: grayscale(0.35) contrast(1.05) brightness(0.75);
+}
+
+/* ========== Template: Clean white minimal (local hub + hero) ========== */
+.mn-promo-card--tpl-minimal-service {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-color: #e2e8f0;
+}
+
+.mn-promo-card--tpl-minimal-service .mn-promo-card__rail {
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  border-color: #cbd5e1;
+  color: #0d9488;
+}
+
+.mn-promo-card--tpl-minimal-service .mn-promo-card__headline {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.mn-promo-card--tpl-minimal-service .mn-promo-card__tagline {
+  color: #475569;
+}
+
+.mn-promo-card--tpl-minimal-service .mn-promo-card__cta--pill {
+  border-radius: 6px;
+  background: #0d9488;
+  color: #fff;
+  border-color: #0f766e;
+}
+
+.mn-promo-card--tpl-minimal-service.mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__inner {
+  flex-direction: row-reverse;
+}
+
+.mn-promo-card--tpl-minimal-service.mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__hero {
+  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.mn-promo-card--tpl-minimal-service.mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__body {
+  padding-left: 1.2rem;
+}
+
+.mn-promo-card--tpl-minimal-service.mn-promo-card--has-hero .mn-promo-card__hero-img {
+  filter: saturate(1.05);
+}
+
+/* ========== Template: Blue tech gradient (ResumeDoctor) ========== */
+.mn-promo-card--tpl-tech-gradient {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 8px,
+      rgba(56, 189, 248, 0.06) 8px,
+      rgba(56, 189, 248, 0.06) 9px
+    ),
+    linear-gradient(125deg, #0c4a6e 0%, #0369a1 42%, #0891b2 78%, #06b6d4 100%);
+  border-color: color-mix(in srgb, #38bdf8 40%, #0c4a6e);
+}
+
+.mn-promo-card--tpl-tech-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(100deg, transparent 55%, rgba(255, 255, 255, 0.06) 55%, transparent 75%);
+  pointer-events: none;
+}
+
+.mn-promo-card--tpl-tech-gradient .mn-promo-card__rail {
+  background: color-mix(in srgb, #0ea5e9 22%, #0c4a6e);
+  border-color: color-mix(in srgb, #7dd3fc 35%, transparent);
+  color: #e0f2fe;
+}
+
+.mn-promo-card--tpl-tech-gradient .mn-promo-card__headline {
+  color: #f8fafc;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  font-size: 0.92rem;
+}
+
+.mn-promo-card--tpl-tech-gradient .mn-promo-card__tagline {
+  color: color-mix(in srgb, #e0f2fe 88%, transparent);
+}
+
+.mn-promo-card--tpl-tech-gradient .mn-promo-card__feature {
+  background: color-mix(in srgb, #0c4a6e 65%, transparent);
+  color: #bae6fd;
+  border: 1px solid color-mix(in srgb, #38bdf8 45%, transparent);
+}
+
+.mn-promo-card--tpl-tech-gradient .mn-promo-card__cta--pill {
+  border-radius: 6px;
+  background: linear-gradient(180deg, #38bdf8, #0284c7);
+  color: #fff;
+  border-color: #0369a1;
+  box-shadow: 0 2px 12px rgba(8, 145, 178, 0.45);
+}
+
+.mn-promo-card--tpl-tech-gradient.mn-promo-card--468x60,
+.mn-promo-card--tpl-tech-gradient.mn-promo-card--320x50 {
+  background: linear-gradient(90deg, #0c4a6e, #0369a1 50%, #0891b2);
+}
+
+/* ========== Template: Split promo — dark copy / visual (Colourchemist) ========== */
+.mn-promo-card--tpl-split-promo {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__body {
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+  position: relative;
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 12px;
+  background: linear-gradient(90deg, transparent, #0f172a);
+  pointer-events: none;
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__visual {
+  position: relative;
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 55%, #a855f7 100%);
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.55), transparent 65%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__rail {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  color: #fae8ff;
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__hero-img {
+  filter: contrast(1.05) brightness(0.85);
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__headline {
+  color: #f8fafc;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.88rem;
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__tagline {
+  color: #cbd5e1;
+}
+
+.mn-promo-card--tpl-split-promo .mn-promo-card__cta--pill {
+  border-radius: 5px;
+  background: linear-gradient(180deg, #fbbf24, #d97706);
+  color: #1c1917;
+  border-color: #b45309;
+  font-weight: 800;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--728x90 .mn-promo-card__visual {
+  flex: 0 0 38%;
+  min-width: 140px;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--728x90 .mn-promo-card__body {
+  padding: 0.85rem 1rem 0.85rem 1.1rem;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--336x280 .mn-promo-card__inner,
+.mn-promo-card--tpl-split-promo.mn-promo-card--300x250 .mn-promo-card__inner {
+  flex-direction: column;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--336x280 .mn-promo-card__body,
+.mn-promo-card--tpl-split-promo.mn-promo-card--300x250 .mn-promo-card__body {
+  flex: 1 1 auto;
+  padding: 1rem 1.05rem;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--336x280 .mn-promo-card__body::after,
+.mn-promo-card--tpl-split-promo.mn-promo-card--300x250 .mn-promo-card__body::after {
+  display: none;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--336x280 .mn-promo-card__visual,
+.mn-promo-card--tpl-split-promo.mn-promo-card--300x250 .mn-promo-card__visual {
+  flex: 0 0 42%;
+  min-height: 118px;
+  width: 100%;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--468x60 .mn-promo-card__visual {
+  background: linear-gradient(90deg, #4c1d95, #7c3aed);
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--468x60 .mn-promo-card__body {
+  background: #0f172a;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--468x60 .mn-promo-card__body::after {
+  display: none;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--468x60 .mn-promo-card__headline {
+  color: #f8fafc;
+  font-size: 0.74rem;
+}
+
+.mn-promo-card--tpl-split-promo.mn-promo-card--468x60 .mn-promo-card__cta--pill {
+  font-size: 0.55rem;
+}
+
+/* ========== Template: Modular / agency grid ========== */
+.mn-promo-card--tpl-modular {
+  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-color: #cbd5e1;
+}
+
+.mn-promo-card--tpl-modular .mn-promo-card__brandmark {
+  color: #1e3a8a;
+  padding: 0.2rem 0.45rem;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  width: fit-content;
+}
+
+.mn-promo-card--tpl-modular .mn-promo-card__rail {
+  background: #fff;
+  border-color: #cbd5e1;
+  color: #ea580c;
+}
+
+.mn-promo-card--tpl-modular .mn-promo-card__headline {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.mn-promo-card--tpl-modular .mn-promo-card__tagline {
+  color: #475569;
+}
+
+.mn-promo-card--tpl-modular .mn-promo-card__feature {
+  background: #fff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.mn-promo-card--tpl-modular .mn-promo-card__cta--pill {
+  border-radius: 5px;
+  background: #ea580c;
+  color: #fff;
+  border-color: #c2410c;
+}
+
+/* Per-design tokens (fallback where template does not override rail icon hue) */
 .mn-promo-card--resumedoctor {
-  border-top: 3px solid #2563eb;
-  --mn-promo-rail-bg: color-mix(in srgb, #2563eb 13%, var(--surface));
-  --mn-promo-rail-edge: color-mix(in srgb, #2563eb 26%, transparent);
-  --mn-promo-pill-bg: color-mix(in srgb, #2563eb 20%, transparent);
-  --mn-promo-pill-fg: #1d4ed8;
-  --mn-promo-rail-icon: #2563eb;
+  --mn-promo-rail-icon: #e0f2fe;
 }
 
 .mn-promo-card--mynanganallur {
-  border-top: 3px solid #059669;
-  --mn-promo-rail-bg: color-mix(in srgb, #059669 12%, var(--surface));
-  --mn-promo-rail-edge: color-mix(in srgb, #059669 26%, transparent);
-  --mn-promo-pill-bg: color-mix(in srgb, #059669 18%, transparent);
-  --mn-promo-pill-fg: #047857;
-  --mn-promo-rail-icon: #059669;
+  --mn-promo-rail-icon: #0d9488;
 }
 
 .mn-promo-card--colourchemist {
-  border-top: 3px solid #c026d3;
-  --mn-promo-rail-bg: color-mix(in srgb, #c026d3 11%, var(--surface));
-  --mn-promo-rail-edge: color-mix(in srgb, #a21caf 28%, transparent);
-  --mn-promo-pill-bg: color-mix(in srgb, #c026d3 17%, transparent);
-  --mn-promo-pill-fg: #86198f;
-  --mn-promo-rail-icon: #a21caf;
+  --mn-promo-rail-icon: #fae8ff;
 }
 
 .mn-promo-card--bseri {
-  border-top: 3px solid #b45309;
-  --mn-promo-rail-bg: color-mix(in srgb, #b45309 11%, var(--surface));
-  --mn-promo-rail-edge: color-mix(in srgb, #b45309 25%, transparent);
-  --mn-promo-pill-bg: color-mix(in srgb, #b45309 16%, transparent);
-  --mn-promo-pill-fg: #92400e;
-  --mn-promo-rail-icon: #b45309;
+  --mn-promo-rail-icon: #fed7aa;
 }
 
 .mn-promo-card--default {
   border-top: 3px solid var(--accent);
 }
 
-/* Legacy parity */
 .mn-promo-card--resumebuilder {
-  border-top: 3px solid #2563eb;
-  --mn-promo-rail-bg: color-mix(in srgb, #2563eb 13%, var(--surface));
-  --mn-promo-rail-edge: color-mix(in srgb, #2563eb 26%, transparent);
-  --mn-promo-pill-bg: color-mix(in srgb, #2563eb 20%, transparent);
-  --mn-promo-pill-fg: #1d4ed8;
-  --mn-promo-rail-icon: #2563eb;
+  --mn-promo-rail-icon: #e0f2fe;
 }
 
 .mn-promo-row {

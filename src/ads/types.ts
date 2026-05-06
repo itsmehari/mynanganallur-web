@@ -20,6 +20,17 @@ export type AdDesign =
   | "bseri"
   | "default";
 
+/**
+ * Horizontal / rectangle creative layouts (reference design system).
+ * When omitted, derived from `design` in `resolveBannerTemplate`.
+ */
+export type BannerTemplate =
+  | "diagonal-corporate"
+  | "minimal-service"
+  | "tech-gradient"
+  | "split-promo"
+  | "modular";
+
 export type Creative = {
   id: string;
   advertiser: string;
@@ -27,6 +38,10 @@ export type Creative = {
   slot_ids: readonly string[];
   sizes: readonly AdSize[];
   design: AdDesign;
+  /** Visual layout; defaults from design if not set */
+  bannerTemplate?: BannerTemplate;
+  /** Short labels for tech / modular templates (max 3 shown) */
+  bannerFeatures?: readonly string[];
   headline: string;
   tagline: string;
   active: boolean;
