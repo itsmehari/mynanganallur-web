@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import { and, desc, eq } from "drizzle-orm";
 import { getDb } from "@/db/client";
 import { cities, employers, jobPostings } from "@/db/schema/tables";
@@ -37,6 +38,7 @@ export async function listOpenJobsForSite(limit = 50): Promise<JobWithEmployer[]
 export async function getOpenJobBySlug(
   slug: string,
 ): Promise<JobWithEmployer | null> {
+  noStore();
   const cityId = await getSiteCityId();
   if (!cityId) return null;
   const db = getDb();

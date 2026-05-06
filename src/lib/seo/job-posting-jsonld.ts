@@ -1,5 +1,6 @@
 import type { JobWithEmployer } from "@/domains/jobs";
 import { getSiteUrl } from "@/lib/env";
+import { scrubPublicJobBody } from "@/lib/jobs/scrub-public-job-body";
 
 function stripMarkdownLite(s: string): string {
   return s
@@ -16,7 +17,10 @@ export function buildJobPostingJsonLd(row: JobWithEmployer) {
   const base = getSiteUrl();
   const { job, employer } = row;
   const url = `${base}/jobs/${job.slug}`;
-  const description = stripMarkdownLite(job.body).slice(0, 50000);
+  const description = stripMarkdownLite(scrubPublicJobBody(job.body)).slice(
+    0,
+    50000,
+  );
   const datePosted = job.createdAt.toISOString();
 
   const hiringOrganization: Record<string, unknown> = {

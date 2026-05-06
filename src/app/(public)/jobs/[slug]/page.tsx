@@ -13,6 +13,7 @@ import {
   getOpenJobSlugsForSite,
 } from "@/domains/jobs";
 import { getSiteUrl } from "@/lib/env";
+import { scrubPublicJobBody } from "@/lib/jobs/scrub-public-job-body";
 import { buildOgImageUrl } from "@/lib/seo/og";
 import {
   buildJobBreadcrumbJsonLd,
@@ -20,8 +21,6 @@ import {
 } from "@/lib/seo/job-posting-jsonld";
 
 type Props = { params: Promise<{ slug: string }> };
-
-export const revalidate = 120;
 
 function clipMetaDescription(raw: string, max = 155): string {
   const t = raw.trim();
@@ -83,7 +82,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const base = getSiteUrl();
   const url = `${base}/jobs/${row.job.slug}`;
   const desc = clipMetaDescription(
-    stripMarkdownLite(row.job.body).slice(0, 400) ||
+    stripMarkdownLite(scrubPublicJobBody(row.job.body)).slice(0, 400) ||
       `${row.job.title} at ${row.employer.name}`,
   );
   const ogImage = buildOgImageUrl({
@@ -207,7 +206,7 @@ export default async function JobDetailPage({ params }: Props) {
               Role description
             </h2>
             <div className="mt-4">
-              <ArticleProse content={job.body} />
+              <ArticleProse content={scrubPublicJobBody(job.body)} />
             </div>
           </section>
 
