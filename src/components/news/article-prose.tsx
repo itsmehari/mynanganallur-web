@@ -1,11 +1,28 @@
 /** Minimal markdown-like rendering for seeded article bodies (## headings, **bold**, lists). */
 function formatInline(text: string) {
-  const parts = text.split(/(\*\*.+?\*\*)/g);
+  const parts = text.split(/(\*\*.+?\*\*|\[.+?\]\(.+?\))/g);
   return parts.map((part, i) => {
-    const m = part.match(/^\*\*(.+)\*\*$/);
-    if (m) {
-      return <strong key={i}>{m[1]}</strong>;
+    const boldMatch = part.match(/^\*\*(.+)\*\*$/);
+    if (boldMatch) {
+      return <strong key={i}>{boldMatch[1]}</strong>;
     }
+
+    const linkMatch = part.match(/^\[(.+)\]\((.+)\)$/);
+    if (linkMatch) {
+      const [, label, href] = linkMatch;
+      return (
+        <a
+          key={i}
+          href={href}
+          target={href.startsWith("http") ? "_blank" : undefined}
+          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+          className="font-medium text-[var(--accent)] underline underline-offset-4 hover:opacity-90"
+        >
+          {label}
+        </a>
+      );
+    }
+
     return part;
   });
 }

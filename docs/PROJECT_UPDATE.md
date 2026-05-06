@@ -12,6 +12,23 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-05-06 — Live job: Personal Assistant (Part-Time / Flexible) — Nanganallur copy
+
+- **Data:** Seeded localized open job **Personal Assistant (Part-Time / Flexible) — Nanganallur** (`slug` `personal-assistant-part-time-flexible-nanganallur`, employer `direct-hire-nanganallur`) via `npm run db:seed:job:personal-assistant-nanganallur:live`.
+- **Localization:** Updated title/body/location wording for Nanganallur audience while retaining original role details.
+- **Application path:** Kept **WhatsApp-only** apply flow with **+91 72001 01497**.
+- **Code:** `scripts/seed-job-personal-assistant-nanganallur.ts` (+ npm scripts `db:seed:job:personal-assistant-nanganallur` / `:live`).
+
+---
+
+## 2026-05-06 — Live job: Personal Assistant (Part-Time / Flexible)
+
+- **Data:** Seeded open job **Personal Assistant (Part-Time / Flexible) — Chennai OMR** (`slug` `personal-assistant-part-time-flexible-omr`, employer `direct-hire-chennai-omr`) via `npm run db:seed:job:personal-assistant-omr:live`.
+- **Application path:** Set to **WhatsApp-only** in listing content and contact details using **+91 72001 01497**.
+- **Code:** `scripts/seed-job-personal-assistant-omr.ts` (+ npm scripts `db:seed:job:personal-assistant-omr` / `:live`).
+
+---
+
 ## 2026-05-03 — Live job: MyFirstStep (Puzhuthivakkam / Sholinganallur)
 
 - **Data:** Seeded open job **Kindergarten teacher & support staff — MyFirstStep** (`slug` `myfirststep-kindergarten-teacher-support-staff`, employer `myfirststep`) via `npm run db:seed:job:myfirststep:live`.

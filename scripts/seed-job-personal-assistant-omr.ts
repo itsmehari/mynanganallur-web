@@ -1,0 +1,150 @@
+/**
+ * Direct hire — Chennai OMR: Personal Assistant (Part-Time / Flexible).
+ *
+ * Dev:  `npm run db:seed:job:personal-assistant-omr`
+ * Live: `npm run db:seed:job:personal-assistant-omr:live`
+ */
+import { config as loadEnv } from "dotenv";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { and, eq } from "drizzle-orm";
+import * as schema from "../src/db/schema";
+import { cities, employers, jobPostings } from "../src/db/schema/tables";
+
+const live =
+  process.env.SEED_LIVE === "1" || process.argv.includes("--live");
+
+if (live) {
+  loadEnv({ path: ".env.production.local" });
+} else {
+  loadEnv({ path: ".env.local" });
+  loadEnv({ path: ".env" });
+}
+
+const url = process.env.DATABASE_URL;
+if (!url) {
+  console.error("DATABASE_URL missing");
+  process.exit(1);
+}
+
+const db = drizzle(neon(url), { schema });
+
+const EMPLOYER_SLUG = "direct-hire-chennai-omr";
+const JOB_SLUG = "personal-assistant-part-time-flexible-omr";
+
+const BODY = `## Role overview
+
+We are hiring a **Personal Assistant (Part-Time / Flexible)** for a direct employer in the **Chennai OMR corridor**.
+
+The role requires an open-minded and adaptable person who can support a mix of personal and administrative tasks.
+
+## Key details
+
+- **Role type:** Part-time (about 4 hours/day)
+- **Schedule:** Flexible/adjustable timing (to be finalized with employer)
+- **Location:** Chennai (OMR Road)
+- **Salary:** ₹4,000 per month
+- **Apply before:** 02 June 2026
+
+## Requirements
+
+- Open-minded, flexible attitude and practical approach
+- Good communication in **Tamil and English**
+- Basic computer knowledge
+- Self-managed and responsible
+
+## Important
+
+- Apply only via **WhatsApp**
+- No intermediary or application fee should be paid
+
+## Apply via WhatsApp
+
+- **WhatsApp:** [+91 72001 01497](https://wa.me/917200101497)
+`;
+
+async function main() {
+  const [city] = await db
+    .select({ id: cities.id })
+    .from(cities)
+    .where(eq(cities.slug, "nanganallur"))
+    .limit(1);
+
+  if (!city) {
+    console.error("City nanganallur not found — run db:seed first.");
+    process.exit(1);
+  }
+
+  let employerId: string;
+  const [existingEmployer] = await db
+    .select({ id: employers.id })
+    .from(employers)
+    .where(eq(employers.slug, EMPLOYER_SLUG))
+    .limit(1);
+
+  if (existingEmployer) {
+    employerId = existingEmployer.id;
+    await db
+      .update(employers)
+      .set({
+        name: "Direct hire — Chennai OMR",
+        updatedAt: new Date(),
+      })
+      .where(eq(employers.id, employerId));
+  } else {
+    const [ins] = await db
+      .insert(employers)
+      .values({
+        name: "Direct hire — Chennai OMR",
+        slug: EMPLOYER_SLUG,
+        websiteUrl: null,
+      })
+      .returning({ id: employers.id });
+    employerId = ins.id;
+    console.log("Inserted employer:", EMPLOYER_SLUG);
+  }
+
+  const [existingJob] = await db
+    .select({ id: jobPostings.id })
+    .from(jobPostings)
+    .where(
+      and(eq(jobPostings.cityId, city.id), eq(jobPostings.slug, JOB_SLUG)),
+    )
+    .limit(1);
+
+  const values = {
+    employerId,
+    cityId: city.id,
+    slug: JOB_SLUG,
+    title: "Personal Assistant (Part-Time / Flexible) — Chennai OMR",
+    body: BODY,
+    locationLabel: "Chennai (OMR Road)",
+    salaryMin: 4_000,
+    salaryMax: 4_000,
+    salaryDisclosed: true,
+    remotePolicy: "onsite",
+    status: "open" as const,
+    featured: true,
+    contactPhone: "7200101497",
+    contactEmail: null as string | null,
+  };
+
+  if (existingJob) {
+    await db
+      .update(jobPostings)
+      .set({
+        ...values,
+        updatedAt: new Date(),
+      })
+      .where(eq(jobPostings.id, existingJob.id));
+    console.log("Updated job:", JOB_SLUG);
+  } else {
+    await db.insert(jobPostings).values(values);
+    console.log("Inserted job:", JOB_SLUG);
+  }
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
