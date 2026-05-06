@@ -119,8 +119,8 @@ export default async function JobDetailPage({ params }: Props) {
   }
   const { job, employer } = row;
   const salary = salaryLine(job);
-  const waLink = job.contactPhone
-    ? `https://wa.me/91${job.contactPhone.replace(/\D/g, "")}`
+  const waLink = job.contactPhone?.trim()
+    ? `/jobs/${job.slug}/apply-whatsapp`
     : null;
 
   const jobLd = buildJobPostingJsonLd(row);

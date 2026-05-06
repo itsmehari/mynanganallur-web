@@ -60,7 +60,7 @@ The role requires an open-minded and adaptable person who can manage a mix of pe
 
 ## Apply via WhatsApp
 
-- **WhatsApp:** [+91 72001 01497](https://wa.me/917200101497)
+Use **[Open WhatsApp to apply](/jobs/personal-assistant-part-time-flexible-nanganallur/apply-whatsapp)** or the green **Apply via WhatsApp** button on this page. Please do not pay any fee to intermediaries.
 `;
 
 async function main() {
@@ -122,7 +122,7 @@ async function main() {
     salaryMin: 4_000,
     salaryMax: 4_000,
     salaryDisclosed: true,
-    remotePolicy: "onsite",
+    remotePolicy: "online, weekly meet",
     status: "open" as const,
     featured: true,
     contactPhone: "7200101497",

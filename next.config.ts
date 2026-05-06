@@ -51,6 +51,15 @@ const nextConfig: NextConfig = {
         hostname: "upload.wikimedia.org",
         pathname: "/wikipedia/commons/thumb/**",
       },
+      /** Partner-hosted hero imagery for display ads (`Creative.heroImageUrl`) */
+      { protocol: "https", hostname: "www.resumedoctor.in", pathname: "/**" },
+      { protocol: "https", hostname: "resumedoctor.in", pathname: "/**" },
+      { protocol: "https", hostname: "bseri.net", pathname: "/**" },
+      { protocol: "https", hostname: "www.bseri.net", pathname: "/**" },
+      { protocol: "https", hostname: "colourchemist.co.in", pathname: "/**" },
+      { protocol: "https", hostname: "www.colourchemist.co.in", pathname: "/**" },
+      { protocol: "https", hostname: "mynanganallur.in", pathname: "/**" },
+      { protocol: "https", hostname: "www.mynanganallur.in", pathname: "/**" },
     ],
   },
 };

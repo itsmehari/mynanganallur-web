@@ -30,4 +30,10 @@ export type Creative = {
   headline: string;
   tagline: string;
   active: boolean;
+  /**
+   * Optional hero image — shown on leaderboard / rectangles when `sizes` permit.
+   * Use site-relative `/…` paths or HTTPS URLs allowed in `next.config` `remotePatterns`.
+   */
+  heroImageUrl?: string;
+  heroImageAlt?: string;
 };

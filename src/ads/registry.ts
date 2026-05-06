@@ -93,6 +93,9 @@ export const ADS: Creative[] = [
     headline: "mynanganallur.in — Your Nanganallur hub",
     tagline: "Local news, jobs, events & neighbourhood listings",
     active: true,
+    heroImageUrl: "/home-hero-scene.png",
+    heroImageAlt:
+      "Nanganallur neighbourhood scene — browse local news and listings on mynanganallur.in",
   },
   {
     id: "colourchemist-1",

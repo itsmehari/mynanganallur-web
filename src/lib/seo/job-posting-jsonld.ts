@@ -30,7 +30,9 @@ export function buildJobPostingJsonLd(row: JobWithEmployer) {
 
   const remotePolicy = job.remotePolicy.toLowerCase();
   const isRemote =
-    remotePolicy === "remote" || remotePolicy.includes("remote");
+    remotePolicy === "remote" ||
+    remotePolicy.includes("remote") ||
+    remotePolicy.includes("online");
 
   const payload: Record<string, unknown> = {
     "@context": "https://schema.org",

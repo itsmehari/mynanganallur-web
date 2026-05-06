@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { AdSize, Creative } from "./types";
 import { AdBannerIcon, normalizeAdDesign } from "./ad-banner-icons";
 import {
@@ -6,11 +7,19 @@ import {
   warnNoEligibleAds,
 } from "./select-creative";
 
+function sizeSupportsHero(size: AdSize): boolean {
+  return size === "728x90" || size === "336x280" || size === "300x250";
+}
+
 function ctaForSize(size: AdSize): string {
   if (size === "728x90") return "Visit site";
   if (size === "468x60") return "Visit ResumeDoctor";
   if (size === "320x50") return "Visit";
   return "Learn more";
+}
+
+function horizontalRailSize(size: AdSize): boolean {
+  return size === "728x90" || size === "468x60" || size === "320x50";
 }
 
 function AdBannerCreative({
@@ -25,9 +34,37 @@ function AdBannerCreative({
   className?: string;
 }) {
   const designClass = normalizeAdDesign(creative.design);
-  const bannerClass = `mn-promo-card mn-promo-card--${size} mn-promo-card--${designClass}`;
+  const showHero =
+    Boolean(creative.heroImageUrl?.trim()) && sizeSupportsHero(size);
+
+  const bannerClass = [
+    "mn-promo-card",
+    `mn-promo-card--${size}`,
+    `mn-promo-card--${designClass}`,
+    showHero ? "mn-promo-card--has-hero" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   const ariaLabel = `${creative.advertiser} — ${creative.headline}`;
   const showTagline = size !== "320x50" && size !== "468x60";
+  const useHorizontalStrip = size === "468x60" || size === "320x50";
+
+  const heroSrc = creative.heroImageUrl?.trim() ?? "";
+  const heroAlt =
+    creative.heroImageAlt?.trim() ||
+    `${creative.headline} — partner promotion`;
+
+  const railMods = horizontalRailSize(size)
+    ? "mn-promo-card__rail"
+    : "mn-promo-card__rail mn-promo-card__rail--roof";
+
+  const heroSizes728 =
+    size === "728x90"
+      ? "(max-width: 760px) 100vw, min(272px, 38vw)"
+      : size === "336x280"
+        ? "(max-width: 420px) 100vw, 336px"
+        : "(max-width: 380px) 100vw, 300px";
 
   return (
     <aside
@@ -45,15 +82,38 @@ function AdBannerCreative({
         data-mn-promo-id={creative.id}
       >
         <span className="mn-promo-card__inner">
-          <span className="mn-promo-card__icon" aria-hidden>
-            <AdBannerIcon design={creative.design} className="mn-promo-card__svg" />
-          </span>
-          <span className="mn-promo-card__body">
+          {showHero ? (
+            <span className="mn-promo-card__hero">
+              <Image
+                src={heroSrc}
+                alt={heroAlt}
+                fill
+                sizes={heroSizes728}
+                className="mn-promo-card__hero-img"
+              />
+            </span>
+          ) : (
+            <span className={railMods} aria-hidden>
+              <AdBannerIcon
+                design={creative.design}
+                className="mn-promo-card__svg"
+              />
+            </span>
+          )}
+          <span
+            className={
+              useHorizontalStrip
+                ? "mn-promo-card__body mn-promo-card__body--hstrip"
+                : "mn-promo-card__body"
+            }
+          >
             <span className="mn-promo-card__headline">{creative.headline}</span>
             {showTagline ? (
               <span className="mn-promo-card__tagline">{creative.tagline}</span>
             ) : null}
-            <span className="mn-promo-card__cta">{ctaForSize(size)}</span>
+            <span className="mn-promo-card__cta mn-promo-card__cta--pill">
+              {ctaForSize(size)}
+            </span>
           </span>
         </span>
       </a>

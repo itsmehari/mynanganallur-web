@@ -4,6 +4,14 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-05-06 — Partner ads refresh, job WhatsApp privacy, build health
+
+- **Display ads (Tier 1 + 2):** Partner cards use a tinted **icon rail** (or top “roof” on rectangles), **pill CTAs**, and stronger type scale. Creatives may set optional **`heroImageUrl` / `heroImageAlt`** for `728×90`, `336×280`, `300×250` (rendered with `next/image`). **`mynanganallur-1`** uses `/home-hero-scene.png` as a sample. **`next.config.ts`:** `images.remotePatterns` extended for partner hosts (ResumeDoctor, BSERI, Colourchemist, mynanganallur).
+- **Jobs / privacy:** Sidebar and in-copy apply use **`/jobs/[slug]/apply-whatsapp`** (server `302` to WhatsApp, `X-Robots-Tag: noindex, nofollow`). Personal assistant seeds: body without visible phone digits; **`remotePolicy`** `online, weekly meet`; JobPosting JSON-LD treats **`online`** like remote for schema.
+- **Build:** **`npm run build`** failed TypeScript on a **corrupted** `node_modules/googleapis/.../androidpublisher/v3.d.ts` (file contained junk, not declarations). **Fix:** remove `node_modules/googleapis` and **`npm install googleapis@169.0.0`** (or a clean **`npm ci`**). Verified **`npm run build`** completes after reinstall.
+
+---
+
 ## 2026-05-05 — Live job: Accounts candidate (GST/TDS, Zoho preferred)
 
 - **Data:** Seeded open job **Accounts candidate (GST/TDS filing) - Immediate joiners** (`slug` `accounts-candidate-gst-tds-zoho-nanganallur`, employer `s-manoharan`) via `npm run db:seed:job:manoharan-accounts:live`.

@@ -29,6 +29,11 @@
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   overflow: hidden;
+  --mn-promo-rail-bg: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  --mn-promo-rail-edge: color-mix(in srgb, var(--accent) 22%, var(--border));
+  --mn-promo-pill-bg: color-mix(in srgb, var(--accent) 18%, transparent);
+  --mn-promo-pill-fg: var(--accent);
+  --mn-promo-rail-icon: var(--accent);
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
@@ -47,18 +52,43 @@
 .mn-promo-card__inner {
   display: flex;
   align-items: stretch;
-  gap: 0.75rem;
   height: 100%;
   box-sizing: border-box;
 }
 
-.mn-promo-card__icon {
-  flex-shrink: 0;
+/* --- Icon rail (Tier 1) or hero (Tier 2) --- */
+
+.mn-promo-card__rail {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  color: var(--accent);
+  align-self: stretch;
+  background: var(--mn-promo-rail-bg);
+  color: var(--mn-promo-rail-icon);
+  border-right: 1px solid var(--mn-promo-rail-edge);
 }
+
+.mn-promo-card__rail--roof {
+  width: 100%;
+  flex: 0 0 auto;
+  min-height: 3.35rem;
+  border-right: none;
+  border-bottom: 1px solid var(--mn-promo-rail-edge);
+}
+
+.mn-promo-card__hero {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--mn-promo-rail-bg);
+}
+
+.mn-promo-card__hero-img {
+  object-fit: cover;
+}
+
+/* --- Copy + CTA --- */
 
 .mn-promo-card__svg {
   display: block;
@@ -68,9 +98,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0.3rem;
   min-width: 0;
   flex: 1;
+}
+
+.mn-promo-card__body--hstrip {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.65rem;
+}
+
+.mn-promo-card__body--hstrip .mn-promo-card__headline {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.mn-promo-card__body--hstrip .mn-promo-card__cta--pill {
+  margin-top: 0;
 }
 
 .mn-promo-card__headline {
@@ -82,20 +128,38 @@
 
 .mn-promo-card__tagline {
   font-size: 0.7rem;
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--muted);
 }
 
-.mn-promo-card__cta {
-  margin-top: 0.15rem;
-  font-size: 0.65rem;
+.mn-promo-card__cta--pill {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.2rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.625rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent);
+  letter-spacing: 0.07em;
+  line-height: 1.2;
+  color: var(--mn-promo-pill-fg);
+  background: var(--mn-promo-pill-bg);
+  border: 1px solid color-mix(in srgb, var(--mn-promo-pill-fg) 22%, transparent);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-/* --- Sizes --- */
+.mn-promo-card:hover .mn-promo-card__cta--pill {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+
+/* --- Leaderboard 728×90 --- */
 
 .mn-promo-card--728x90 {
   width: 728px;
@@ -105,17 +169,46 @@
 
 .mn-promo-card--728x90 .mn-promo-card__inner {
   flex-direction: row;
-  align-items: center;
-  padding: 0.65rem 1rem;
+  align-items: stretch;
+  gap: 0;
+}
+
+.mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__rail {
+  flex: 0 0 5.35rem;
+}
+
+.mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__body {
+  padding: 0.75rem 1.05rem 0.75rem 0.95rem;
+}
+
+.mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__rail .mn-promo-card__svg {
+  width: 34px;
+  height: 34px;
 }
 
 .mn-promo-card--728x90 .mn-promo-card__headline {
-  font-size: 0.9375rem;
+  font-size: 1rem;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
 }
 
 .mn-promo-card--728x90 .mn-promo-card__tagline {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
+  max-width: 34rem;
 }
+
+.mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__hero {
+  flex: 0 0 clamp(150px, 36%, 264px);
+  min-height: 90px;
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
+}
+
+.mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__body {
+  padding: 0.82rem 1.15rem;
+  justify-content: center;
+}
+
+/* --- Rectangles 336×280 / 300×250 --- */
 
 .mn-promo-card--336x280,
 .mn-promo-card--300x250 {
@@ -135,19 +228,61 @@
   min-height: 250px;
 }
 
-.mn-promo-card--336x280 .mn-promo-card__inner,
-.mn-promo-card--300x250 .mn-promo-card__inner {
+.mn-promo-card--336x280:not(.mn-promo-card--has-hero) .mn-promo-card__inner,
+.mn-promo-card--300x250:not(.mn-promo-card--has-hero) .mn-promo-card__inner {
   flex-direction: column;
-  align-items: flex-start;
-  padding: 1rem 1.1rem;
+  gap: 0;
+  padding: 0;
 }
 
-.mn-promo-card--336x280 .mn-promo-card__icon,
-.mn-promo-card--300x250 .mn-promo-card__icon {
-  margin-bottom: 0.25rem;
+.mn-promo-card--336x280:not(.mn-promo-card--has-hero) .mn-promo-card__body,
+.mn-promo-card--300x250:not(.mn-promo-card--has-hero) .mn-promo-card__body {
+  padding: 0.9rem 1.1rem 1.05rem;
 }
 
-/* IAB full banner (horizontal strip) */
+.mn-promo-card--336x280:not(.mn-promo-card--has-hero) .mn-promo-card__rail--roof .mn-promo-card__svg {
+  width: 36px;
+  height: 36px;
+}
+
+.mn-promo-card--300x250:not(.mn-promo-card--has-hero) .mn-promo-card__rail--roof .mn-promo-card__svg {
+  width: 32px;
+  height: 32px;
+}
+
+.mn-promo-card--336x280 .mn-promo-card__headline {
+  font-size: 0.875rem;
+}
+
+.mn-promo-card--336x280.mn-promo-card--has-hero .mn-promo-card__inner,
+.mn-promo-card--300x250.mn-promo-card--has-hero .mn-promo-card__inner {
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+}
+
+.mn-promo-card--336x280.mn-promo-card--has-hero .mn-promo-card__hero {
+  width: 100%;
+  height: min(46%, 132px);
+  min-height: 118px;
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+}
+
+.mn-promo-card--300x250.mn-promo-card--has-hero .mn-promo-card__hero {
+  width: 100%;
+  height: min(44%, 118px);
+  min-height: 108px;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+
+.mn-promo-card--336x280.mn-promo-card--has-hero .mn-promo-card__body,
+.mn-promo-card--300x250.mn-promo-card--has-hero .mn-promo-card__body {
+  padding: 0.85rem 1.1rem 1rem;
+  flex: 1;
+}
+
+/* --- Full banner 468×60 --- */
+
 .mn-promo-card--468x60 {
   width: 468px;
   max-width: 100%;
@@ -156,13 +291,20 @@
 
 .mn-promo-card--468x60 .mn-promo-card__inner {
   flex-direction: row;
-  align-items: center;
-  padding: 0.4rem 0.75rem;
-  gap: 0.5rem;
+  align-items: stretch;
+  gap: 0;
+}
+
+.mn-promo-card--468x60 .mn-promo-card__rail {
+  flex: 0 0 3.6rem;
+}
+
+.mn-promo-card--468x60 .mn-promo-card__body {
+  padding: 0.35rem 0.7rem 0.35rem 0.55rem;
 }
 
 .mn-promo-card--468x60 .mn-promo-card__headline {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   line-height: 1.2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -170,16 +312,17 @@
   overflow: hidden;
 }
 
-.mn-promo-card--468x60 .mn-promo-card__cta {
-  margin-top: 0;
-  flex-shrink: 0;
-  font-size: 0.6rem;
+.mn-promo-card--468x60 .mn-promo-card__cta--pill {
+  padding: 0.28rem 0.55rem;
+  font-size: 0.58rem;
 }
 
-.mn-promo-card--468x60 .mn-promo-card__icon .mn-promo-card__svg {
+.mn-promo-card--468x60 .mn-promo-card__rail .mn-promo-card__svg {
   width: 28px;
   height: 28px;
 }
+
+/* --- Mobile banner 320×50 --- */
 
 .mn-promo-card--320x50 {
   width: 320px;
@@ -189,13 +332,20 @@
 
 .mn-promo-card--320x50 .mn-promo-card__inner {
   flex-direction: row;
-  align-items: center;
-  padding: 0.35rem 0.65rem;
-  gap: 0.5rem;
+  align-items: stretch;
+  gap: 0;
+}
+
+.mn-promo-card--320x50 .mn-promo-card__rail {
+  flex: 0 0 3rem;
+}
+
+.mn-promo-card--320x50 .mn-promo-card__body {
+  padding: 0.3rem 0.55rem 0.3rem 0.45rem;
 }
 
 .mn-promo-card--320x50 .mn-promo-card__headline {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   line-height: 1.2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -203,88 +353,126 @@
   overflow: hidden;
 }
 
-.mn-promo-card--320x50 .mn-promo-card__cta {
-  margin-top: 0;
-  flex-shrink: 0;
+.mn-promo-card--320x50 .mn-promo-card__cta--pill {
+  padding: 0.24rem 0.5rem;
+  font-size: 0.56rem;
 }
 
-.mn-promo-card--320x50 .mn-promo-card__icon .mn-promo-card__svg {
+.mn-promo-card--320x50 .mn-promo-card__rail .mn-promo-card__svg {
   width: 22px;
   height: 22px;
 }
 
-/* Narrow: scale leaderboard */
+/* --- Narrow / stacked leaderboard --- */
+
 @media (max-width: 760px) {
   .mn-promo-card--728x90 {
     min-height: auto;
   }
 
   .mn-promo-card--728x90 .mn-promo-card__inner {
+    flex-wrap: nowrap;
+  }
+
+  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__inner {
     flex-wrap: wrap;
-    padding: 0.75rem;
   }
 
-  .mn-promo-card--728x90 .mn-promo-card__headline {
-    font-size: 0.8125rem;
+  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__rail {
+    flex: 0 0 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.5rem 0.75rem;
+    min-height: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--mn-promo-rail-edge);
   }
 
-  .mn-promo-card--728x90 .mn-promo-card__tagline {
-    font-size: 0.65rem;
+  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__body {
+    width: 100%;
+    padding: 0.72rem 0.85rem 0.85rem;
+  }
+
+  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__headline {
+    font-size: 0.875rem;
+  }
+
+  .mn-promo-card--728x90:not(.mn-promo-card--has-hero) .mn-promo-card__tagline {
+    font-size: 0.68rem;
+  }
+
+  .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__inner {
+    flex-direction: column;
+  }
+
+  .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__hero {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 124px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__body {
+    padding: 0.82rem 0.95rem;
+  }
+
+  .mn-promo-card--728x90.mn-promo-card--has-hero .mn-promo-card__headline {
+    font-size: 0.9125rem;
   }
 }
 
-/* --- Per-design accents (border / icon tint) --- */
+/* --- Per-design accents --- */
 
 .mn-promo-card--resumedoctor {
   border-top: 3px solid #2563eb;
-}
-
-.mn-promo-card--resumedoctor .mn-promo-card__icon {
-  color: #2563eb;
+  --mn-promo-rail-bg: color-mix(in srgb, #2563eb 13%, var(--surface));
+  --mn-promo-rail-edge: color-mix(in srgb, #2563eb 26%, transparent);
+  --mn-promo-pill-bg: color-mix(in srgb, #2563eb 20%, transparent);
+  --mn-promo-pill-fg: #1d4ed8;
+  --mn-promo-rail-icon: #2563eb;
 }
 
 .mn-promo-card--mynanganallur {
   border-top: 3px solid #059669;
-}
-
-.mn-promo-card--mynanganallur .mn-promo-card__icon {
-  color: #059669;
+  --mn-promo-rail-bg: color-mix(in srgb, #059669 12%, var(--surface));
+  --mn-promo-rail-edge: color-mix(in srgb, #059669 26%, transparent);
+  --mn-promo-pill-bg: color-mix(in srgb, #059669 18%, transparent);
+  --mn-promo-pill-fg: #047857;
+  --mn-promo-rail-icon: #059669;
 }
 
 .mn-promo-card--colourchemist {
   border-top: 3px solid #c026d3;
-}
-
-.mn-promo-card--colourchemist .mn-promo-card__icon {
-  color: #a21caf;
+  --mn-promo-rail-bg: color-mix(in srgb, #c026d3 11%, var(--surface));
+  --mn-promo-rail-edge: color-mix(in srgb, #a21caf 28%, transparent);
+  --mn-promo-pill-bg: color-mix(in srgb, #c026d3 17%, transparent);
+  --mn-promo-pill-fg: #86198f;
+  --mn-promo-rail-icon: #a21caf;
 }
 
 .mn-promo-card--bseri {
   border-top: 3px solid #b45309;
-}
-
-.mn-promo-card--bseri .mn-promo-card__icon {
-  color: #b45309;
+  --mn-promo-rail-bg: color-mix(in srgb, #b45309 11%, var(--surface));
+  --mn-promo-rail-edge: color-mix(in srgb, #b45309 25%, transparent);
+  --mn-promo-pill-bg: color-mix(in srgb, #b45309 16%, transparent);
+  --mn-promo-pill-fg: #92400e;
+  --mn-promo-rail-icon: #b45309;
 }
 
 .mn-promo-card--default {
   border-top: 3px solid var(--accent);
 }
 
-.mn-promo-card--default .mn-promo-card__icon {
-  color: var(--accent);
-}
-
-/* Legacy class name parity */
+/* Legacy parity */
 .mn-promo-card--resumebuilder {
   border-top: 3px solid #2563eb;
+  --mn-promo-rail-bg: color-mix(in srgb, #2563eb 13%, var(--surface));
+  --mn-promo-rail-edge: color-mix(in srgb, #2563eb 26%, transparent);
+  --mn-promo-pill-bg: color-mix(in srgb, #2563eb 20%, transparent);
+  --mn-promo-pill-fg: #1d4ed8;
+  --mn-promo-rail-icon: #2563eb;
 }
 
-.mn-promo-card--resumebuilder .mn-promo-card__icon {
-  color: #2563eb;
-}
-
-/* Row layout */
 .mn-promo-row {
   display: flex;
   flex-wrap: wrap;
