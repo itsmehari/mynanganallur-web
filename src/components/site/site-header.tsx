@@ -17,24 +17,24 @@ export function SiteHeader() {
       <div className="relative mx-auto flex max-w-[1280px] items-center gap-3 px-4 py-4 md:gap-4 md:py-5">
         <Link
           href="/"
-          className="group flex shrink-0 items-center gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="group flex shrink-0 items-center gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] sm:gap-4"
           onClick={closeMobile}
         >
-          <span className="relative flex h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-[var(--surface)] shadow-md ring-1 ring-[var(--border)] transition group-hover:scale-[1.03] group-hover:shadow-lg md:h-12 md:w-12 md:rounded-2xl">
+          <span className="relative flex h-[88px] w-[88px] shrink-0 overflow-hidden rounded-2xl bg-[var(--surface)] shadow-md ring-1 ring-[var(--border)] transition group-hover:scale-[1.03] group-hover:shadow-lg md:h-24 md:w-24 md:rounded-3xl">
             <Image
               src="/MyNanganallur-logo.png"
               alt=""
-              width={96}
-              height={96}
-              className="h-full w-full object-contain p-0.5"
+              width={192}
+              height={192}
+              className="h-full w-full object-contain p-1"
               priority
             />
           </span>
           <span className="hidden min-w-0 flex-col leading-tight sm:flex">
-            <span className="font-serif text-base font-bold tracking-tight text-[var(--foreground)] md:text-lg">
+            <span className="font-serif text-2xl font-bold tracking-tight text-[var(--foreground)] md:text-3xl">
               mynanganallur
             </span>
-            <span className="text-[11px] text-[var(--muted)] md:text-xs">
+            <span className="text-sm text-[var(--muted)] md:text-base">
               News · directory · jobs · local events
             </span>
           </span>
