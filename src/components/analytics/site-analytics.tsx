@@ -6,7 +6,8 @@ import { GoogleAnalyticsDisplayAdTracker } from "./google-analytics-display-ad-t
 import { GoogleAnalyticsRouteTracker } from "./google-analytics-route-tracker";
 import { GoogleAnalyticsScripts } from "./google-analytics-scripts";
 
-const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() ?? "";
+const gaId =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "G-WDPGFYERFD";
 
 /**
  * Single entry for all site-wide measurement. Mounted once in `app/layout.tsx`
