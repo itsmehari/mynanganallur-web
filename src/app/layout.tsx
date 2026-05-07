@@ -31,6 +31,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://mynanganallur.in",
   ),
+  verification: {
+    google: "mkmFXwLyN_U1gYxeXyfHf2tdgEsxZyZ36t_7ejUJ1ME",
+  },
   icons: {
     icon: [{ url: "/MyNanganallur-logo.png", type: "image/png" }],
     apple: "/MyNanganallur-logo.png",
