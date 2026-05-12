@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { PropertyListWhatsAppCta } from "@/components/properties/property-list-whatsapp-cta";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { RelatedBlock } from "@/components/internal-linking/related-block";
 import { ArticleProse } from "@/components/news/article-prose";
@@ -246,6 +247,8 @@ export default async function PropertyDetailPage({ params }: Props) {
         excludeId={row.id}
         locality={row.localityLabel}
       />
+
+      <PropertyListWhatsAppCta className="mt-10" />
 
       <AmazonAffiliateBlock
         variant="compact"

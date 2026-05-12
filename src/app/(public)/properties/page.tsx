@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { PropertyListWhatsAppCta } from "@/components/properties/property-list-whatsapp-cta";
 import { ListingFilterBar } from "@/components/search/listing-filter-bar";
 import { listPublishedPropertiesForSite } from "@/domains/properties";
 import { searchAcross } from "@/domains/search";
@@ -138,6 +139,8 @@ export default async function PropertiesPage({
           })}
         </ul>
       )}
+
+      <PropertyListWhatsAppCta className="mt-10 max-w-xl" />
 
       <AdSlot
         slotId="properties-index-mid"

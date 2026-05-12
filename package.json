@@ -37,6 +37,8 @@
     "db:seed:job:personal-assistant-nanganallur:live": "tsx scripts/seed-job-personal-assistant-nanganallur.ts --live",
     "db:seed:property:guruvayoorappan": "tsx scripts/seed-property-guruvayoorappan.ts",
     "db:seed:property:guruvayoorappan:live": "tsx scripts/seed-property-guruvayoorappan.ts --live",
+    "db:seed:property:thillai-ganga-shop": "tsx scripts/seed-property-thillai-ganga-shop.ts",
+    "db:seed:property:thillai-ganga-shop:live": "tsx scripts/seed-property-thillai-ganga-shop.ts --live",
     "db:ensure:faq-column": "tsx scripts/ensure-article-faq-column.ts",
     "db:push:live": "node --env-file=.env.production.local ./node_modules/drizzle-kit/bin.cjs push",
     "db:apply:live-ddl": "tsx scripts/apply-live-schema-ddl.ts",
