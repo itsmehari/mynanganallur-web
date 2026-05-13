@@ -29,6 +29,18 @@ function typeTitle(type: string): string {
     .join(" ");
 }
 
+function websiteLinkLabel(href: string): string {
+  try {
+    const host = new URL(href).hostname;
+    if (host === "chat.whatsapp.com" || host === "wa.me" || host === "api.whatsapp.com") {
+      return "WhatsApp group ↗";
+    }
+  } catch {
+    /* ignore */
+  }
+  return "Official website ↗";
+}
+
 export async function generateStaticParams() {
   try {
     return await listDirectoryParamsForStatic();
@@ -150,6 +162,12 @@ export default async function DirectoryEntryPage({ params }: Props) {
           </a>
         </p>
       ) : null}
+      {entry.hoursSummary ? (
+        <p className="mt-2 text-sm text-[var(--foreground)]">
+          <span className="text-[var(--muted)]">Hours / timings: </span>
+          {entry.hoursSummary}
+        </p>
+      ) : null}
       {entry.websiteUrl ? (
         <p className="mt-2 text-sm">
           <a
@@ -158,7 +176,7 @@ export default async function DirectoryEntryPage({ params }: Props) {
             rel="noopener noreferrer"
             className="font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
           >
-            Official website ↗
+            {websiteLinkLabel(entry.websiteUrl)}
           </a>
         </p>
       ) : null}

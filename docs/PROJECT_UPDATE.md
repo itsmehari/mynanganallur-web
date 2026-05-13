@@ -4,6 +4,13 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-05-10 — Live job: SKB Vidhyashram Playschool (Madipakkam)
+
+- **Data:** Seeded open roles **Principal** and **Teacher (part-time)** at **SKB Vidhyashram Playschool, Madipakkam** (`slug` `skb-vidhyashram-principal-teacher-part-time-madipakkam`, employer `skb-vidhyashram-madipakkam`). Apply before **30 May 2026**; **openings_count** 2. Contact: **skbmadipakkam@gmail.com**, WhatsApp primary **6380383563**, campus line **9962187719** in listing body as `tel:` link.
+- **Code:** `scripts/seed-job-skb-vidhyashram-madipakkam.ts` (+ npm scripts `db:seed:job:skb-vidhyashram-madipakkam` / `:live`).
+
+---
+
 ## 2026-05-06 — Partner ads refresh, job WhatsApp privacy, build health
 
 - **Display ads (Tier 1 + 2):** Partner cards use a tinted **icon rail** (or top “roof” on rectangles), **pill CTAs**, and stronger type scale. Creatives may set optional **`heroImageUrl` / `heroImageAlt`** for `728×90`, `336×280`, `300×250` (rendered with `next/image`). **`mynanganallur-1`** uses `/home-hero-scene.png` as a sample. **`next.config.ts`:** `images.remotePatterns` extended for partner hosts (ResumeDoctor, BSERI, Colourchemist, mynanganallur).

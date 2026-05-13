@@ -12,12 +12,19 @@ export function buildDirectoryEntryJsonLd(
   const base = getSiteUrl();
   const url = `${base}/directory/${typeSlug}/${entry.slug}`;
 
+  const schemaType =
+    typeSlug === "tutor" ? "EducationalOrganization" : "LocalBusiness";
+  const description =
+    typeSlug === "tutor"
+      ? `${entry.name} — tuition / coaching listing in the Nanganallur area directory on mynanganallur.in.`
+      : `${typeLabel(entry.type)} in the Nanganallur area directory on mynanganallur.in.`;
+
   const payload: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": schemaType,
     name: entry.name,
     url,
-    description: `${typeLabel(entry.type)} in the Nanganallur area directory on mynanganallur.in.`,
+    description,
   };
 
   if (entry.address || entry.localityLabel) {

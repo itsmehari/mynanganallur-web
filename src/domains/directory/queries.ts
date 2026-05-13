@@ -18,6 +18,7 @@ export const DIRECTORY_TYPE_SLUGS = [
   "government_office",
   "industry",
   "temple",
+  "tutor",
 ] as const;
 
 export type DirectoryTypeSlug = (typeof DIRECTORY_TYPE_SLUGS)[number];

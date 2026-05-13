@@ -35,6 +35,8 @@
     "db:seed:job:personal-assistant-omr:live": "tsx scripts/seed-job-personal-assistant-omr.ts --live",
     "db:seed:job:personal-assistant-nanganallur": "tsx scripts/seed-job-personal-assistant-nanganallur.ts",
     "db:seed:job:personal-assistant-nanganallur:live": "tsx scripts/seed-job-personal-assistant-nanganallur.ts --live",
+    "db:seed:job:skb-vidhyashram-madipakkam": "tsx scripts/seed-job-skb-vidhyashram-madipakkam.ts",
+    "db:seed:job:skb-vidhyashram-madipakkam:live": "tsx scripts/seed-job-skb-vidhyashram-madipakkam.ts --live",
     "db:seed:property:guruvayoorappan": "tsx scripts/seed-property-guruvayoorappan.ts",
     "db:seed:property:guruvayoorappan:live": "tsx scripts/seed-property-guruvayoorappan.ts --live",
     "db:seed:property:thillai-ganga-shop": "tsx scripts/seed-property-thillai-ganga-shop.ts",

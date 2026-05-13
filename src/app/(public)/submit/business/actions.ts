@@ -34,6 +34,7 @@ const ALLOWED_TYPES = new Set([
   "government_office",
   "industry",
   "temple",
+  "tutor",
 ] as const);
 
 type DirectoryType =
@@ -47,7 +48,8 @@ type DirectoryType =
   | "it_park"
   | "government_office"
   | "industry"
-  | "temple";
+  | "temple"
+  | "tutor";
 
 export async function submitBusinessAction(formData: FormData): Promise<void> {
   let titleForRedirect = "";

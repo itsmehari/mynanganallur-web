@@ -14,7 +14,7 @@ export const revalidate = 120;
 export const metadata: Metadata = {
   title: "Directory",
   description:
-    "Schools, temples, hospitals, parks, and more around Nanganallur — verified listings in progress.",
+    "Schools, tutors, temples, hospitals, parks, and more around Nanganallur — verified listings in progress.",
 };
 
 function typeTitle(type: DirectoryTypeSlug): string {
@@ -57,7 +57,7 @@ export default async function DirectoryPage() {
       />
       <p className="text-sm font-medium text-[var(--accent)]">Directory</p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-        Explore places and businesses
+        Explore places, tutors, and businesses
       </h1>
       <p className="mt-4 max-w-2xl text-[var(--muted)]">
         Entries are seeded from public sources; phones and hours change — always

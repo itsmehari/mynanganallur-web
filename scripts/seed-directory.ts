@@ -49,6 +49,8 @@ type SeedDir = {
   localityLabel?: string;
   phone?: string;
   websiteUrl?: string;
+  hoursSummary?: string;
+  faqJson?: { items: { q: string; a: string }[] };
   /** Short JSON string — sources + disclaimer */
   metadata: string;
 };
@@ -322,6 +324,36 @@ const seeds: SeedDir[] = [
       note: "Opened 2011 per Wikipedia; verify current hours with GCC recreation desk.",
     }),
   },
+  {
+    type: "tutor",
+    name: "CBSE Grade 12 Economics tuition — Akshaya S",
+    slug: "cbse-grade-12-economics-akshaya-s-ram-nagar",
+    address: "Ram Nagar, Nanganallur, Chennai, Tamil Nadu 600061",
+    localityLabel: "Ram Nagar",
+    phone: "95662 17586",
+    websiteUrl: "https://chat.whatsapp.com/I4z13Ks3Z9KFrALPsLbJx1",
+    hoursSummary: "Contact for batch timings",
+    faqJson: {
+      items: [
+        {
+          q: "What is offered?",
+          a: "CBSE Grade 12 Economics tuition in a comfortable, friendly, homely environment at Ram Nagar, Nanganallur. Focus on understanding concepts, regular practice, and board preparation with individual attention and space to clear doubts.",
+        },
+        {
+          q: "How do I get updates?",
+          a: "Use the WhatsApp group link on this page for updates and further details. Please join only if genuinely interested.",
+        },
+        {
+          q: "Who runs the classes?",
+          a: "Akshaya S. Phone: 95662 17586.",
+        },
+      ],
+    },
+    metadata: JSON.stringify({
+      sources: ["Reader-submitted listing for mynanganallur.in"],
+      note: "Details provided by the tutor; confirm timings and fees directly before enrolling.",
+    }),
+  },
 ];
 
 async function main() {
@@ -362,6 +394,8 @@ async function main() {
       localityLabel: s.localityLabel ?? null,
       phone: s.phone ?? null,
       websiteUrl: s.websiteUrl ?? null,
+      hoursSummary: s.hoursSummary ?? null,
+      faqJson: s.faqJson ?? null,
       verified: false,
       metadata: s.metadata,
       updatedAt: new Date(),

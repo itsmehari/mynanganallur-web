@@ -96,7 +96,7 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
           {
             href: "/directory",
             label: "City directory",
-            description: "Schools, services, and local listings.",
+            description: "Schools, tutors, services, and local listings.",
           },
           {
             href: "/properties",

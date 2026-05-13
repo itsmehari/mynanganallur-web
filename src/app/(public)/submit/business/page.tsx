@@ -13,10 +13,11 @@ import { submitBusinessAction } from "./actions";
 export const metadata: Metadata = {
   title: "List your business",
   description:
-    "Add your shop, school, clinic, restaurant, ATM, or temple to the mynanganallur.in local directory. Free, reviewed within 24 hours.",
+    "Add your shop, school, tuition, clinic, restaurant, ATM, or temple to the mynanganallur.in local directory. Free, reviewed within 24 hours.",
 };
 
 const TYPE_OPTIONS = [
+  { value: "tutor", label: "Tuition / coaching / tutor" },
   { value: "restaurant", label: "Restaurant / cafe" },
   { value: "school", label: "School / college" },
   { value: "hospital", label: "Hospital / clinic" },

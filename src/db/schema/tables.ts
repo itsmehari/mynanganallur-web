@@ -267,6 +267,8 @@ export const directoryEntryTypeEnum = pgEnum("directory_entry_type", [
   "industry",
   /** Places of worship — HRCE / community listings; always verify timings by phone. */
   "temple",
+  /** Home tuition, coaching centres, private tutors — confirm batch details by phone. */
+  "tutor",
 ]);
 
 export const directoryEntries = pgTable(
