@@ -24,6 +24,10 @@ export function buildPropertyListingJsonLd(row: PropertyRow) {
     description,
     datePosted,
     url,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".listing-geo-direct-answer", ".listing-facts-grid"],
+    },
   };
 
   if (row.localityLabel) {

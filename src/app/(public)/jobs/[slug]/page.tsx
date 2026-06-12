@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { RelatedBlock } from "@/components/internal-linking/related-block";
+import { JobAtAGlance } from "@/components/listings/job-at-a-glance";
+import { ListingBreadcrumb } from "@/components/listings/listing-breadcrumb";
+import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
+import { ResponsiveAdSlot } from "@/components/listings/responsive-ad-slot";
+import { StickyListingActions } from "@/components/listings/sticky-listing-actions";
 import { ArticleProse } from "@/components/news/article-prose";
 import { ShareRow } from "@/components/share/share-row";
 import { HelpfulButtons } from "@/components/reactions/helpful";
@@ -12,6 +16,11 @@ import {
   getOpenJobBySlug,
   getOpenJobSlugsForSite,
 } from "@/domains/jobs";
+import {
+  buildJobAutoFaq,
+  resolveFaqItems,
+} from "@/lib/listings/faq-generators";
+import { formatPublishedDate, jobSalaryLine } from "@/lib/listings/format";
 import { getSiteUrl } from "@/lib/env";
 import { scrubPublicJobBody } from "@/lib/jobs/scrub-public-job-body";
 import { buildOgImageUrl } from "@/lib/seo/og";
@@ -34,29 +43,6 @@ function stripMarkdownLite(s: string): string {
     .replace(/\*\*(.+?)\*\*/g, "$1")
     .replace(/\n+/g, " ")
     .trim();
-}
-
-function formatPublishedDate(d: Date): string {
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(d);
-}
-
-function salaryLine(job: {
-  salaryDisclosed: boolean;
-  salaryMin: number | null;
-  salaryMax: number | null;
-}): string | null {
-  if (!job.salaryDisclosed) return "Salary not disclosed";
-  if (job.salaryMin != null && job.salaryMax != null) {
-    return `₹${job.salaryMin.toLocaleString("en-IN")} - ₹${job.salaryMax.toLocaleString("en-IN")}`;
-  }
-  if (job.salaryMin != null) {
-    return `From ₹${job.salaryMin.toLocaleString("en-IN")}`;
-  }
-  return "Salary on request";
 }
 
 export async function generateStaticParams() {
@@ -104,8 +90,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: `${row.job.title} · Jobs · mynanganallur.in`,
-      description: desc,
       images: [ogImage],
+      description: desc,
     },
   };
 }
@@ -117,16 +103,53 @@ export default async function JobDetailPage({ params }: Props) {
     notFound();
   }
   const { job, employer } = row;
-  const salary = salaryLine(job);
+  const salary = jobSalaryLine(job);
   const waLink = job.contactPhone?.trim()
     ? `/jobs/${job.slug}/apply-whatsapp`
     : null;
 
   const jobLd = buildJobPostingJsonLd(row);
   const crumbLd = buildJobBreadcrumbJsonLd(job.slug, job.title);
+  const pageUrl = `${getSiteUrl()}/jobs/${job.slug}`;
+  const faqItems = resolveFaqItems(job.faqJson, buildJobAutoFaq(row));
+
+  const glanceFacts = [
+    { label: "Salary", value: salary ?? "Salary on request" },
+    {
+      label: "Location",
+      value: job.locationLabel ?? "Location on request",
+    },
+    { label: "Work mode", value: job.remotePolicy },
+    { label: "Posted", value: formatPublishedDate(job.createdAt) },
+  ];
+
+  const stickyActions = waLink
+    ? [
+        {
+          type: "link" as const,
+          href: waLink,
+          label: "Apply via WhatsApp",
+          external: true,
+          variant: "primary" as const,
+        },
+        {
+          type: "share" as const,
+          url: pageUrl,
+          title: `${job.title} — ${employer.name}`,
+          channelLabel: "job",
+        },
+      ]
+    : [
+        {
+          type: "share" as const,
+          url: pageUrl,
+          title: `${job.title} — ${employer.name}`,
+          channelLabel: "job",
+        },
+      ];
 
   return (
-    <div className="mx-auto max-w-[1120px] px-4 py-10 sm:px-6 lg:py-14">
+    <div className="mx-auto max-w-[1120px] px-4 py-10 pb-24 sm:px-6 lg:py-14 lg:pb-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jobLd) }}
@@ -136,7 +159,15 @@ export default async function JobDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbLd) }}
       />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <ListingBreadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Jobs", href: "/jobs" },
+          { name: job.title, href: `/jobs/${job.slug}` },
+        ]}
+      />
+
+      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
         <main className="min-w-0">
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-wide text-[var(--accent)]">
@@ -181,22 +212,24 @@ export default async function JobDetailPage({ params }: Props) {
             ) : null}
           </div>
 
-          <AdSlot
-            slotId="jobs-posting-468"
-            size="468x60"
-            seed={buildRotationSeed(`/jobs/${slug}`, "jobs-posting-468")}
-            className="mt-6 flex w-full justify-center max-w-full"
+          <ListingGeoBlock
+            question={`How do I apply for ${job.title} in Nanganallur?`}
+            directAnswer={`${job.title} at ${employer.name}, ${job.locationLabel ?? "Nanganallur area"}. ${waLink ? "Tap Apply via WhatsApp on this page to open a pre-filled message." : "Follow the application instructions in the role description."} Verify salary and requirements with the employer before you share documents.`}
+            className="mt-6"
           />
 
-          <AdSlot
+          <JobAtAGlance facts={glanceFacts} />
+
+          <ResponsiveAdSlot
             slotId="jobs-detail-top"
-            size="728x90"
-            seed={buildRotationSeed(`/jobs/${slug}`, "jobs-detail-top")}
-            className="mt-6 max-w-full"
+            pagePath={`/jobs/${slug}`}
+            desktopSize="728x90"
+            mobileSize="320x50"
+            className="mt-6"
           />
 
           <section
-            className="mt-8 rounded-2xl border border-[var(--border)] bg-white p-5 sm:p-7"
+            className="mt-8 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 sm:p-7"
             aria-labelledby="jd-heading"
           >
             <h2
@@ -211,23 +244,20 @@ export default async function JobDetailPage({ params }: Props) {
           </section>
 
           <ShareRow
-            url={`${getSiteUrl()}/jobs/${job.slug}`}
-            title={`${job.title} — ${row.employer.name}`}
+            url={pageUrl}
+            title={`${job.title} — ${employer.name}`}
             channelLabel="job"
           />
 
           <HelpfulButtons entityType="job" entityId={job.id} />
 
-          <FaqBlock
-            items={job.faqJson?.items ?? null}
-            pageUrl={`${getSiteUrl()}/jobs/${job.slug}`}
-          />
+          <FaqBlock items={faqItems} pageUrl={pageUrl} />
 
           <RelatedBlock
             kind="job"
             excludeId={job.id}
             locality={job.locationLabel}
-            employerId={row.employer.id}
+            employerId={employer.id}
           />
 
           <AmazonAffiliateBlock
@@ -246,44 +276,22 @@ export default async function JobDetailPage({ params }: Props) {
           </p>
         </main>
 
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start">
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
             <h2 className="text-base font-semibold text-[var(--foreground)]">
               Quick job facts
             </h2>
-            <dl className="mt-4 space-y-3 text-sm">
-              <div>
-                <dt className="text-xs uppercase tracking-wide text-[var(--muted)]">
-                  Salary
-                </dt>
-                <dd className="mt-0.5 font-medium text-[var(--foreground)]">
-                  {salary ?? "Salary on request"}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs uppercase tracking-wide text-[var(--muted)]">
-                  Location
-                </dt>
-                <dd className="mt-0.5 text-[var(--foreground)]">
-                  {job.locationLabel ?? "Location on request"}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs uppercase tracking-wide text-[var(--muted)]">
-                  Work mode
-                </dt>
-                <dd className="mt-0.5 text-[var(--foreground)]">
-                  {job.remotePolicy}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs uppercase tracking-wide text-[var(--muted)]">
-                  Posted
-                </dt>
-                <dd className="mt-0.5 text-[var(--foreground)]">
-                  {formatPublishedDate(job.createdAt)}
-                </dd>
-              </div>
+            <dl className="job-at-a-glance mt-4 space-y-3 text-sm">
+              {glanceFacts.map((f) => (
+                <div key={f.label}>
+                  <dt className="text-xs uppercase tracking-wide text-[var(--muted)]">
+                    {f.label}
+                  </dt>
+                  <dd className="mt-0.5 font-medium text-[var(--foreground)]">
+                    {f.value}
+                  </dd>
+                </div>
+              ))}
             </dl>
 
             {waLink ? (
@@ -299,6 +307,8 @@ export default async function JobDetailPage({ params }: Props) {
           </div>
         </aside>
       </div>
+
+      <StickyListingActions actions={stickyActions} />
     </div>
   );
 }

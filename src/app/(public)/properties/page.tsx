@@ -1,50 +1,45 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
+import { FaqBlock } from "@/components/faq/faq-block";
+import { ListingCardProperty } from "@/components/listings/listing-card-property";
+import { ListingEmptyState } from "@/components/listings/listing-empty-state";
+import { ListingFilterRow } from "@/components/listings/listing-filter-row";
+import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
+import { ListingHubShell } from "@/components/listings/listing-hub-shell";
+import { ListingHubSeoScripts } from "@/components/listings/listing-hub-seo-scripts";
+import { ListingKindTabs } from "@/components/listings/listing-kind-tabs";
+import { ResponsiveAdSlot } from "@/components/listings/responsive-ad-slot";
 import { PropertyListWhatsAppCta } from "@/components/properties/property-list-whatsapp-cta";
-import { ListingFilterBar } from "@/components/search/listing-filter-bar";
 import { listPublishedPropertiesForSite } from "@/domains/properties";
 import { searchAcross } from "@/domains/search";
+import { LISTING_HUB_CONTENT } from "@/lib/listings/hub-content";
+import { buildHubMetadata } from "@/lib/seo/hub-page-metadata";
 import { getSiteUrl } from "@/lib/env";
-import { buildItemListJsonLd } from "@/lib/seo/itemlist-jsonld";
 
 export const revalidate = 120;
 
-export const metadata: Metadata = {
-  title: "Properties",
-  description:
-    "Houses and flats for rent or sale around Nanganallur — verified-style listings with detail pages. Confirm terms in person before paying advance.",
-};
+const HUB = LISTING_HUB_CONTENT.properties;
 
-function kindLabel(kind: string): string {
-  if (kind === "rent") return "Rent";
-  if (kind === "sale") return "Sale";
-  return "Listing";
-}
-
-function priceLine(p: {
-  kind: string;
-  rentPerMonth: number | null;
-  salePrice: number | null;
-}): string | null {
-  if (p.kind === "rent" && p.rentPerMonth != null) {
-    return `Rs. ${p.rentPerMonth.toLocaleString("en-IN")}/month`;
-  }
-  if (p.kind === "sale" && p.salePrice != null) {
-    return `Rs. ${p.salePrice.toLocaleString("en-IN")}`;
-  }
-  return null;
-}
+export const metadata = buildHubMetadata({
+  path: HUB.path,
+  title: HUB.metaTitle,
+  description: HUB.metaDescription,
+  keywords: HUB.keywords,
+  ogKind: HUB.ogKind,
+  ogTitle: HUB.ogTitle,
+});
 
 export default async function PropertiesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; locality?: string }>;
+  searchParams: Promise<{ q?: string; locality?: string; kind?: string }>;
 }) {
   const sp = await searchParams;
   const q = sp.q?.trim() || null;
   const locality = sp.locality?.trim() || null;
+  const kind =
+    sp.kind === "rent" || sp.kind === "sale" ? sp.kind : null;
+
   let rows: Awaited<ReturnType<typeof listPublishedPropertiesForSite>> = [];
   try {
     if (q || locality) {
@@ -64,95 +59,95 @@ export default async function PropertiesPage({
     /* DATABASE_URL unset */
   }
 
-  const itemListLd = buildItemListJsonLd({
-    name: "Properties for rent & sale near Nanganallur",
-    pageUrl: `${getSiteUrl()}/properties`,
-    items: rows.map((p) => ({
-      name: p.title,
-      href: `/properties/${p.slug}`,
-    })),
-  });
+  if (kind) {
+    rows = rows.filter((p) => p.kind === kind);
+  }
+
+  const pageUrl = `${getSiteUrl()}${HUB.path}`;
+  const filterParams = { q: q ?? undefined, locality: locality ?? undefined, kind: kind ?? undefined };
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-14">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+    <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6 sm:py-14">
+      <ListingHubSeoScripts
+        hubPath={HUB.path}
+        hubName={HUB.itemListName}
+        description={HUB.metaDescription}
+        breadcrumbLabel="Properties"
+        items={rows.map((p) => ({
+          name: p.title,
+          href: `/properties/${p.slug}`,
+        }))}
       />
-      <p className="text-sm font-medium text-[var(--accent)]">Properties</p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-        Rent &amp; sale near Nanganallur
-      </h1>
-      <p className="mt-4 max-w-2xl text-[var(--muted)]">
-        Local listings with full pages for search. Treat every post as
-        advertiser-submitted: visit the property and verify paperwork before you
-        transfer money.
-      </p>
 
-      <ListingFilterBar
-        action="/properties"
+      <ListingHubShell
+        breadcrumb={[
+          { name: "Home", href: "/" },
+          { name: "Properties", href: HUB.path },
+        ]}
+        eyebrow={HUB.eyebrow}
+        h1={HUB.h1}
+        intro={HUB.intro}
+        hubPath={HUB.path}
+      />
+
+      <ListingGeoBlock
+        question={HUB.geoQuestion}
+        directAnswer={HUB.geoDirectAnswer}
+        localityLine={HUB.localityLine}
+      />
+
+      <ListingKindTabs currentParams={filterParams} />
+
+      <ListingFilterRow
+        action={HUB.path}
         q={q ?? undefined}
         locality={locality ?? undefined}
         qPlaceholder="Search properties…"
+        currentParams={filterParams}
       />
 
       {rows.length === 0 ? (
-        <p className="mt-10 max-w-xl text-sm text-[var(--muted)]">
-          No published listings yet. Add rows via seed scripts or your admin
-          pipeline once the database is connected.
-        </p>
+        <ListingEmptyState
+          title={HUB.emptyTitle}
+          body={HUB.emptyBody}
+          ctaHref={HUB.emptyCtaHref}
+          ctaLabel={HUB.emptyCtaLabel}
+        />
       ) : (
-        <ul className="mt-10 space-y-4">
-          {rows.map((p) => {
-            const price = priceLine(p);
-            return (
-              <li
-                key={p.id}
-                className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4 shadow-sm"
-              >
-                <Link
-                  href={`/properties/${p.slug}`}
-                  className="block text-[var(--foreground)] transition hover:text-[var(--accent)]"
-                >
-                  <span className="flex flex-wrap items-center gap-2">
-                    <span className="text-sm font-semibold">{p.title}</span>
-                    {p.featured ? (
-                      <span className="rounded-full bg-[var(--accent)]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--accent)]">
-                        Featured
-                      </span>
-                    ) : null}
-                  </span>
-                  <span className="mt-1 block text-xs text-[var(--muted)]">
-                    {kindLabel(p.kind)}
-                    {p.localityLabel ? ` · ${p.localityLabel}` : ""}
-                    {p.bedrooms != null ? ` · ${p.bedrooms} BHK` : ""}
-                    {p.areaSqft != null ? ` · ~${p.areaSqft} sq ft` : ""}
-                  </span>
-                  {price ? (
-                    <span className="mt-1 block text-xs font-medium text-[var(--accent)]">
-                      {price}
-                    </span>
-                  ) : null}
-                </Link>
-              </li>
-            );
-          })}
+        <ul className="mt-8 space-y-3 sm:mt-10">
+          {rows.map((p) => (
+            <ListingCardProperty
+              key={p.id}
+              slug={p.slug}
+              title={p.title}
+              kind={p.kind}
+              localityLabel={p.localityLabel}
+              bedrooms={p.bedrooms}
+              areaSqft={p.areaSqft}
+              rentPerMonth={p.rentPerMonth}
+              salePrice={p.salePrice}
+              featured={p.featured}
+            />
+          ))}
         </ul>
       )}
 
       <PropertyListWhatsAppCta className="mt-10 max-w-xl" />
 
-      <AdSlot
+      <ResponsiveAdSlot
         slotId="properties-index-mid"
-        size="728x90"
-        seed={buildRotationSeed("/properties", "properties-index-mid")}
-        className="mt-10 max-w-full"
+        pagePath={HUB.path}
+        className="mt-10"
       />
+
+      <FaqBlock items={HUB.faq} pageUrl={pageUrl} heading="Frequently asked questions" />
+
       <AmazonAffiliateBlock
         variant="compact"
         placement="hub-properties"
         className="mt-10 max-w-xl"
       />
+
       <Link
         href="/"
         className="mt-8 inline-flex text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"

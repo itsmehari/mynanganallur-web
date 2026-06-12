@@ -1,46 +1,67 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
-import { ListingFilterBar } from "@/components/search/listing-filter-bar";
+import { FaqBlock } from "@/components/faq/faq-block";
+import { ListingCardEvent } from "@/components/listings/listing-card-event";
+import { ListingEmptyState } from "@/components/listings/listing-empty-state";
+import { ListingFilterRow } from "@/components/listings/listing-filter-row";
+import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
+import { ListingHubShell } from "@/components/listings/listing-hub-shell";
+import { ListingHubSeoScripts } from "@/components/listings/listing-hub-seo-scripts";
+import { ResponsiveAdSlot } from "@/components/listings/responsive-ad-slot";
+import type { FilterChip } from "@/components/listings/listing-filter-chips";
 import { listUpcomingEventsForSite } from "@/domains/events";
 import { searchAcross } from "@/domains/search";
+import { LISTING_HUB_CONTENT } from "@/lib/listings/hub-content";
 import { getSiteUrl } from "@/lib/env";
-import { buildItemListJsonLd } from "@/lib/seo/itemlist-jsonld";
-
-const canonicalPath = "/local-events";
+import { buildHubMetadata } from "@/lib/seo/hub-page-metadata";
 
 export const revalidate = 120;
 
-export const metadata: Metadata = {
-  title: "Local events — festivals, culture & civic calendar",
-  description:
-    "Local events around Nanganallur: temple festivals, neighbourhood meetups, culture, and civic dates from mynanganallur.in.",
-  alternates: { canonical: canonicalPath },
-  openGraph: {
-    title: "Local events | mynanganallur.in",
-    description:
-      "Festivals, meetups, and civic calendars for Nanganallur and nearby.",
-    url: canonicalPath,
-  },
-};
+const HUB = LISTING_HUB_CONTENT.events;
 
-function formatEventWhen(startsAt: Date, allDay: boolean): string {
-  return startsAt.toLocaleString("en-IN", {
-    dateStyle: "medium",
-    timeStyle: allDay ? undefined : "short",
-    timeZone: "Asia/Kolkata",
-  });
+const WHEN_CHIPS: FilterChip[] = [
+  { label: "All upcoming", param: "when", value: null },
+  { label: "This week", param: "when", value: "week" },
+  { label: "This month", param: "when", value: "month" },
+];
+
+export const metadata = buildHubMetadata({
+  path: HUB.path,
+  title: HUB.metaTitle,
+  description: HUB.metaDescription,
+  keywords: HUB.keywords,
+  ogKind: HUB.ogKind,
+  ogTitle: HUB.ogTitle,
+});
+
+function filterByWhen(
+  events: Awaited<ReturnType<typeof listUpcomingEventsForSite>>,
+  when: string | null,
+) {
+  if (!when) return events;
+  const now = new Date();
+  const end = new Date(now);
+  if (when === "week") {
+    end.setDate(end.getDate() + 7);
+  } else if (when === "month") {
+    end.setMonth(end.getMonth() + 1);
+  } else {
+    return events;
+  }
+  return events.filter((e) => e.startsAt >= now && e.startsAt <= end);
 }
 
 export default async function LocalEventsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; locality?: string }>;
+  searchParams: Promise<{ q?: string; locality?: string; when?: string }>;
 }) {
   const sp = await searchParams;
   const q = sp.q?.trim() || null;
   const locality = sp.locality?.trim() || null;
+  const when =
+    sp.when === "week" || sp.when === "month" ? sp.when : null;
+
   let upcoming: Awaited<ReturnType<typeof listUpcomingEventsForSite>> = [];
   try {
     if (q || locality) {
@@ -55,83 +76,92 @@ export default async function LocalEventsPage({
     /* DATABASE_URL unset or DB unreachable */
   }
 
-  const itemListLd = buildItemListJsonLd({
-    name: "Upcoming local events near Nanganallur",
-    pageUrl: `${getSiteUrl()}/local-events`,
-    items: upcoming.map((e) => ({
-      name: e.title,
-      href: `/local-events/${e.slug}`,
-    })),
-  });
+  upcoming = filterByWhen(upcoming, when);
+
+  const pageUrl = `${getSiteUrl()}${HUB.path}`;
+  const filterParams = {
+    q: q ?? undefined,
+    locality: locality ?? undefined,
+    when: when ?? undefined,
+  };
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-14">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+    <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6 sm:py-14">
+      <ListingHubSeoScripts
+        hubPath={HUB.path}
+        hubName={HUB.itemListName}
+        description={HUB.metaDescription}
+        breadcrumbLabel="Local events"
+        items={upcoming.map((e) => ({
+          name: e.title,
+          href: `/local-events/${e.slug}`,
+        }))}
       />
-      <p className="text-sm font-medium text-[var(--accent-warm)]">
-        Local events
-      </p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-        What&apos;s on near Nanganallur
-      </h1>
-      <p className="mt-4 max-w-2xl text-[var(--muted)]">
-        Temple utsavams, concerts, workshops, and neighbourhood listings for
-        the Nanganallur site. Open an event for full details — confirm dates
-        and tickets with the organiser when contact info is provided.
-      </p>
 
-      <ListingFilterBar
-        action="/local-events"
+      <ListingHubShell
+        breadcrumb={[
+          { name: "Home", href: "/" },
+          { name: "Local events", href: HUB.path },
+        ]}
+        eyebrow={HUB.eyebrow}
+        h1={HUB.h1}
+        intro={HUB.intro}
+        hubPath={HUB.path}
+        eyebrowClassName="text-[var(--accent-warm)]"
+      />
+
+      <ListingGeoBlock
+        question={HUB.geoQuestion}
+        directAnswer={HUB.geoDirectAnswer}
+        localityLine={HUB.localityLine}
+      />
+
+      <ListingFilterRow
+        action={HUB.path}
         q={q ?? undefined}
         locality={locality ?? undefined}
         qPlaceholder="Search events…"
+        chips={WHEN_CHIPS}
+        currentParams={filterParams}
       />
 
       {upcoming.length === 0 ? (
-        <p className="mt-10 max-w-xl text-sm text-[var(--muted)]">
-          No upcoming events in the calendar right now. Check back soon, or
-          browse{" "}
-          <Link href="/local-news" className="font-medium text-[var(--accent)]">
-            local news
-          </Link>{" "}
-          for neighbourhood updates.
-        </p>
+        <ListingEmptyState
+          title={HUB.emptyTitle}
+          body={HUB.emptyBody}
+          ctaHref={HUB.emptyCtaHref}
+          ctaLabel={HUB.emptyCtaLabel}
+        />
       ) : (
-        <ul className="mt-10 space-y-4">
+        <ul className="mt-8 space-y-3 sm:mt-10">
           {upcoming.map((e) => (
-            <li
+            <ListingCardEvent
               key={e.id}
-              className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4 shadow-sm"
-            >
-              <Link
-                href={`/local-events/${e.slug}`}
-                className="block text-[var(--foreground)] transition hover:text-[var(--accent)]"
-              >
-                <span className="text-sm font-semibold">{e.title}</span>
-                <span className="mt-1 block text-xs text-[var(--muted)]">
-                  {formatEventWhen(e.startsAt, e.allDay)}
-                  {" · "}
-                  {e.venueName ?? e.localityLabel ?? "Details inside"}
-                </span>
-              </Link>
-            </li>
+              slug={e.slug}
+              title={e.title}
+              startsAt={e.startsAt}
+              allDay={e.allDay}
+              venueName={e.venueName}
+              localityLabel={e.localityLabel}
+            />
           ))}
         </ul>
       )}
 
-      <AdSlot
+      <ResponsiveAdSlot
         slotId="events-index-mid"
-        size="728x90"
-        seed={buildRotationSeed("/local-events", "events-index-mid")}
-        className="mt-10 max-w-full"
+        pagePath={HUB.path}
+        className="mt-10"
       />
+
+      <FaqBlock items={HUB.faq} pageUrl={pageUrl} heading="Frequently asked questions" />
+
       <AmazonAffiliateBlock
         variant="compact"
         placement="hub-events"
         className="mt-10 max-w-xl"
       />
+
       <Link
         href="/"
         className="mt-10 inline-flex text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"

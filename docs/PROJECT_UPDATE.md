@@ -4,6 +4,22 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-06-12 — Listing pages mobile-first retrofit (properties, jobs, events, directory)
+
+- **UI:** Shared `src/components/listings/*` — hub shell, GEO blocks, filter chips, mobile listing cards, sticky Call/WhatsApp/Apply bars, responsive ad slots (`320×50` mobile / `728×90` desktop).
+- **Hubs:** `/properties` (rent/sale tabs), `/jobs` (work-mode chips), `/local-events` (when chips), `/directory` (type tabs + search). Hub FAQ + `CollectionPage` + breadcrumb JSON-LD.
+- **Details:** Property/job/event/directory detail pages — breadcrumbs, GEO direct answers, auto-FAQ when `faqJson` empty, mobile sticky actions. Jobs keep desktop sidebar; mobile gets “At a glance” + bottom Apply bar.
+- **SEO:** `buildHubMetadata` canonical/OG on all four hubs; `speakable` on property/job JSON-LD.
+
+---
+
+## 2026-06-12 — Live property: independent house, Ullagaram (Muruga temple)
+
+- **Data:** Seeded **independent house with land for sale** near **Muruga temple, Ullagaram** (`slug` `sale-independent-house-ullagaram-muruga-temple-nanganallur`). **1,500 sq ft** plot, **900 sq ft** built-up; price on enquiry. Contact **9840577956**.
+- **Code:** `scripts/seed-property-ullagaram-muruga-temple-house.ts` (+ npm scripts `db:seed:property:ullagaram-muruga-temple-house` / `:live`).
+
+---
+
 ## 2026-05-10 — Live job: SKB Vidhyashram Playschool (Madipakkam)
 
 - **Data:** Seeded open roles **Principal** and **Teacher (part-time)** at **SKB Vidhyashram Playschool, Madipakkam** (`slug` `skb-vidhyashram-principal-teacher-part-time-madipakkam`, employer `skb-vidhyashram-madipakkam`). Apply before **30 May 2026**; **openings_count** 2. Contact: **skbmadipakkam@gmail.com**, WhatsApp primary **6380383563**, campus line **9962187719** in listing body as `tel:` link.

@@ -52,6 +52,10 @@ export function buildJobPostingJsonLd(row: JobWithEmployer) {
       name: "mynanganallur.in job slug",
       value: job.slug,
     },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".listing-geo-direct-answer", ".job-at-a-glance"],
+    },
   };
 
   if (isRemote) {

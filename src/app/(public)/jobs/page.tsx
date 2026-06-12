@@ -1,49 +1,66 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
-import { ListingFilterBar } from "@/components/search/listing-filter-bar";
+import { FaqBlock } from "@/components/faq/faq-block";
+import { ListingCardJob } from "@/components/listings/listing-card-job";
+import { ListingEmptyState } from "@/components/listings/listing-empty-state";
+import { ListingFilterRow } from "@/components/listings/listing-filter-row";
+import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
+import { ListingHubShell } from "@/components/listings/listing-hub-shell";
+import { ListingHubSeoScripts } from "@/components/listings/listing-hub-seo-scripts";
+import { ResponsiveAdSlot } from "@/components/listings/responsive-ad-slot";
+import type { FilterChip } from "@/components/listings/listing-filter-chips";
 import { listOpenJobsForSite } from "@/domains/jobs";
 import { searchAcross } from "@/domains/search";
+import { LISTING_HUB_CONTENT } from "@/lib/listings/hub-content";
 import { getSiteUrl } from "@/lib/env";
-import { buildItemListJsonLd } from "@/lib/seo/itemlist-jsonld";
+import { buildHubMetadata } from "@/lib/seo/hub-page-metadata";
 
 export const revalidate = 120;
 
-export const metadata: Metadata = {
-  title: "Jobs",
-  description:
-    "Jobs for Nanganallur-area employers — listings on mynanganallur.in with detail pages. Confirm the JD on the employer site before you apply.",
-};
+const HUB = LISTING_HUB_CONTENT.jobs;
 
-function salaryLine(job: {
-  salaryDisclosed: boolean;
-  salaryMin: number | null;
-  salaryMax: number | null;
-}): string | null {
-  if (!job.salaryDisclosed) return null;
-  if (job.salaryMin != null && job.salaryMax != null) {
-    return `₹${job.salaryMin.toLocaleString("en-IN")}–₹${job.salaryMax.toLocaleString("en-IN")} (indicative)`;
-  }
-  if (job.salaryMin != null) {
-    return `From ₹${job.salaryMin.toLocaleString("en-IN")} (indicative)`;
-  }
-  return null;
+const MODE_CHIPS: FilterChip[] = [
+  { label: "All modes", param: "mode", value: null },
+  { label: "Onsite", param: "mode", value: "onsite" },
+  { label: "Hybrid", param: "mode", value: "hybrid" },
+  { label: "Remote", param: "mode", value: "remote" },
+];
+
+export const metadata = buildHubMetadata({
+  path: HUB.path,
+  title: HUB.metaTitle,
+  description: HUB.metaDescription,
+  keywords: HUB.keywords,
+  ogKind: HUB.ogKind,
+  ogTitle: HUB.ogTitle,
+});
+
+function matchesMode(remotePolicy: string, mode: string | null): boolean {
+  if (!mode) return true;
+  const p = remotePolicy.toLowerCase();
+  if (mode === "remote") return p.includes("remote") || p.includes("online");
+  if (mode === "hybrid") return p.includes("hybrid");
+  if (mode === "onsite") return p === "onsite" || (!p.includes("remote") && !p.includes("hybrid") && !p.includes("online"));
+  return true;
 }
 
 export default async function JobsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; locality?: string }>;
+  searchParams: Promise<{ q?: string; locality?: string; mode?: string }>;
 }) {
   const sp = await searchParams;
   const q = sp.q?.trim() || null;
   const locality = sp.locality?.trim() || null;
+  const mode =
+    sp.mode === "onsite" || sp.mode === "hybrid" || sp.mode === "remote"
+      ? sp.mode
+      : null;
+
   let rows: Awaited<ReturnType<typeof listOpenJobsForSite>> = [];
   try {
     if (q || locality) {
       const search = await searchAcross({ q, locality, type: "job", limit: 25 });
-      // Re-fetch full job rows for the matched ids so we get employer joins.
       const all = await listOpenJobsForSite(200);
       const ids = new Set(search.hits.job.map((h) => h.id));
       rows = all.filter((r) => ids.has(r.job.id));
@@ -54,104 +71,105 @@ export default async function JobsPage({
     /* DATABASE_URL unset */
   }
 
-  const itemListLd = buildItemListJsonLd({
-    name: "Jobs near Nanganallur",
-    pageUrl: `${getSiteUrl()}/jobs`,
-    items: rows.map(({ job }) => ({
-      name: job.title,
-      href: `/jobs/${job.slug}`,
-    })),
-  });
+  if (mode) {
+    rows = rows.filter(({ job }) => matchesMode(job.remotePolicy, mode));
+  }
+
+  const pageUrl = `${getSiteUrl()}${HUB.path}`;
+  const filterParams = {
+    q: q ?? undefined,
+    locality: locality ?? undefined,
+    mode: mode ?? undefined,
+  };
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-14">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+    <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6 sm:py-14">
+      <ListingHubSeoScripts
+        hubPath={HUB.path}
+        hubName={HUB.itemListName}
+        description={HUB.metaDescription}
+        breadcrumbLabel="Jobs"
+        items={rows.map(({ job }) => ({
+          name: job.title,
+          href: `/jobs/${job.slug}`,
+        }))}
       />
-      <p className="text-sm font-medium text-[var(--accent)]">Jobs</p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-        Work near Nanganallur
-      </h1>
-      <p className="mt-4 max-w-2xl text-[var(--muted)]">
-        Open roles indexed for the city site. Each card links to a full page with
-        structured data for search. Always verify compensation and requirements
-        with the employer.
-      </p>
 
-      <ListingFilterBar
-        action="/jobs"
+      <ListingHubShell
+        breadcrumb={[
+          { name: "Home", href: "/" },
+          { name: "Jobs", href: HUB.path },
+        ]}
+        eyebrow={HUB.eyebrow}
+        h1={HUB.h1}
+        intro={HUB.intro}
+        hubPath={HUB.path}
+      />
+
+      <ListingGeoBlock
+        question={HUB.geoQuestion}
+        directAnswer={HUB.geoDirectAnswer}
+        localityLine={HUB.localityLine}
+      />
+
+      <ListingFilterRow
+        action={HUB.path}
         q={q ?? undefined}
         locality={locality ?? undefined}
         qPlaceholder="Search jobs by title, employer, body…"
+        chips={MODE_CHIPS}
+        currentParams={filterParams}
       />
 
-      <AdSlot
+      <ResponsiveAdSlot
         slotId="jobs-posting-468"
-        size="468x60"
-        seed={buildRotationSeed("/jobs", "jobs-posting-468")}
-        className="mt-8 flex w-full justify-center max-w-full"
+        pagePath={HUB.path}
+        desktopSize="468x60"
+        mobileSize="320x50"
+        className="mt-8 flex w-full justify-center"
       />
 
       {rows.length === 0 ? (
-        <p className="mt-10 max-w-xl text-sm text-[var(--muted)]">
-          No open listings yet. Run{" "}
-          <code className="rounded bg-[var(--surface)] px-1 text-xs">
-            npm run db:seed:jobs
-          </code>{" "}
-          after seeding the city, or add rows via your data pipeline.
-        </p>
+        <ListingEmptyState
+          title={HUB.emptyTitle}
+          body={HUB.emptyBody}
+          ctaHref={HUB.emptyCtaHref}
+          ctaLabel={HUB.emptyCtaLabel}
+        />
       ) : (
-        <ul className="mt-10 space-y-4">
-          {rows.map(({ job, employer }) => {
-            const sal = salaryLine(job);
-            return (
-              <li
-                key={job.id}
-                className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4 shadow-sm"
-              >
-                <Link
-                  href={`/jobs/${job.slug}`}
-                  className="block text-[var(--foreground)] transition hover:text-[var(--accent)]"
-                >
-                  <span className="flex flex-wrap items-center gap-2">
-                    <span className="text-sm font-semibold">{job.title}</span>
-                    {job.featured ? (
-                      <span className="rounded-full bg-[var(--accent)]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--accent)]">
-                        Featured
-                      </span>
-                    ) : null}
-                  </span>
-                  <span className="mt-1 block text-xs text-[var(--muted)]">
-                    {employer.name}
-                    {job.locationLabel ? ` · ${job.locationLabel}` : ""}
-                    {job.remotePolicy !== "onsite"
-                      ? ` · ${job.remotePolicy}`
-                      : ""}
-                  </span>
-                  {sal ? (
-                    <span className="mt-1 block text-xs font-medium text-[var(--accent)]">
-                      {sal}
-                    </span>
-                  ) : null}
-                </Link>
-              </li>
-            );
-          })}
+        <ul className="mt-8 space-y-3 sm:mt-10">
+          {rows.map(({ job, employer }) => (
+            <ListingCardJob
+              key={job.id}
+              slug={job.slug}
+              title={job.title}
+              employerName={employer.name}
+              locationLabel={job.locationLabel}
+              remotePolicy={job.remotePolicy}
+              salaryDisclosed={job.salaryDisclosed}
+              salaryMin={job.salaryMin}
+              salaryMax={job.salaryMax}
+              createdAt={job.createdAt}
+              featured={job.featured}
+            />
+          ))}
         </ul>
       )}
 
-      <AdSlot
+      <ResponsiveAdSlot
         slotId="jobs-index-mid"
-        size="728x90"
-        seed={buildRotationSeed("/jobs", "jobs-index-mid")}
-        className="mt-10 max-w-full"
+        pagePath={HUB.path}
+        className="mt-10"
       />
+
+      <FaqBlock items={HUB.faq} pageUrl={pageUrl} heading="Frequently asked questions" />
+
       <AmazonAffiliateBlock
         variant="compact"
         placement="hub-jobs"
         className="mt-10 max-w-xl"
       />
+
       <Link
         href="/"
         className="mt-8 inline-flex text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline"

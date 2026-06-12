@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
-import { PropertyListWhatsAppCta } from "@/components/properties/property-list-whatsapp-cta";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { RelatedBlock } from "@/components/internal-linking/related-block";
+import { ListingBreadcrumb } from "@/components/listings/listing-breadcrumb";
+import { ListingContactActions } from "@/components/listings/listing-contact-actions";
+import { ListingFactsGrid } from "@/components/listings/listing-facts-grid";
+import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
+import { ResponsiveAdSlot } from "@/components/listings/responsive-ad-slot";
+import { StickyListingActions } from "@/components/listings/sticky-listing-actions";
 import { ArticleProse } from "@/components/news/article-prose";
+import { PropertyListWhatsAppCta } from "@/components/properties/property-list-whatsapp-cta";
 import { ShareRow } from "@/components/share/share-row";
 import { HelpfulButtons } from "@/components/reactions/helpful";
 import {
   getPublishedPropertyBySlug,
   getPublishedPropertySlugsForSite,
 } from "@/domains/properties";
+import {
+  buildPropertyAutoFaq,
+  resolveFaqItems,
+} from "@/lib/listings/faq-generators";
+import { propertyFactPills } from "@/lib/listings/format";
 import { getSiteUrl } from "@/lib/env";
 import { buildOgImageUrl } from "@/lib/seo/og";
 import {
@@ -36,12 +46,6 @@ function stripMarkdownLite(s: string): string {
     .replace(/\*\*(.+?)\*\*/g, "$1")
     .replace(/\n+/g, " ")
     .trim();
-}
-
-function contactTelHref(phone: string): string {
-  const d = phone.replace(/\D/g, "");
-  if (d.length === 10) return `tel:+91${d}`;
-  return `tel:+${d}`;
 }
 
 export async function generateStaticParams() {
@@ -107,44 +111,15 @@ export default async function PropertyDetailPage({ params }: Props) {
 
   const propLd = buildPropertyListingJsonLd(row);
   const crumbLd = buildPropertyBreadcrumbJsonLd(row.slug, row.title);
+  const facts = propertyFactPills(row);
+  const pageUrl = `${getSiteUrl()}/properties/${row.slug}`;
+  const faqItems = resolveFaqItems(row.faqJson, buildPropertyAutoFaq(row));
+  const waMessage = `Hi, I'm interested in your listing on mynanganallur.in: ${row.title}`;
 
-  const facts: string[] = [];
-  if (row.kind === "rent" && row.rentPerMonth != null) {
-    facts.push(`Rent: Rs. ${row.rentPerMonth.toLocaleString("en-IN")}/month`);
-  }
-  if (row.kind === "sale" && row.salePrice != null) {
-    facts.push(`Ask: Rs. ${row.salePrice.toLocaleString("en-IN")}`);
-  }
-  if (row.advanceMonths != null) {
-    facts.push(`Advance: ${row.advanceMonths} month(s)`);
-  }
-  if (row.bedrooms != null) {
-    facts.push(`${row.bedrooms} BHK`);
-  }
-  if (row.areaSqft != null) {
-    facts.push(`~${row.areaSqft} sq ft`);
-  }
-  if (row.floorLabel) {
-    facts.push(row.floorLabel);
-  }
-  if (row.facing) {
-    facts.push(`${row.facing} facing`);
-  }
-  if (row.furnishing !== "unspecified") {
-    facts.push(
-      row.furnishing === "fully_furnished"
-        ? "Fully furnished"
-        : row.furnishing === "semi_furnished"
-          ? "Semi-furnished"
-          : "Unfurnished",
-    );
-  }
-  if (row.vegetarianHouseholdOnly) {
-    facts.push("Vegetarian household preference");
-  }
+  const geoAnswer = `${row.title}. ${[row.localityLabel, row.landmarkNote].filter(Boolean).join(" — ")}. ${row.summary ?? "Open the listing for rent or sale terms and contact the advertiser."}`;
 
   return (
-    <div className="mx-auto max-w-[720px] px-4 py-12 sm:px-6">
+    <div className="mx-auto max-w-[720px] px-4 py-10 pb-24 sm:px-6 sm:py-12 lg:pb-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(propLd) }}
@@ -154,7 +129,15 @@ export default async function PropertyDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbLd) }}
       />
 
-      <p className="text-xs font-medium uppercase tracking-wide text-[var(--accent)]">
+      <ListingBreadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Properties", href: "/properties" },
+          { name: row.title, href: `/properties/${row.slug}` },
+        ]}
+      />
+
+      <p className="mt-6 text-xs font-medium uppercase tracking-wide text-[var(--accent)]">
         Property listing
         {row.featured ? (
           <span className="ml-2 rounded-full bg-[var(--accent)]/15 px-2 py-0.5 font-bold normal-case tracking-normal text-[var(--accent)]">
@@ -162,24 +145,37 @@ export default async function PropertyDetailPage({ params }: Props) {
           </span>
         ) : null}
       </p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)] sm:text-4xl">
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--foreground)] sm:text-3xl">
         {row.title}
       </h1>
       <p className="mt-1 text-sm text-[var(--muted)]">
         {[row.localityLabel, row.landmarkNote].filter(Boolean).join(" · ")}
       </p>
 
-      {facts.length > 0 ? (
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {facts.map((f) => (
-            <li
-              key={f}
-              className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs font-medium text-[var(--foreground)]"
-            >
-              {f}
-            </li>
-          ))}
-        </ul>
+      <ListingFactsGrid facts={facts} />
+
+      <ListingGeoBlock
+        question={`What is available at ${row.localityLabel ?? "this Nanganallur listing"}?`}
+        directAnswer={geoAnswer}
+        className="mt-6"
+      />
+
+      <ListingContactActions
+        phone={row.contactPhone}
+        waMessage={waMessage}
+        className="mt-6"
+      />
+
+      {row.contactEmail ? (
+        <p className="mt-3 text-sm text-[var(--muted)]">
+          Email:{" "}
+          <a
+            href={`mailto:${row.contactEmail}`}
+            className="font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
+          >
+            {row.contactEmail}
+          </a>
+        </p>
       ) : null}
 
       {row.parkingSummary ? (
@@ -189,32 +185,10 @@ export default async function PropertyDetailPage({ params }: Props) {
         </p>
       ) : null}
 
-      <p className="mt-6 text-sm font-medium text-[var(--foreground)]">Contact</p>
-      <p className="mt-1 text-sm text-[var(--muted)]">
-        <a
-          href={contactTelHref(row.contactPhone)}
-          className="font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
-        >
-          {row.contactPhone}
-        </a>
-        {row.contactEmail ? (
-          <>
-            {" · "}
-            <a
-              href={`mailto:${row.contactEmail}`}
-              className="font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
-            >
-              {row.contactEmail}
-            </a>
-          </>
-        ) : null}
-      </p>
-
-      <AdSlot
+      <ResponsiveAdSlot
         slotId="properties-detail-top"
-        size="728x90"
-        seed={buildRotationSeed(`/properties/${slug}`, "properties-detail-top")}
-        className="mt-8 max-w-full"
+        pagePath={`/properties/${slug}`}
+        className="mt-8"
       />
 
       <section className="mt-10" aria-labelledby="prop-body-heading">
@@ -229,18 +203,11 @@ export default async function PropertyDetailPage({ params }: Props) {
         </div>
       </section>
 
-      <ShareRow
-        url={`${getSiteUrl()}/properties/${row.slug}`}
-        title={row.title}
-        channelLabel="property"
-      />
+      <ShareRow url={pageUrl} title={row.title} channelLabel="property" />
 
       <HelpfulButtons entityType="property" entityId={row.id} />
 
-      <FaqBlock
-        items={row.faqJson?.items ?? null}
-        pageUrl={`${getSiteUrl()}/properties/${row.slug}`}
-      />
+      <FaqBlock items={faqItems} pageUrl={pageUrl} />
 
       <RelatedBlock
         kind="property"
@@ -264,6 +231,23 @@ export default async function PropertyDetailPage({ params }: Props) {
           ← All properties
         </Link>
       </p>
+
+      <StickyListingActions
+        actions={[
+          { type: "call", phone: row.contactPhone },
+          {
+            type: "whatsapp",
+            phone: row.contactPhone,
+            message: waMessage,
+          },
+          {
+            type: "share",
+            url: pageUrl,
+            title: row.title,
+            channelLabel: "property",
+          },
+        ]}
+      />
     </div>
   );
 }

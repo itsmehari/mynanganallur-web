@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AdSlot, buildRotationSeed } from "@/ads";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { RelatedBlock } from "@/components/internal-linking/related-block";
+import { ListingBreadcrumb } from "@/components/listings/listing-breadcrumb";
+import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
+import { ResponsiveAdSlot } from "@/components/listings/responsive-ad-slot";
+import { StickyListingActions } from "@/components/listings/sticky-listing-actions";
 import { ArticleProse } from "@/components/news/article-prose";
 import { ShareRow } from "@/components/share/share-row";
 import { HelpfulButtons } from "@/components/reactions/helpful";
@@ -12,6 +15,10 @@ import {
   getPublishedEventBySlug,
   getPublishedEventSlugsForSite,
 } from "@/domains/events";
+import {
+  buildEventAutoFaq,
+  resolveFaqItems,
+} from "@/lib/listings/faq-generators";
 import { getSiteUrl } from "@/lib/env";
 import { buildOgImageUrl } from "@/lib/seo/og";
 import {
@@ -108,9 +115,36 @@ export default async function EventDetailPage({ params }: Props) {
 
   const eventLd = buildEventJsonLd(event);
   const crumbLd = buildEventBreadcrumbJsonLd(event.slug, event.title);
+  const pageUrl = `${getSiteUrl()}/local-events/${event.slug}`;
+  const faqItems = resolveFaqItems(event.faqJson, buildEventAutoFaq(event));
+
+  const mapsQuery = event.venueAddress ?? where;
+  const mapsUrl = mapsQuery
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`
+    : null;
+
+  const stickyActions = [
+    ...(mapsUrl
+      ? [
+          {
+            type: "link" as const,
+            href: mapsUrl,
+            label: "Open map",
+            external: true,
+            variant: "secondary" as const,
+          },
+        ]
+      : []),
+    {
+      type: "share" as const,
+      url: pageUrl,
+      title: event.title,
+      channelLabel: "event",
+    },
+  ];
 
   return (
-    <div className="mx-auto max-w-[720px] px-4 py-12 sm:px-6">
+    <div className="mx-auto max-w-[720px] px-4 py-10 pb-20 sm:px-6 sm:py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventLd) }}
@@ -120,10 +154,18 @@ export default async function EventDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbLd) }}
       />
 
-      <p className="text-xs font-medium uppercase tracking-wide text-[var(--accent-warm)]">
+      <ListingBreadcrumb
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Local events", href: "/local-events" },
+          { name: event.title, href: `/local-events/${event.slug}` },
+        ]}
+      />
+
+      <p className="mt-6 text-xs font-medium uppercase tracking-wide text-[var(--accent-warm)]">
         Local event
       </p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--foreground)] sm:text-4xl">
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--foreground)] sm:text-3xl">
         {event.title}
       </h1>
       <p className="mt-4 text-sm text-[var(--muted)]">
@@ -132,11 +174,16 @@ export default async function EventDetailPage({ params }: Props) {
       </p>
       <p className="mt-2 text-sm font-medium text-[var(--foreground)]">{where}</p>
 
-      <AdSlot
+      <ListingGeoBlock
+        question={`When and where is ${event.title}?`}
+        directAnswer={`${event.title} is on ${when}${event.allDay ? " (all day)" : ""} at ${where}. Confirm with the organiser before you travel.`}
+        className="mt-6"
+      />
+
+      <ResponsiveAdSlot
         slotId="events-detail-top"
-        size="728x90"
-        seed={buildRotationSeed(`/local-events/${slug}`, "events-detail-top")}
-        className="mt-8 max-w-full"
+        pagePath={`/local-events/${slug}`}
+        className="mt-8"
       />
 
       {event.description ? (
@@ -153,18 +200,11 @@ export default async function EventDetailPage({ params }: Props) {
         </section>
       ) : null}
 
-      <ShareRow
-        url={`${getSiteUrl()}/local-events/${event.slug}`}
-        title={event.title}
-        channelLabel="event"
-      />
+      <ShareRow url={pageUrl} title={event.title} channelLabel="event" />
 
       <HelpfulButtons entityType="event" entityId={event.id} />
 
-      <FaqBlock
-        items={event.faqJson?.items ?? null}
-        pageUrl={`${getSiteUrl()}/local-events/${event.slug}`}
-      />
+      <FaqBlock items={faqItems} pageUrl={pageUrl} />
 
       <RelatedBlock
         kind="event"
@@ -186,6 +226,8 @@ export default async function EventDetailPage({ params }: Props) {
           ← All local events
         </Link>
       </p>
+
+      <StickyListingActions actions={stickyActions} hideOnDesktop={false} />
     </div>
   );
 }
