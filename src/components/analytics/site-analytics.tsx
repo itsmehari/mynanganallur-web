@@ -5,9 +5,9 @@ import { GoogleAnalyticsAffiliateTracker } from "./google-analytics-affiliate-tr
 import { GoogleAnalyticsDisplayAdTracker } from "./google-analytics-display-ad-tracker";
 import { GoogleAnalyticsRouteTracker } from "./google-analytics-route-tracker";
 import { GoogleAnalyticsScripts } from "./google-analytics-scripts";
+import { GA_MEASUREMENT_ID } from "@/lib/analytics/ga-measurement-id";
 
-const gaId =
-  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "G-WDPGFYERFD";
+const gaId = GA_MEASUREMENT_ID;
 
 /**
  * Single entry for all site-wide measurement. Mounted once in `app/layout.tsx`

@@ -326,6 +326,43 @@ const seeds: SeedDir[] = [
   },
   {
     type: "tutor",
+    name: "Home tuition — Prof. K. Arulselvan M.Sc., M.Phil.",
+    slug: "home-tuition-arulselvan-bv-nagar",
+    address: "Kamarajar Street, B.V. Nagar, Nanganallur, Chennai, Tamil Nadu 600061",
+    localityLabel: "B.V. Nagar",
+    phone: "9003856149",
+    hoursSummary: "Mon–Sat mornings: 5:30–6:30 AM & 6:45–7:45 AM (classes from 01 May 2026)",
+    faqJson: {
+      items: [
+        {
+          q: "Which school classes are covered?",
+          a: "Class 6 to 10 — all subjects except Hindi. Class 11 and 12 — Mathematics and Business Mathematics only. Boards: CBSE and Tamil Nadu State Board.",
+        },
+        {
+          q: "Which college courses are covered?",
+          a: "UG — Allied Mathematics (all major streams). BE — Engineering Mathematics M1 to M4. Polytechnic — Allied Mathematics.",
+        },
+        {
+          q: "Where are classes held and who can join?",
+          a: "Morning batches at B.V. Nagar, Nanganallur — for Nanganallur residents only. The tutor travels by bicycle and does not take students from other areas.",
+        },
+        {
+          q: "About the tutor",
+          a: "Prof. K. Arulselvan M.Sc., M.Phil., DCA — native of Mayiladuthurai (Moovalur). 13 years in higher education and 10 years of school tuition experience. Now based in Nanganallur.",
+        },
+        {
+          q: "How do I enquire?",
+          a: "Call 9003856149. Confirm batch timings and fees directly before enrolling.",
+        },
+      ],
+    },
+    metadata: JSON.stringify({
+      sources: ["Reader-submitted WhatsApp group post for mynanganallur.in"],
+      note: "Details provided by the tutor; confirm timings, fees, and start date (01/05/2026) by phone before enrolling.",
+    }),
+  },
+  {
+    type: "tutor",
     name: "CBSE Grade 12 Economics tuition — Akshaya S",
     slug: "cbse-grade-12-economics-akshaya-s-ram-nagar",
     address: "Ram Nagar, Nanganallur, Chennai, Tamil Nadu 600061",

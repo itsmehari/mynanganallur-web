@@ -16,6 +16,7 @@ import type { Creative } from "./types";
  * - properties-index-mid, properties-detail-top → `/properties`
  * - events-index-mid → `/local-events`
  * - listings-detail-mid → `/areas/[slug]`
+ * - directory-detail-mid → `/directory/[type]/[slug]`
  */
 export const ALL_SLOTS = [
   "article-top",
@@ -45,6 +46,7 @@ export const ALL_SLOTS = [
   "classified-ads-detail-mid",
   "listings-index-top",
   "listings-detail-mid",
+  "directory-detail-mid",
   "events-index-top",
   "events-index-mid",
   "events-detail-mid",

@@ -49,7 +49,7 @@ git push -u origin main
 | `AUTH_URL` | `https://mynanganallur.in` (match deployed URL) |
 | `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Optional OAuth |
 | `AUTH_GITHUB_ID` / `AUTH_GITHUB_SECRET` | Optional OAuth |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | GA4 `G-…` (optional) |
+| ~~`NEXT_PUBLIC_GA_MEASUREMENT_ID`~~ | **Not used** — GA4 is `G-WDPGFYERFD` in code (`src/lib/analytics/ga-measurement-id.ts`) |
 
 4. Deploy and confirm the production build is green.
 
@@ -71,8 +71,8 @@ Wait for DNS propagation; HTTPS certificates are issued by Vercel.
 
 ## 5. Google Analytics (GA4)
 
-1. Create a GA4 property and web data stream for `https://mynanganallur.in`.
-2. Set `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXX` in Vercel and redeploy.
+1. Property measurement ID **`G-WDPGFYERFD`** is wired in `src/lib/analytics/ga-measurement-id.ts` and loaded on every page via `SiteAnalytics` in the root layout (gtag.js + client route changes).
+2. In Vercel → **Environment Variables**, delete any old `NEXT_PUBLIC_GA_MEASUREMENT_ID` (e.g. a stale `G-SSX82MBZK0`) so it cannot override a future build, then redeploy.
 
 ## 6. Google Search Console
 

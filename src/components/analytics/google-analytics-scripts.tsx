@@ -4,11 +4,15 @@ type Props = {
   measurementId: string;
 };
 
-/** Loads gtag.js once; runs on every document (via root layout). */
+/**
+ * GA4 gtag.js loader — equivalent to the standard Google tag snippet.
+ * Mounted once in root `app/layout.tsx` via `SiteAnalytics`.
+ */
 export function GoogleAnalyticsScripts({ measurementId }: Props) {
   return (
     <>
       <Script
+        async
         src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
         strategy="afterInteractive"
       />
