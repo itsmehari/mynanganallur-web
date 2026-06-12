@@ -18,7 +18,8 @@ export type SiteEvent =
   | "lead_submit"
   | "featured_upgrade_click"
   | "newsletter_signup"
-  | "reaction_click";
+  | "reaction_click"
+  | "whatsapp_join_click";
 
 export type EventProps = Record<
   string,

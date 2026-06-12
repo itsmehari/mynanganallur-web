@@ -1,5 +1,8 @@
-export const WHATSAPP_COMMUNITY_INVITE_URL =
-  "https://chat.whatsapp.com/GIL8LIqKTLxJ0SBLbqX6NE";
+import Link from "next/link";
+import { WhatsappJoinCta } from "@/components/community/whatsapp-join-cta";
+import { WHATSAPP_PAGE_PATH } from "@/lib/community/whatsapp";
+
+export { WHATSAPP_COMMUNITY_INVITE_URL } from "@/lib/community/whatsapp";
 
 const HIGHLIGHTS = [
   "Neighbourhood updates, jobs, events, and property leads from residents.",
@@ -45,14 +48,16 @@ export function WhatsappCommunityBand() {
             </p>
           </div>
           <div className="flex flex-col items-stretch gap-3 sm:items-start lg:items-end">
-            <a
-              href={WHATSAPP_COMMUNITY_INVITE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsappJoinCta
+              source="band"
               className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+            />
+            <Link
+              href={WHATSAPP_PAGE_PATH}
+              className="text-center text-sm font-semibold text-[var(--accent)] hover:underline lg:text-right"
             >
-              Join group on WhatsApp
-            </a>
+              Guidelines &amp; full details →
+            </Link>
             <p className="text-xs text-[var(--muted)] lg:text-right">
               Opens WhatsApp to request access to the group.
             </p>

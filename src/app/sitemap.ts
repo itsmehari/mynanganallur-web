@@ -61,6 +61,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.72,
     },
+    {
+      url: `${base}/nanganallur-whatsapp-group`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.82,
+    },
+    {
+      url: `${base}/newsletter`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.55,
+    },
   ];
 
   const areaEntries: MetadataRoute.Sitemap = nanganallurAreas.map((z) => ({

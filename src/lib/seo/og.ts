@@ -8,6 +8,7 @@ export type OgKind =
   | "article"
   | "area"
   | "topic"
+  | "community"
   | "default";
 
 export function buildOgImageUrl(opts: {

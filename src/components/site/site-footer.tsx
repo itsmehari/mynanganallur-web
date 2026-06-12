@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
+import { WHATSAPP_PAGE_PATH } from "@/lib/community/whatsapp";
 import { nanganallurAreas } from "@/lib/nanganallur-areas";
 import { getAmazonAffiliateUrl } from "@/lib/amazon-affiliate";
 
@@ -31,18 +32,18 @@ const workLinks = [
 ];
 
 const companyLinks = [
+  { href: WHATSAPP_PAGE_PATH, label: "Join WhatsApp group" },
+  { href: "/newsletter", label: "Weekly digest" },
   { href: "/news", label: "About us" },
   { href: "/news", label: "Contact & tips" },
   { href: "/news", label: "Advertise" },
-  { href: "/news", label: "Careers" },
-  { href: "/news", label: "Corrections policy" },
 ];
 
 const legalLinks = [
   { href: "/news", label: "Privacy" },
   { href: "/news", label: "Terms of use" },
   { href: "/news", label: "Cookies" },
-  { href: "/news", label: "Community guidelines" },
+  { href: `${WHATSAPP_PAGE_PATH}#guidelines`, label: "Community guidelines" },
 ];
 
 const tagLinks = [

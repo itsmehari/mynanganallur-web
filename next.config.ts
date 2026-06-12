@@ -37,6 +37,26 @@ const nextConfig: NextConfig = {
         destination: "/local-events/:path*",
         permanent: true,
       },
+      {
+        source: "/join",
+        destination: "/nanganallur-whatsapp-group",
+        permanent: true,
+      },
+      {
+        source: "/whatsapp",
+        destination: "/nanganallur-whatsapp-group",
+        permanent: true,
+      },
+      {
+        source: "/community/whatsapp",
+        destination: "/nanganallur-whatsapp-group",
+        permanent: true,
+      },
+      {
+        source: "/join-nanganallur-whatsapp-group",
+        destination: "/nanganallur-whatsapp-group",
+        permanent: true,
+      },
     ];
   },
   images: {

@@ -10,6 +10,7 @@ const KIND_LABEL: Record<string, string> = {
   article: "News",
   area: "Area",
   topic: "Topic",
+  community: "Community",
   default: "mynanganallur.in",
 };
 
@@ -21,6 +22,7 @@ const KIND_ACCENT: Record<string, string> = {
   article: "#1F2937",
   area: "#5B5BD6",
   topic: "#9F4D2A",
+  community: "#059669",
   default: "#1F2937",
 };
 
