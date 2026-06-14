@@ -1,11 +1,17 @@
 import type { MetadataRoute } from "next";
-import { listDirectoryForSitemap } from "@/domains/directory";
+import {
+  DIRECTORY_TYPE_SLUGS,
+  listDirectoryForSitemap,
+} from "@/domains/directory";
 import { listEventsForSitemap } from "@/domains/events";
 import { listJobsForSitemap } from "@/domains/jobs";
 import { listPropertiesForSitemap } from "@/domains/properties";
 import { listArticlesForSitemap, listTopicKeysForSite } from "@/domains/news";
 import { nanganallurAreas } from "@/lib/nanganallur-areas";
 import { categoryToTopicSlug } from "@/lib/news-topics";
+
+/** Regenerate from Neon on each request (ISR). */
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base =
@@ -73,7 +79,64 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.55,
     },
+    {
+      url: `${base}/search`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.5,
+    },
+    {
+      url: `${base}/news`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.45,
+    },
+    {
+      url: `${base}/pricing`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
+    {
+      url: `${base}/submit`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.48,
+    },
+    {
+      url: `${base}/submit/business`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.52,
+    },
+    {
+      url: `${base}/submit/job`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.48,
+    },
+    {
+      url: `${base}/submit/event`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.48,
+    },
+    {
+      url: `${base}/submit/property`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.48,
+    },
   ];
+
+  const directoryTypeEntries: MetadataRoute.Sitemap = DIRECTORY_TYPE_SLUGS.map(
+    (type) => ({
+      url: `${base}/directory/${type}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.56,
+    }),
+  );
 
   const areaEntries: MetadataRoute.Sitemap = nanganallurAreas.map((z) => ({
     url: `${base}/areas/${z.slug}`,
@@ -126,6 +189,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticEntries,
+    ...directoryTypeEntries,
     ...areaEntries,
     ...topicSitemap,
     ...articleSitemap,
