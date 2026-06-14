@@ -64,14 +64,20 @@ function resolveSitemapUrl(siteUrl: string): string {
 async function main() {
   const auth = loadAuth();
   const siteUrl = resolveSiteUrl();
-  const feedpath = resolveSitemapUrl(siteUrl);
+  const feedpaths = [
+    resolveSitemapUrl(siteUrl),
+    resolveSitemapUrl(siteUrl).replace(/sitemap\.xml$/, "sitemap-news.xml"),
+    resolveSitemapUrl(siteUrl).replace(/sitemap\.xml$/, "sitemap-images.xml"),
+  ];
 
   const webmasters = google.webmasters({ version: "v3", auth });
-  await webmasters.sitemaps.submit({ siteUrl, feedpath });
+  for (const feedpath of feedpaths) {
+    await webmasters.sitemaps.submit({ siteUrl, feedpath });
+    console.log("Submitted:", feedpath);
+  }
 
-  console.log("Submitted sitemap to Search Console.");
+  console.log("All sitemaps submitted to Search Console.");
   console.log(`  property: ${siteUrl}`);
-  console.log(`  sitemap:  ${feedpath}`);
 }
 
 main().catch((e) => {

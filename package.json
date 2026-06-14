@@ -15,6 +15,8 @@
     "db:seed:live": "tsx scripts/seed-articles.ts --live",
     "db:seed:directory": "tsx scripts/seed-directory.ts",
     "db:seed:directory:live": "tsx scripts/seed-directory.ts --live",
+    "db:seed:directory:jhoola-play-membership": "tsx scripts/seed-directory-jhoola-play-membership.ts",
+    "db:seed:directory:jhoola-play-membership:live": "tsx scripts/seed-directory-jhoola-play-membership.ts --live",
     "db:seed:event:panguni:live": "tsx scripts/seed-event-panguni.ts --live",
     "db:seed:event:thirumurai:live": "tsx scripts/seed-event-thirumurai-music.ts --live",
     "db:seed:jobs": "tsx scripts/seed-jobs-sample.ts",
@@ -62,6 +64,8 @@
     "db:ensure:faq-column": "tsx scripts/ensure-article-faq-column.ts",
     "db:ensure:tutor-enum": "tsx scripts/ensure-directory-tutor-enum.ts",
     "db:ensure:tutor-enum:live": "tsx scripts/ensure-directory-tutor-enum.ts --live",
+    "db:ensure:listing-owner": "tsx scripts/ensure-listing-owner-schema.ts",
+    "db:ensure:listing-owner:live": "tsx scripts/ensure-listing-owner-schema.ts --live",
     "db:push:live": "node --env-file=.env.production.local ./node_modules/drizzle-kit/bin.cjs push",
     "db:apply:live-ddl": "tsx scripts/apply-live-schema-ddl.ts",
     "gsc:submit-sitemap": "tsx scripts/gsc-submit-sitemap.ts"
