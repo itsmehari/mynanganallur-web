@@ -8,6 +8,7 @@ type SectionProps = {
   title: string;
   subtitle?: string;
   action?: { href: string; label: string };
+  secondaryAction?: { href: string; label: string };
   children: ReactNode;
   className?: string;
 };
@@ -18,6 +19,7 @@ export function Section({
   title,
   subtitle,
   action,
+  secondaryAction,
   children,
   className = "",
 }: SectionProps) {
@@ -46,13 +48,25 @@ export function Section({
             </p>
           ) : null}
         </div>
-        {action ? (
-          <Link
-            href={action.href}
-            className="shrink-0 text-sm font-medium text-[var(--accent)] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-          >
-            {action.label}
-          </Link>
+        {action || secondaryAction ? (
+          <div className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-1">
+            {action ? (
+              <Link
+                href={action.href}
+                className="text-sm font-semibold text-[var(--accent)] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              >
+                {action.label}
+              </Link>
+            ) : null}
+            {secondaryAction ? (
+              <Link
+                href={secondaryAction.href}
+                className="text-sm font-medium text-[var(--muted)] underline-offset-4 hover:text-[var(--foreground)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              >
+                {secondaryAction.label}
+              </Link>
+            ) : null}
+          </div>
         ) : null}
       </div>
       {children}

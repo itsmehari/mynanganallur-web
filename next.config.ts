@@ -8,12 +8,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.mynanganallur.in" }],
-        destination: "https://mynanganallur.in/:path*",
-        permanent: true,
-      },
-      {
         source: "/events",
         destination: "/local-events",
         permanent: true,

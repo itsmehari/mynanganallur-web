@@ -89,6 +89,13 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
   {
     id: "explore",
     label: "Explore",
+    featured: {
+      title: "List your business",
+      description:
+        "Shops, schools, tutors, clinics — add your place to the Nanganallur directory. Free, reviewed within 24 hours.",
+      href: "/submit/business",
+      cta: "Add to directory",
+    },
     columns: [
       {
         heading: "Directory",

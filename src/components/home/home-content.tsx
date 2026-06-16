@@ -106,7 +106,8 @@ export function HomeCategoryMosaic() {
       eyebrow="Directory"
       title="Explore Nanganallur"
       subtitle="Directory tiles pick up live counts once the unified listings API lands."
-      action={{ href: "/directory", label: "Full directory" }}
+      action={{ href: "/submit/business", label: "List your business" }}
+      secondaryAction={{ href: "/directory", label: "Full directory" }}
     >
       <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {categoryTiles.map((c) => (

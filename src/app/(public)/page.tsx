@@ -18,6 +18,7 @@ import {
   HomeZoneShortcuts,
 } from "@/components/home/home-content";
 import { HomeCommunityBand } from "@/components/home/home-community-band";
+import { ListingHubSubmitCta } from "@/components/listings/listing-hub-submit-cta";
 import { HomeJsonLd } from "@/components/seo/home-json-ld";
 import { AdSlot, AdSlotRow, buildRotationSeed } from "@/ads";
 import {
@@ -67,6 +68,15 @@ export default async function Home() {
           className="mx-auto w-full max-w-[728px]"
         />
         <HomeTrustStrip />
+
+        <ListingHubSubmitCta
+          title="Add your business to the local directory"
+          body="Schools, tutors, clinics, temples, shops — reach neighbours searching Nanganallur. Free for residents; we review within 24 hours."
+          ctaHref="/submit/business"
+          ctaLabel="List your business"
+          secondaryHref="/directory"
+          secondaryLabel="Browse directory"
+        />
 
         <HomeCategoryMosaic />
 

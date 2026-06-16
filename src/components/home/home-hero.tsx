@@ -116,6 +116,13 @@ export function HomeHero() {
                 Search jobs
               </Link>
               <Link
+                href="/submit/business"
+                className="inline-flex items-center rounded-full px-6 py-2.5 text-sm font-semibold text-[#0a1210] transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                style={{ background: gold }}
+              >
+                List your business
+              </Link>
+              <Link
                 href="/local-news"
                 className="inline-flex items-center rounded-full border-2 border-white/35 bg-transparent px-6 py-2.5 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >

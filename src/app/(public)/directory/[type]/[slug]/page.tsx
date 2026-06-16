@@ -218,6 +218,16 @@ export default async function DirectoryEntryPage({ params }: Props) {
         className="mt-6"
       />
 
+      <ListingHubSubmitCta
+        title="List your business in the directory"
+        body="Not listed yet, or details out of date? Submit an update — free for residents."
+        ctaHref="/submit/business"
+        ctaLabel="Add to directory"
+        secondaryHref="/my/login"
+        secondaryLabel="Manage my listings"
+        className="mt-6"
+      />
+
       {entry.address ? (
         <p className="mt-4 text-sm leading-relaxed text-[var(--foreground)]">
           {entry.address}
@@ -300,16 +310,6 @@ export default async function DirectoryEntryPage({ params }: Props) {
       <AmazonAffiliateBlock
         variant="compact"
         placement="hub-directory"
-        className="mt-10"
-      />
-
-      <ListingHubSubmitCta
-        title="List your business in the directory"
-        body="Not listed yet, or details out of date? Submit an update — free for residents, reviewed within 24 hours."
-        ctaHref="/submit/business"
-        ctaLabel="List your business"
-        secondaryHref="/my/login"
-        secondaryLabel="Manage my listings"
         className="mt-10"
       />
 
