@@ -99,6 +99,11 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
             description: "Schools, tutors, services, and local listings.",
           },
           {
+            href: "/submit/business",
+            label: "List your business",
+            description: "Add your shop, clinic, or tuition to the directory.",
+          },
+          {
             href: "/properties",
             label: "Properties",
             description: "Houses and flats for rent or sale.",
@@ -108,6 +113,11 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
       {
         heading: "On the map",
         links: [
+          {
+            href: "/nanganallur-connect",
+            label: "Nanganallur Connect",
+            description: "Locality hub — news, jobs, events, listings, and community.",
+          },
           {
             href: "/#areas",
             label: "Area explorer",

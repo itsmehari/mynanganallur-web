@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { buildPageMetadata } from "@/lib/seo/hub-page-metadata";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
+  path: "/submit",
   title: "Submit a listing",
   description:
     "Submit a job, event, business, or property to mynanganallur.in. Free, reviewed within 24 hours.",
-};
+});
 
 const CARDS = [
   {

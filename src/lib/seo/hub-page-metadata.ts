@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getSiteUrl } from "@/lib/env";
 import { buildOgImageUrl, type OgKind } from "@/lib/seo/og";
+import { canonicalUrl } from "@/lib/seo/canonical-url";
 
 export function buildHubMetadata(opts: {
   path: string;
@@ -11,8 +11,7 @@ export function buildHubMetadata(opts: {
   ogTitle: string;
   locality?: string;
 }): Metadata {
-  const base = getSiteUrl();
-  const canonical = `${base}${opts.path}`;
+  const canonical = canonicalUrl(opts.path);
   const ogImage = buildOgImageUrl({
     title: opts.ogTitle,
     kind: opts.ogKind,
@@ -56,5 +55,21 @@ export function buildHubMetadata(opts: {
       description: opts.description,
       images: [ogImage],
     },
+  };
+}
+
+/** Lighter metadata for form/utility pages — canonical only, no OG bundle. */
+export function buildPageMetadata(opts: {
+  path: string;
+  title: string;
+  description: string;
+  robots?: Metadata["robots"];
+}): Metadata {
+  const canonical = canonicalUrl(opts.path);
+  return {
+    title: opts.title,
+    description: opts.description,
+    alternates: { canonical },
+    ...(opts.robots ? { robots: opts.robots } : {}),
   };
 }

@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { ListingBreadcrumb } from "@/components/listings/listing-breadcrumb";
 import { ListingContactActions } from "@/components/listings/listing-contact-actions";
 import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
+import { ListingHubSubmitCta } from "@/components/listings/listing-hub-submit-cta";
 import { ResponsiveAdSlot } from "@/components/listings/responsive-ad-slot";
 import { StickyListingActions } from "@/components/listings/sticky-listing-actions";
 import { ShareRow } from "@/components/share/share-row";
 import { HelpfulButtons } from "@/components/reactions/helpful";
 import {
   getDirectoryEntryByTypeSlug,
-  isDirectoryTypeSlug,
+  resolveDirectoryTypeSlug,
   listDirectoryParamsForStatic,
 } from "@/domains/directory";
 import {
@@ -30,6 +31,7 @@ import {
 type Props = { params: Promise<{ type: string; slug: string }> };
 
 export const revalidate = 120;
+export const dynamicParams = true;
 
 function websiteLinkLabel(href: string): string {
   try {
@@ -53,12 +55,13 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { type, slug } = await params;
-  if (!isDirectoryTypeSlug(type)) {
+  const resolvedType = resolveDirectoryTypeSlug(type);
+  if (!resolvedType) {
     return { title: "Directory" };
   }
   let entry: Awaited<ReturnType<typeof getDirectoryEntryByTypeSlug>> = null;
   try {
-    entry = await getDirectoryEntryByTypeSlug(type, slug);
+    entry = await getDirectoryEntryByTypeSlug(resolvedType, slug);
   } catch {
     return { title: "Directory" };
   }
@@ -66,7 +69,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Directory" };
   }
   const base = getSiteUrl();
-  const url = `${base}/directory/${type}/${slug}`;
+  const url = `${base}/directory/${resolvedType}/${slug}`;
   const desc = [
     entry.localityLabel,
     entry.address?.slice(0, 120),
@@ -102,24 +105,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function DirectoryEntryPage({ params }: Props) {
   const { type, slug } = await params;
-  if (!isDirectoryTypeSlug(type)) {
+  const resolvedType = resolveDirectoryTypeSlug(type);
+  if (!resolvedType) {
     notFound();
+  }
+  if (type.trim().toLowerCase() !== resolvedType) {
+    permanentRedirect(`/directory/${resolvedType}/${slug}`);
   }
   let entry: Awaited<ReturnType<typeof getDirectoryEntryByTypeSlug>> = null;
   try {
-    entry = await getDirectoryEntryByTypeSlug(type, slug);
+    entry = await getDirectoryEntryByTypeSlug(resolvedType, slug);
   } catch (err) {
-    console.error("[directory]", type, slug, err);
+    console.error("[directory]", resolvedType, slug, err);
     notFound();
   }
   if (!entry) {
     notFound();
   }
 
-  const entryLd = buildDirectoryEntryJsonLd(entry, type);
+  const entryLd = buildDirectoryEntryJsonLd(entry, resolvedType);
   const crumbLd = buildDirectoryBreadcrumbJsonLd(
-    type,
-    directoryTypeTitle(type),
+    resolvedType,
+    directoryTypeTitle(resolvedType),
     entry.name,
     entry.slug,
   );
@@ -134,7 +141,7 @@ export default async function DirectoryEntryPage({ params }: Props) {
     }
   }
 
-  const pageUrl = `${getSiteUrl()}/directory/${type}/${entry.slug}`;
+  const pageUrl = `${getSiteUrl()}/directory/${resolvedType}/${entry.slug}`;
   const faqItems = resolveFaqItems(entry.faqJson, buildDirectoryAutoFaq(entry));
   const phoneDigits = entry.phone?.replace(/\D/g, "") ?? "";
   const waMessage = `Hi, I found ${entry.name} on mynanganallur.in directory.`;
@@ -190,13 +197,13 @@ export default async function DirectoryEntryPage({ params }: Props) {
           { name: "Directory", href: "/directory" },
           {
             name: entry.name,
-            href: `/directory/${type}/${entry.slug}`,
+            href: `/directory/${resolvedType}/${entry.slug}`,
           },
         ]}
       />
 
       <p className="mt-6 text-xs font-medium uppercase tracking-wide text-[var(--muted)]">
-        Directory · {directoryTypeTitle(type)}
+        Directory · {directoryTypeTitle(resolvedType)}
       </p>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--foreground)] sm:text-3xl">
         {entry.name}
@@ -207,7 +214,7 @@ export default async function DirectoryEntryPage({ params }: Props) {
 
       <ListingGeoBlock
         question={`Where is ${entry.name} in Nanganallur?`}
-        directAnswer={`${entry.name} is listed in the ${directoryTypeTitle(type)} section of the Nanganallur directory${entry.localityLabel ? ` at ${entry.localityLabel}` : ""}${entry.address ? ` — ${entry.address}` : ""}. Call ahead to confirm hours and services.`}
+        directAnswer={`${entry.name} is listed in the ${directoryTypeTitle(resolvedType)} section of the Nanganallur directory${entry.localityLabel ? ` at ${entry.localityLabel}` : ""}${entry.address ? ` — ${entry.address}` : ""}. Call ahead to confirm hours and services.`}
         className="mt-6"
       />
 
@@ -280,7 +287,7 @@ export default async function DirectoryEntryPage({ params }: Props) {
 
       <ResponsiveAdSlot
         slotId="directory-detail-mid"
-        pagePath={`/directory/${type}/${slug}`}
+        pagePath={`/directory/${resolvedType}/${slug}`}
         className="mt-8"
       />
 
@@ -293,6 +300,16 @@ export default async function DirectoryEntryPage({ params }: Props) {
       <AmazonAffiliateBlock
         variant="compact"
         placement="hub-directory"
+        className="mt-10"
+      />
+
+      <ListingHubSubmitCta
+        title="List your business in the directory"
+        body="Not listed yet, or details out of date? Submit an update — free for residents, reviewed within 24 hours."
+        ctaHref="/submit/business"
+        ctaLabel="List your business"
+        secondaryHref="/my/login"
+        secondaryLabel="Manage my listings"
         className="mt-10"
       />
 

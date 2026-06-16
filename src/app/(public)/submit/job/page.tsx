@@ -9,13 +9,15 @@ import {
   TextArea,
   TextField,
 } from "@/components/forms";
+import { buildPageMetadata } from "@/lib/seo/hub-page-metadata";
 import { submitJobAction } from "./actions";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: "/submit/job",
   title: "Post a job",
   description:
     "Hire help locally — list your opening on mynanganallur.in. Free, reviewed within 24 hours.",
-};
+});
 
 const REMOTE_OPTIONS = [
   { value: "onsite", label: "On-site" },

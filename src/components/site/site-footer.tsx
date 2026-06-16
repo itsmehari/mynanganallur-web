@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { WHATSAPP_PAGE_PATH } from "@/lib/community/whatsapp";
+import { NANGANALLUR_CONNECT_PATH } from "@/lib/nanganallur-connect-content";
 import { nanganallurAreas } from "@/lib/nanganallur-areas";
 import { getAmazonAffiliateUrl } from "@/lib/amazon-affiliate";
 
@@ -15,10 +16,11 @@ const newsLinks = [
 ];
 
 const discoverLinks = [
+  { href: NANGANALLUR_CONNECT_PATH, label: "Nanganallur Connect" },
   { href: "/directory", label: "Full directory" },
-  { href: "/directory", label: "Schools & colleges" },
-  { href: "/directory", label: "Hospitals" },
-  { href: "/directory", label: "Food & dining" },
+  { href: "/directory/school", label: "Schools & colleges" },
+  { href: "/directory/hospital", label: "Hospitals" },
+  { href: "/directory/restaurant", label: "Food & dining" },
   { href: "/local-events", label: "Local events" },
   { href: "/jobs", label: "Jobs board" },
   { href: "/#areas", label: "Area map (home)" },
@@ -26,12 +28,14 @@ const discoverLinks = [
 
 const workLinks = [
   { href: "/jobs", label: "Browse jobs" },
-  { href: "/jobs", label: "Post a job (soon)" },
-  { href: "/directory", label: "List your business" },
-  { href: "/local-events", label: "Submit an event (soon)" },
+  { href: "/submit/job", label: "Post a job" },
+  { href: "/submit/business", label: "List your business" },
+  { href: "/my/login", label: "Manage my listings" },
+  { href: "/submit/event", label: "Submit an event" },
 ];
 
 const companyLinks = [
+  { href: NANGANALLUR_CONNECT_PATH, label: "Nanganallur Connect" },
   { href: WHATSAPP_PAGE_PATH, label: "Join WhatsApp group" },
   { href: "/newsletter", label: "Weekly digest" },
   { href: "/news", label: "About us" },

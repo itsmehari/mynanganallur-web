@@ -43,6 +43,12 @@ export function SiteHeader() {
         <MegaNavDesktop />
 
         <div className="ml-auto flex shrink-0 items-center gap-2">
+          <Link
+            href="/submit/business"
+            className="hidden min-h-11 items-center rounded-full bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] sm:inline-flex"
+          >
+            List your business
+          </Link>
           <form
             action="/search"
             method="get"

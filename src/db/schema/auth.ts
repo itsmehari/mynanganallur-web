@@ -18,7 +18,10 @@ export const users = pgTable("user", {
   email: text("email").notNull().unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  /** App RBAC: reader | contributor | editor | admin */
+  /** Normalized 10-digit mobile for listing_owner accounts. */
+  phone: text("phone"),
+  phoneVerified: timestamp("phoneVerified", { mode: "date" }),
+  /** App RBAC: reader | listing_owner | contributor | editor | admin */
   role: text("role").notNull().default("reader"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
@@ -67,3 +70,24 @@ export const verificationTokens = pgTable(
     compositePk: primaryKey({ columns: [t.identifier, t.token] }),
   }),
 );
+
+/** Email OTP for listing-owner login (email + phone pair). */
+export const listingOwnerOtps = pgTable("listing_owner_otps", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  codeHash: text("code_hash").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** Session cookie for /my/* listing-owner routes (separate from Auth.js OAuth). */
+export const listingOwnerSessions = pgTable("listing_owner_sessions", {
+  sessionToken: text("session_token").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { withTimezone: true }).notNull(),
+});

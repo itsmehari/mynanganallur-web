@@ -68,6 +68,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.72,
     },
     {
+      url: `${base}/nanganallur-connect`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
       url: `${base}/nanganallur-whatsapp-group`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -78,18 +84,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.55,
-    },
-    {
-      url: `${base}/search`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/news`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.45,
     },
     {
       url: `${base}/pricing`,

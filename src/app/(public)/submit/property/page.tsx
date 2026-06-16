@@ -11,12 +11,14 @@ import {
   TextField,
 } from "@/components/forms";
 import { submitPropertyAction } from "./actions";
+import { buildPageMetadata } from "@/lib/seo/hub-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: "/submit/property",
   title: "List your property",
   description:
     "List a flat, house, or commercial space for rent or sale on mynanganallur.in. Free, reviewed within 24 hours.",
-};
+});
 
 const KIND_OPTIONS = [
   { value: "rent", label: "For rent" },

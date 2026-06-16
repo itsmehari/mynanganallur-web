@@ -23,8 +23,25 @@ export const DIRECTORY_TYPE_SLUGS = [
 
 export type DirectoryTypeSlug = (typeof DIRECTORY_TYPE_SLUGS)[number];
 
+/** Public URL aliases — e.g. users say “business” but DB type is `industry`. */
+export const DIRECTORY_TYPE_ALIASES: Record<string, DirectoryTypeSlug> = {
+  business: "industry",
+};
+
 export function isDirectoryTypeSlug(s: string): s is DirectoryTypeSlug {
   return (DIRECTORY_TYPE_SLUGS as readonly string[]).includes(s);
+}
+
+export function resolveDirectoryTypeSlug(
+  raw: string,
+): DirectoryTypeSlug | null {
+  const s = raw.trim().toLowerCase();
+  const mapped = DIRECTORY_TYPE_ALIASES[s] ?? s;
+  return isDirectoryTypeSlug(mapped) ? mapped : null;
+}
+
+export function canonicalDirectoryTypeParam(raw: string): string | null {
+  return resolveDirectoryTypeSlug(raw);
 }
 
 async function getSiteCityId(): Promise<string | null> {

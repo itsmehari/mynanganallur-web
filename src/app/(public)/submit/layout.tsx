@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { isFlagOn } from "@/lib/flags";
 
 const TABS = [
   { href: "/submit/job", label: "Job" },
@@ -14,9 +12,6 @@ export default function SubmitLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (!isFlagOn("submissions")) {
-    notFound();
-  }
   return (
     <div className="mx-auto max-w-[800px] px-4 py-12 sm:px-6">
       <p className="text-xs font-semibold uppercase tracking-wide text-[var(--accent)]">

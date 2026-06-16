@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { ListingCardEvent } from "@/components/listings/listing-card-event";
+import { ListingHubSubmitCta } from "@/components/listings/listing-hub-submit-cta";
 import { ListingEmptyState } from "@/components/listings/listing-empty-state";
 import { ListingFilterRow } from "@/components/listings/listing-filter-row";
 import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
@@ -114,6 +115,13 @@ export default async function LocalEventsPage({
         question={HUB.geoQuestion}
         directAnswer={HUB.geoDirectAnswer}
         localityLine={HUB.localityLine}
+      />
+
+      <ListingHubSubmitCta
+        title="Announce a local event"
+        body="Temple utsavam, workshop, blood drive, RWA notice — share it with neighbours after a quick review."
+        ctaHref={HUB.emptyCtaHref}
+        ctaLabel={HUB.emptyCtaLabel}
       />
 
       <ListingFilterRow

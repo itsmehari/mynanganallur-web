@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { ListingCardJob } from "@/components/listings/listing-card-job";
+import { ListingHubSubmitCta } from "@/components/listings/listing-hub-submit-cta";
 import { ListingEmptyState } from "@/components/listings/listing-empty-state";
 import { ListingFilterRow } from "@/components/listings/listing-filter-row";
 import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
@@ -110,6 +111,13 @@ export default async function JobsPage({
         question={HUB.geoQuestion}
         directAnswer={HUB.geoDirectAnswer}
         localityLine={HUB.localityLine}
+      />
+
+      <ListingHubSubmitCta
+        title="Post a job opening"
+        body="Hiring locally? Share the role and we will publish it on the jobs board after a quick review."
+        ctaHref={HUB.emptyCtaHref}
+        ctaLabel={HUB.emptyCtaLabel}
       />
 
       <ListingFilterRow

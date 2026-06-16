@@ -1,4 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/hub-page-metadata";
+
+export const metadata: Metadata = buildPageMetadata({
+  path: "/submit/thanks",
+  title: "Submission received",
+  description: "Thank you for submitting to mynanganallur.in.",
+  robots: { index: false, follow: false },
+});
 
 type Props = {
   searchParams: Promise<{ kind?: string; title?: string }>;
@@ -33,10 +42,21 @@ export default async function SubmitThanks({ searchParams }: Props) {
         Thanks — we’ll review within 24 hours.
       </h2>
       <p className="mt-3 text-sm text-emerald-900">
-        We saved <strong>{titleSafe}</strong> to the moderation queue. You will
-        get an email when it goes live. To bump it, ping us on WhatsApp.
+        We saved <strong>{titleSafe}</strong>
+        {kind === "business"
+          ? " to the directory. Sign in with the same email and mobile to edit it anytime."
+          : " to the moderation queue. You will get an email when it goes live."}{" "}
+        To bump review, ping us on WhatsApp.
       </p>
       <div className="mt-5 flex flex-wrap gap-3 text-sm">
+        {kind === "business" ? (
+          <Link
+            href="/my/login"
+            className="rounded-full bg-emerald-700 px-4 py-2 font-semibold text-white"
+          >
+            Manage my listing
+          </Link>
+        ) : null}
         <a
           href={waUrl}
           target="_blank"

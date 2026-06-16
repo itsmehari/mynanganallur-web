@@ -10,12 +10,14 @@ import {
   TextField,
 } from "@/components/forms";
 import { submitEventAction } from "./actions";
+import { buildPageMetadata } from "@/lib/seo/hub-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: "/submit/event",
   title: "Submit an event",
   description:
     "Announce a Nanganallur-area event — temple festival, market day, workshop, RWA notice, or blood drive. Free, reviewed within 24 hours.",
-};
+});
 
 type PageProps = {
   searchParams: Promise<{ err?: string; msg?: string }>;

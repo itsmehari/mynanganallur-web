@@ -295,6 +295,8 @@ export const directoryEntries = pgTable(
     featuredUntil: timestamp("featured_until", { withTimezone: true }),
     hoursSummary: text("hours_summary"),
     source: entrySourceEnum("source").notNull().default("admin"),
+    /** Listing owner account (`user` row with role listing_owner). */
+    ownerUserId: text("owner_user_id"),
     submittedByName: text("submitted_by_name"),
     submittedByEmail: text("submitted_by_email"),
     submittedByPhone: text("submitted_by_phone"),

@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.mynanganallur.in" }],
+        destination: "https://mynanganallur.in/:path*",
+        permanent: true,
+      },
+      {
         source: "/events",
         destination: "/local-events",
         permanent: true,
@@ -38,8 +44,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/join",
-        destination: "/nanganallur-whatsapp-group",
+        source: "/places",
+        destination: "/directory",
+        permanent: true,
+      },
+      {
+        source: "/places/:path*",
+        destination: "/directory/:path*",
+        permanent: true,
+      },
+      {
+        source: "/directory/business",
+        destination: "/directory/industry",
         permanent: true,
       },
       {
@@ -55,6 +71,21 @@ const nextConfig: NextConfig = {
       {
         source: "/join-nanganallur-whatsapp-group",
         destination: "/nanganallur-whatsapp-group",
+        permanent: true,
+      },
+      {
+        source: "/connect",
+        destination: "/nanganallur-connect",
+        permanent: true,
+      },
+      {
+        source: "/nanganallur",
+        destination: "/nanganallur-connect",
+        permanent: true,
+      },
+      {
+        source: "/about-nanganallur",
+        destination: "/nanganallur-connect",
         permanent: true,
       },
     ];

@@ -4,6 +4,41 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-06-16 — SEO engine: canonical + sitemap alignment
+
+- **Directory verticals:** `/directory/{type}` is now the canonical path (matches sitemap `loc`). Old `?type=` URLs 301 to path; `/directory/business` → `/directory/industry`.
+- **Canonical helper:** `src/lib/seo/canonical-url.ts`, `buildPageMetadata` for form/utility pages; area hubs + submit flows wired.
+- **Sitemap:** Added `/nanganallur-connect`; removed `/search` (noindex) and `/news` (redirect). `www` → apex redirect in `next.config.ts`.
+- **Docs:** [SEO_ENGINE_PLAN.md](./SEO_ENGINE_PLAN.md), [SEARCH_CONSOLE.md](./SEARCH_CONSOLE.md) updated. After deploy, re-submit sitemap in GSC.
+
+---
+
+- **Route:** `/nanganallur-connect` — locality hub with GEO block, action grid, live DB snapshots (news/jobs/events/properties), area map, living guide, FAQ + JSON-LD. Redirects: `/connect`, `/nanganallur`, `/about-nanganallur` → canonical.
+- **Code:** `src/lib/nanganallur-connect-content.ts`, `src/app/(public)/nanganallur-connect/page.tsx`, footer + nav links, sitemap priority 0.92.
+
+---
+
+## 2026-06-16 — Live property: 2.5 BHK flat for resale (Madipakkam)
+
+- **Data:** Seeded **2.5 BHK flat for resale** in **Madipakkam** (`slug` `sale-2-5bhk-east-facing-flat-madipakkam`). **989 sq ft** built-up, **545 sq ft** UDS, east-facing, 2nd floor, covered parking, 13-year building. Price on enquiry. Direct owner — contact **9840757356**.
+- **Code:** `scripts/seed-property-madipakkam-2-5bhk-flat.ts` (+ npm scripts `db:seed:property:madipakkam-2-5bhk-flat` / `:live`).
+
+---
+
+## 2026-06-14 — Live job: Preschool teacher (Madipakkam)
+
+- **Data:** Seeded open role **Preschool teacher — Madipakkam** (`slug` `preschool-teacher-madipakkam-branch`, employer `preschool-madipakkam-branch`). Full details on call. Contact **89391 43111** (Call / WhatsApp apply).
+- **Code:** `scripts/seed-job-preschool-madipakkam.ts` (+ npm scripts `db:seed:job:preschool-madipakkam` / `:live`).
+
+---
+
+## 2026-06-14 — Directory: Jhoola Play Membership (Ram Nagar)
+
+- **Data:** Seeded **Jhoola Play Membership** at Jhoola Activity Centre, Ram Nagar (`slug` `jhoola-play-membership-nanganallur`, type `industry`). Screen-free play space for children — books, board games, art, craft, and open-ended materials. Membership from **1 July 2026**; two tiers, members-only WhatsApp coordination, online balance tracking, and guest drop-in option. Early bird offers — contact **91765 83618**.
+- **Code:** `scripts/seed-directory-jhoola-play-membership.ts` (+ npm scripts `db:seed:directory:jhoola-play-membership` / `:live`).
+
+---
+
 ## 2026-06-12 — Listing pages mobile-first retrofit (properties, jobs, events, directory)
 
 - **UI:** Shared `src/components/listings/*` — hub shell, GEO blocks, filter chips, mobile listing cards, sticky Call/WhatsApp/Apply bars, responsive ad slots (`320×50` mobile / `728×90` desktop).

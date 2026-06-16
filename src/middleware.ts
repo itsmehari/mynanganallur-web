@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { LISTING_OWNER_COOKIE } from "@/lib/listing-owner/constants";
 
 /**
  * Session cookies for Auth.js v5 (names vary by dev/prod/https).
@@ -16,8 +17,16 @@ function hasAuthSessionCookie(request: NextRequest): boolean {
 }
 
 export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (pathname.startsWith("/my/listings") && !request.cookies.get(LISTING_OWNER_COOKIE)?.value) {
+    const login = new URL("/my/login", request.nextUrl.origin);
+    login.searchParams.set("returnTo", pathname);
+    return NextResponse.redirect(login);
+  }
+
   if (
-    request.nextUrl.pathname.startsWith("/admin") &&
+    pathname.startsWith("/admin") &&
     !hasAuthSessionCookie(request)
   ) {
     const signIn = new URL("/api/auth/signin", request.nextUrl.origin);
@@ -28,5 +37,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/my/listings/:path*"],
 };

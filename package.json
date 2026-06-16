@@ -27,6 +27,8 @@
     "db:seed:job:beevee:live": "tsx scripts/seed-job-beevee-healthcare.ts --live",
     "db:seed:job:preschool-puzhuthivakkam": "tsx scripts/seed-job-preschool-puzhuthivakkam.ts",
     "db:seed:job:preschool-puzhuthivakkam:live": "tsx scripts/seed-job-preschool-puzhuthivakkam.ts --live",
+    "db:seed:job:preschool-madipakkam": "tsx scripts/seed-job-preschool-madipakkam.ts",
+    "db:seed:job:preschool-madipakkam:live": "tsx scripts/seed-job-preschool-madipakkam.ts --live",
     "db:seed:job:madipakkam-cafe": "tsx scripts/seed-job-madipakkam-cafe.ts",
     "db:seed:job:madipakkam-cafe:live": "tsx scripts/seed-job-madipakkam-cafe.ts --live",
     "db:seed:job:myfirststep": "tsx scripts/seed-job-myfirststep.ts",
@@ -61,6 +63,8 @@
     "db:seed:property:voltas-colony-land:live": "tsx scripts/seed-property-voltas-colony-land.ts --live",
     "db:seed:property:ullagaram-muruga-temple-house": "tsx scripts/seed-property-ullagaram-muruga-temple-house.ts",
     "db:seed:property:ullagaram-muruga-temple-house:live": "tsx scripts/seed-property-ullagaram-muruga-temple-house.ts --live",
+    "db:seed:property:madipakkam-2-5bhk-flat": "tsx scripts/seed-property-madipakkam-2-5bhk-flat.ts",
+    "db:seed:property:madipakkam-2-5bhk-flat:live": "tsx scripts/seed-property-madipakkam-2-5bhk-flat.ts --live",
     "db:ensure:faq-column": "tsx scripts/ensure-article-faq-column.ts",
     "db:ensure:tutor-enum": "tsx scripts/ensure-directory-tutor-enum.ts",
     "db:ensure:tutor-enum:live": "tsx scripts/ensure-directory-tutor-enum.ts --live",
@@ -68,7 +72,8 @@
     "db:ensure:listing-owner:live": "tsx scripts/ensure-listing-owner-schema.ts --live",
     "db:push:live": "node --env-file=.env.production.local ./node_modules/drizzle-kit/bin.cjs push",
     "db:apply:live-ddl": "tsx scripts/apply-live-schema-ddl.ts",
-    "gsc:submit-sitemap": "tsx scripts/gsc-submit-sitemap.ts"
+    "gsc:submit-sitemap": "tsx scripts/gsc-submit-sitemap.ts",
+    "sitemap:test": "tsx scripts/test-sitemap.ts"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.1",

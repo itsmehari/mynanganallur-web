@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { ListingCardProperty } from "@/components/listings/listing-card-property";
+import { ListingHubSubmitCta } from "@/components/listings/listing-hub-submit-cta";
 import { ListingEmptyState } from "@/components/listings/listing-empty-state";
 import { ListingFilterRow } from "@/components/listings/listing-filter-row";
 import { ListingGeoBlock } from "@/components/listings/listing-geo-block";
@@ -94,6 +95,13 @@ export default async function PropertiesPage({
         question={HUB.geoQuestion}
         directAnswer={HUB.geoDirectAnswer}
         localityLine={HUB.localityLine}
+      />
+
+      <ListingHubSubmitCta
+        title="Post a property listing"
+        body="Rent or sale — reach genuine local renters and buyers. We publish after a quick review."
+        ctaHref={HUB.emptyCtaHref}
+        ctaLabel={HUB.emptyCtaLabel}
       />
 
       <ListingKindTabs currentParams={filterParams} />

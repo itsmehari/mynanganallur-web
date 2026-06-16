@@ -5,6 +5,7 @@ import { getDb } from "@/db/client";
 import { directoryEntries } from "@/db/schema";
 import { getSiteUrl } from "@/lib/env";
 import { shortToken, slugify } from "@/lib/slug";
+import { ensureListingOwnerAccount } from "@/lib/listing-owner/accounts";
 import {
   SubmissionRejected,
   assertSubmissionAllowed,
@@ -90,10 +91,26 @@ export async function submitBusinessAction(formData: FormData): Promise<void> {
     const website = readField(formData, "website", { max: 240 });
     const hours = readField(formData, "hours", { max: 240 });
     const submitterName = readField(formData, "submitter_name", { max: 80 });
-    const submitterPhone = readField(formData, "submitter_phone", { max: 24 });
+    const submitterPhone = readField(formData, "submitter_phone", {
+      required: true,
+      max: 24,
+      label: "Your phone",
+    });
     const submitterEmail = readField(formData, "submitter_email", {
+      required: true,
       max: 120,
       pattern: /^\S+@\S+\.\S+$/,
+      label: "Your email",
+    });
+
+    const ownerUserId = await ensureListingOwnerAccount({
+      email: submitterEmail,
+      phone: submitterPhone,
+      name: submitterName,
+    }).catch((err: unknown) => {
+      const msg =
+        err instanceof Error ? err.message : "Could not create owner account.";
+      throw new SubmissionRejected("validation", msg);
     });
 
     const db = getDb();
@@ -115,6 +132,7 @@ export async function submitBusinessAction(formData: FormData): Promise<void> {
         websiteUrl: website || null,
         verified: false,
         hoursSummary: hours || null,
+        ownerUserId,
         source: "web" as const,
         submittedByName: submitterName || null,
         submittedByEmail: submitterEmail || null,
@@ -153,6 +171,13 @@ export async function submitBusinessAction(formData: FormData): Promise<void> {
   } catch (e) {
     if (e instanceof SubmissionRejected) {
       const params = new URLSearchParams({ err: e.code, msg: e.message });
+      redirect(`/submit/business?${params.toString()}`);
+    }
+    if (e instanceof Error && e.message.includes("different phone")) {
+      const params = new URLSearchParams({
+        err: "validation",
+        msg: e.message,
+      });
       redirect(`/submit/business?${params.toString()}`);
     }
     throw e;

@@ -3,13 +3,14 @@ import Link from "next/link";
 import { and, asc, eq } from "drizzle-orm";
 import { getDb } from "@/db/client";
 import { listingPricing } from "@/db/schema";
+import { buildPageMetadata } from "@/lib/seo/hub-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: "/pricing",
   title: "Pricing · mynanganallur.in",
   description:
     "Free standard listings + optional featured upgrades for jobs, events, businesses and properties on mynanganallur.in.",
-  alternates: { canonical: "https://mynanganallur.in/pricing" },
-};
+});
 
 export const revalidate = 600;
 

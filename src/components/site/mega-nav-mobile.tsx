@@ -69,6 +69,22 @@ export function MegaNavMobile({ open, onClose }: Props) {
         className="flex-1 overflow-y-auto overscroll-contain px-4 py-4"
         aria-label="Mobile primary"
       >
+        <div className="mb-4 grid gap-2">
+          <Link
+            href="/submit/business"
+            onClick={onClose}
+            className="inline-flex min-h-12 items-center justify-center rounded-xl bg-[var(--accent)] px-4 py-3 text-sm font-semibold text-white"
+          >
+            List your business
+          </Link>
+          <Link
+            href="/submit"
+            onClick={onClose}
+            className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm font-semibold text-[var(--foreground)]"
+          >
+            Submit a listing
+          </Link>
+        </div>
         <ul className="space-y-2">
           {MEGA_NAV_SECTIONS.map((section) => {
             const isExpanded = expanded === section.id;

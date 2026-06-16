@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
+import { buildPageMetadata } from "@/lib/seo/hub-page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: "/newsletter",
   title: "Newsletter · mynanganallur.in",
   description:
     "Get the weekly Nanganallur news, jobs, events and property digest in your inbox every Sunday.",
-  alternates: { canonical: "https://mynanganallur.in/newsletter" },
-};
+});
 
 type Props = {
   searchParams?: Promise<{

@@ -11,6 +11,7 @@ import {
 import { buildAreaPlaceJsonLd } from "@/lib/seo/area-place-jsonld";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/breadcrumb-jsonld";
 import { buildOgImageUrl } from "@/lib/seo/og";
+import { canonicalUrl } from "@/lib/seo/canonical-url";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -35,10 +36,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${area.label} — Nanganallur area hub`,
     description,
+    alternates: { canonical: canonicalUrl(`/areas/${slug}`) },
     openGraph: {
       title: `${area.label} — area hub · mynanganallur.in`,
       description,
       type: "website",
+      url: canonicalUrl(`/areas/${slug}`),
       images: [{ url: ogImage, width: 1200, height: 630, alt: area.label }],
     },
     twitter: {

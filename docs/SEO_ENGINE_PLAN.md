@@ -16,8 +16,10 @@
 ## Implementation
 
 - **ISR / caching:** Use `revalidate` on public pages; `revalidatePath` / `revalidateTag` on publish.
-- **Sitemaps:** Single index pattern via `sitemap.ts` returning multiple sitemaps if needed (Next 13+ supports array of sitemap entries or split files — follow Next docs for chosen version).
-- **Search Console:** Manual property verification on Vercel; submit sitemap after launch.
+- **Sitemaps:** `src/app/sitemap.ts` (main inventory), `sitemap-news.xml`, `sitemap-images.xml`; referenced from `robots.ts`. Exclude `noindex` routes (`/search`, `/submit/thanks`, `/my/*`).
+- **Canonical URLs:** `src/lib/seo/canonical-url.ts` + `buildHubMetadata` / `buildPageMetadata`. Sitemap `loc` must match `alternates.canonical` and internal links. Directory verticals: `/directory/{type}` (path-based, not query strings).
+- **Host normalization:** `www.mynanganallur.in` → apex via `next.config.ts` redirect.
+- **Search Console:** Domain property verified; submit/resubmit sitemap after URL inventory changes. See [SEARCH_CONSOLE.md](./SEARCH_CONSOLE.md).
 
 ## Anti-patterns to avoid
 

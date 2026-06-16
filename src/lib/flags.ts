@@ -2,17 +2,19 @@
  * Tiny feature-flag helper.
  *
  * Reads a comma-separated `NEXT_PUBLIC_FEATURE_FLAGS` env (e.g.
- * `submissions,search,newsletter`). Each phase ships behind a flag so we can
+ * `search,newsletter`). Each phase ships behind a flag so we can
  * enable per-environment without redeploying.
+ *
+ * Note: `/submit/*` routes are not flag-gated — directory/job/event/property
+ * submission forms are always public once deployed.
  *
  * Usage:
  *   import { isFlagOn } from "@/lib/flags";
- *   if (!isFlagOn("submissions")) notFound();
+ *   if (!isFlagOn("search")) notFound();
  *
  * Server and client safe — value is inlined at build time by Next.js.
  */
 export type FeatureFlag =
-  | "submissions"
   | "admin_queue"
   | "og_images"
   | "search"
