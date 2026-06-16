@@ -44,9 +44,10 @@ export default async function SubmitEventPage({ searchParams }: PageProps) {
         <TextArea
           id="description"
           label="Description"
+          required
           rows={6}
           maxLength={4000}
-          placeholder={`What is happening, who can come, parking notes, contact.\n\nMarkdown supported.`}
+          placeholder={`What is happening, who can come, parking notes, dress code.\n\nInclude organiser phone or WhatsApp if you want neighbours to reach you.\n\nMarkdown supported.`}
         />
       </fieldset>
 

@@ -61,6 +61,10 @@ export async function submitJobAction(formData: FormData): Promise<void> {
     });
     const locality = readField(formData, "locality", { max: 80 });
     const remotePolicy = readField(formData, "remote_policy", { max: 24 }) || "onsite";
+    const openingsCount = readOptionalInt(formData, "openings_count") ?? 1;
+    if (openingsCount < 1 || openingsCount > 99) {
+      throw new SubmissionRejected("validation", "Openings must be between 1 and 99.");
+    }
     const salaryMin = readOptionalInt(formData, "salary_min");
     const salaryMax = readOptionalInt(formData, "salary_max");
     const contactPhone = readField(formData, "contact_phone", {
@@ -116,6 +120,7 @@ export async function submitJobAction(formData: FormData): Promise<void> {
         salaryMax,
         salaryDisclosed: salaryMin != null || salaryMax != null,
         remotePolicy,
+        openingsCount,
         contactPhone: contactPhone || null,
         contactEmail: contactEmail || null,
         status: "draft" as const,

@@ -6,6 +6,7 @@ import { getDirectoryEntryForOwner } from "@/domains/directory/owner-queries";
 import { getDb } from "@/db/client";
 import { directoryEntries } from "@/db/schema";
 import { requireListingOwner } from "@/lib/listing-owner/auth";
+import { mergeDirectoryMetadata } from "@/lib/directory/metadata";
 import { readField } from "@/lib/submissions";
 
 export async function updateOwnerListingAction(formData: FormData): Promise<void> {
@@ -26,6 +27,11 @@ export async function updateOwnerListingAction(formData: FormData): Promise<void
   const phone = readField(formData, "phone", { max: 24 });
   const website = readField(formData, "website", { max: 240 });
   const hours = readField(formData, "hours", { max: 240 });
+  const description = readField(formData, "description", {
+    required: true,
+    max: 4000,
+    label: "About your business",
+  });
 
   const db = getDb();
   await db
@@ -37,6 +43,7 @@ export async function updateOwnerListingAction(formData: FormData): Promise<void
       phone: phone || null,
       websiteUrl: website || null,
       hoursSummary: hours || null,
+      metadata: mergeDirectoryMetadata(entry.metadata, { description }),
       updatedAt: new Date(),
     })
     .where(eq(directoryEntries.id, id));

@@ -16,6 +16,8 @@ import {
   resolveDirectoryTypeSlug,
   listDirectoryParamsForStatic,
 } from "@/domains/directory";
+import { ArticleProse } from "@/components/news/article-prose";
+import { parseDirectoryMetadata } from "@/lib/directory/metadata";
 import {
   buildDirectoryAutoFaq,
   resolveFaqItems,
@@ -131,15 +133,9 @@ export default async function DirectoryEntryPage({ params }: Props) {
     entry.slug,
   );
 
-  let metadataNote: string | null = null;
-  if (entry.metadata) {
-    try {
-      const m = JSON.parse(entry.metadata) as { note?: string };
-      metadataNote = m.note ?? null;
-    } catch {
-      metadataNote = null;
-    }
-  }
+  const directoryMeta = parseDirectoryMetadata(entry.metadata);
+  const metadataNote = directoryMeta.note ?? null;
+  const description = directoryMeta.description ?? null;
 
   const pageUrl = `${getSiteUrl()}/directory/${resolvedType}/${entry.slug}`;
   const faqItems = resolveFaqItems(entry.faqJson, buildDirectoryAutoFaq(entry));
@@ -227,6 +223,15 @@ export default async function DirectoryEntryPage({ params }: Props) {
         secondaryLabel="Manage my listings"
         className="mt-6"
       />
+
+      {description ? (
+        <div className="mt-6">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">
+            About
+          </h2>
+          <ArticleProse content={description} />
+        </div>
+      ) : null}
 
       {entry.address ? (
         <p className="mt-4 text-sm leading-relaxed text-[var(--foreground)]">

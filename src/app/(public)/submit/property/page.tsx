@@ -119,6 +119,24 @@ export default async function SubmitPropertyPage({ searchParams }: PageProps) {
           label="Built-up area (sqft)"
           inputMode="numeric"
         />
+        <TextField
+          id="floor_label"
+          label="Floor (optional)"
+          placeholder="e.g. 2nd floor, ground"
+          maxLength={80}
+        />
+        <TextField
+          id="facing"
+          label="Facing (optional)"
+          placeholder="e.g. East, North-East"
+          maxLength={80}
+        />
+        <TextField
+          id="parking_summary"
+          label="Parking (optional)"
+          placeholder="e.g. 1 covered car slot"
+          maxLength={120}
+        />
         <div className="sm:col-span-3">
           <CheckboxField
             id="vegetarian_only"

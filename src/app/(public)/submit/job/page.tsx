@@ -84,6 +84,14 @@ export default async function SubmitJobPage({ searchParams }: PageProps) {
           defaultValue="onsite"
           options={REMOTE_OPTIONS}
         />
+        <TextField
+          id="openings_count"
+          label="Number of openings"
+          inputMode="numeric"
+          placeholder="1"
+          defaultValue="1"
+          hint="How many people are you hiring for this role?"
+        />
       </fieldset>
 
       <fieldset className="grid gap-4 sm:grid-cols-2">

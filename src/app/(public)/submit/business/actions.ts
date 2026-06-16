@@ -5,6 +5,7 @@ import { getDb } from "@/db/client";
 import { directoryEntries } from "@/db/schema";
 import { getSiteUrl } from "@/lib/env";
 import { shortToken, slugify } from "@/lib/slug";
+import { serializeDirectoryMetadata } from "@/lib/directory/metadata";
 import { ensureListingOwnerAccount } from "@/lib/listing-owner/accounts";
 import {
   SubmissionRejected,
@@ -85,6 +86,11 @@ export async function submitBusinessAction(formData: FormData): Promise<void> {
       throw new SubmissionRejected("validation", "Unsupported business type.");
     }
     const type = typeRaw as DirectoryType;
+    const description = readField(formData, "description", {
+      required: true,
+      max: 4000,
+      label: "About your business",
+    });
     const address = readField(formData, "address", { max: 240 });
     const locality = readField(formData, "locality", { max: 80 });
     const phone = readField(formData, "phone", { max: 24 });
@@ -132,6 +138,7 @@ export async function submitBusinessAction(formData: FormData): Promise<void> {
         websiteUrl: website || null,
         verified: false,
         hoursSummary: hours || null,
+        metadata: serializeDirectoryMetadata({ description }),
         ownerUserId,
         source: "web" as const,
         submittedByName: submitterName || null,

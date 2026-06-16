@@ -6,6 +6,7 @@ import {
   PhoneField,
   SelectField,
   SubmitButton,
+  TextArea,
   TextField,
 } from "@/components/forms";
 import { buildPageMetadata } from "@/lib/seo/hub-page-metadata";
@@ -60,6 +61,15 @@ export default async function SubmitBusinessPage({ searchParams }: PageProps) {
           required
           emptyLabel="Select a type"
           options={TYPE_OPTIONS}
+        />
+        <TextArea
+          id="description"
+          label="About your business"
+          required
+          rows={6}
+          maxLength={4000}
+          placeholder="What you offer, who you serve, fees or pricing, languages, parking, and anything neighbours should know before they visit or call."
+          hint="Plain text or short markdown. This appears on your public directory page."
         />
       </fieldset>
 

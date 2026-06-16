@@ -5,9 +5,11 @@ import {
   FormStatus,
   PhoneField,
   SubmitButton,
+  TextArea,
   TextField,
 } from "@/components/forms";
 import { getDirectoryEntryForOwner } from "@/domains/directory/owner-queries";
+import { parseDirectoryMetadata } from "@/lib/directory/metadata";
 import { requireListingOwner } from "@/lib/listing-owner/auth";
 import { directoryTypeTitle } from "@/lib/listings/format";
 import { updateOwnerListingAction } from "./actions";
@@ -38,6 +40,7 @@ export default async function EditOwnerListingPage({
   if (!entry) notFound();
 
   const publicUrl = `/directory/${entry.type}/${entry.slug}`;
+  const meta = parseDirectoryMetadata(entry.metadata);
 
   return (
     <div className="mx-auto max-w-[640px] px-4 py-10 sm:px-6">
@@ -76,6 +79,15 @@ export default async function EditOwnerListingPage({
           required
           maxLength={140}
           defaultValue={entry.name}
+        />
+        <TextArea
+          id="description"
+          label="About your business"
+          required
+          rows={6}
+          maxLength={4000}
+          defaultValue={meta.description ?? ""}
+          hint="Shown on your public directory page."
         />
         <TextField
           id="address"

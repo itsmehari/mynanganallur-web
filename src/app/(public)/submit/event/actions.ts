@@ -58,6 +58,7 @@ export async function submitEventAction(formData: FormData): Promise<void> {
     });
     titleForRedirect = title;
     const description = readField(formData, "description", {
+      required: true,
       max: 4000,
       label: "Description",
     });

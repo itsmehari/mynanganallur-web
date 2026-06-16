@@ -86,6 +86,9 @@ export async function submitPropertyAction(formData: FormData): Promise<void> {
     const bedrooms = readOptionalInt(formData, "bedrooms");
     const bathrooms = readOptionalInt(formData, "bathrooms");
     const areaSqft = readOptionalInt(formData, "area_sqft");
+    const floorLabel = readField(formData, "floor_label", { max: 80 });
+    const facing = readField(formData, "facing", { max: 80 });
+    const parkingSummary = readField(formData, "parking_summary", { max: 120 });
     const rentPerMonth =
       kind === "rent" ? readOptionalInt(formData, "rent_per_month") : null;
     const salePrice =
@@ -133,6 +136,9 @@ export async function submitPropertyAction(formData: FormData): Promise<void> {
         bedrooms,
         bathrooms,
         areaSqft,
+        floorLabel: floorLabel || null,
+        facing: facing || null,
+        parkingSummary: parkingSummary || null,
         furnishing,
         vegetarianHouseholdOnly,
         contactPhone,
