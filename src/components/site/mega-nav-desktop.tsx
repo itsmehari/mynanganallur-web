@@ -10,13 +10,13 @@ const CLOSE_DELAY_MS = 160;
 function Chevron({ open }: { open: boolean }) {
   return (
     <svg
-      width="16"
-      height="16"
+      width="12"
+      height="12"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      className={`shrink-0 opacity-60 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+      strokeWidth="2.5"
+      className={`shrink-0 opacity-50 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
       aria-hidden
     >
       <path d="M6 9l6 6 6-6" />
@@ -86,7 +86,7 @@ export function MegaNavDesktop() {
     >
       <div className="relative inline-flex max-w-full flex-col items-center">
         <ul
-          className="flex flex-wrap items-center justify-center gap-0.5"
+          className="flex flex-nowrap items-center justify-center gap-0"
           role="menubar"
           aria-label="Site sections"
         >
@@ -101,7 +101,7 @@ export function MegaNavDesktop() {
                   aria-haspopup="true"
                   aria-controls={isOpen ? `mega-panel-${s.id}` : undefined}
                   id={`mega-trigger-${s.id}`}
-                  className="focus-ring flex min-h-11 items-center gap-1 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-[var(--muted)] transition hover:bg-[color-mix(in_srgb,var(--accent)_8%,var(--surface))] hover:text-[var(--foreground)] data-[open=true]:bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))] data-[open=true]:text-[var(--accent)]"
+                  className="focus-ring flex min-h-9 items-center gap-0.5 whitespace-nowrap rounded-lg px-2 py-1.5 text-[13px] font-semibold text-[var(--muted)] transition hover:bg-[color-mix(in_srgb,var(--accent)_8%,var(--surface))] hover:text-[var(--foreground)] data-[open=true]:bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))] data-[open=true]:text-[var(--accent)] lg:px-2.5 lg:text-sm"
                   data-open={isOpen}
                   onFocus={() => reveal(s.id)}
                   onClick={() =>

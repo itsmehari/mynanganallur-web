@@ -6,90 +6,120 @@ import { useCallback, useState } from "react";
 import { MegaNavDesktop } from "./mega-nav-desktop";
 import { MegaNavMobile } from "./mega-nav-mobile";
 
+function SearchIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className={className}
+      aria-hidden
+    >
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-3.5-3.5" />
+    </svg>
+  );
+}
+
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeMobile = useCallback(() => setMobileOpen(false), []);
 
   return (
-    <header className="site-header-bar sticky top-0 z-[60] w-full border-b border-[var(--border)] border-t-[3px] border-t-[var(--accent)] bg-[color-mix(in_srgb,var(--surface)_92%,transparent)] backdrop-blur-md supports-[backdrop-filter]:bg-[color-mix(in_srgb,var(--surface)_78%,transparent)]">
+    <header className="site-header-bar sticky top-0 z-[60] w-full border-b border-[var(--border)] border-t-2 border-t-[var(--accent)] bg-[color-mix(in_srgb,var(--surface)_94%,transparent)] backdrop-blur-md supports-[backdrop-filter]:bg-[color-mix(in_srgb,var(--surface)_82%,transparent)]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--accent)_35%,transparent)] to-transparent" />
 
-      <div className="relative mx-auto flex max-w-[1280px] items-center gap-3 px-4 py-4 md:gap-4 md:py-5">
+      <div className="relative mx-auto flex h-14 max-w-[1280px] items-center gap-2 px-3 sm:px-4 lg:h-[58px] lg:gap-3">
         <Link
           href="/"
-          className="group flex shrink-0 items-center gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] sm:gap-4"
+          className="group flex min-w-0 shrink-0 items-center gap-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] sm:gap-2.5"
           onClick={closeMobile}
         >
-          <span className="relative flex h-[88px] w-[88px] shrink-0 overflow-hidden rounded-2xl bg-[var(--surface)] shadow-md ring-1 ring-[var(--border)] transition group-hover:scale-[1.03] group-hover:shadow-lg md:h-24 md:w-24 md:rounded-3xl">
+          <span className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-[var(--surface)] shadow-sm ring-1 ring-[var(--border)] transition group-hover:scale-[1.02] group-hover:shadow-md sm:h-10 sm:w-10 sm:rounded-xl">
             <Image
               src="/MyNanganallur-logo.png"
               alt=""
-              width={192}
-              height={192}
-              className="h-full w-full object-contain p-1"
+              width={80}
+              height={80}
+              className="h-full w-full object-contain p-0.5"
               priority
             />
           </span>
-          <span className="hidden min-w-0 flex-col leading-tight sm:flex">
-            <span className="font-serif text-2xl font-bold tracking-tight text-[var(--foreground)] md:text-3xl">
+          <span className="hidden min-w-0 flex-col leading-none lg:flex">
+            <span className="truncate font-serif text-base font-bold tracking-tight text-[var(--foreground)] xl:text-lg">
               mynanganallur
             </span>
-            <span className="text-sm text-[var(--muted)] md:text-base">
-              News · directory · jobs · local events
+            <span className="mt-0.5 hidden truncate text-[10px] text-[var(--muted)] xl:block">
+              News · directory · jobs · events
             </span>
           </span>
         </Link>
 
         <MegaNavDesktop />
 
-        <div className="ml-auto flex shrink-0 items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center justify-end gap-1 sm:gap-1.5">
           <Link
             href="/submit/business"
-            className="hidden min-h-11 items-center rounded-full bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] sm:inline-flex"
+            className="hidden min-h-9 items-center rounded-full bg-[var(--accent)] px-3 py-1.5 text-xs font-semibold text-white transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] md:inline-flex lg:px-3.5"
           >
-            List your business
+            <span className="lg:hidden">List</span>
+            <span className="hidden lg:inline">List your business</span>
           </Link>
+
+          <Link
+            href="/search"
+            className="focus-ring hidden min-h-9 min-w-9 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] transition hover:border-[color-mix(in_srgb,var(--accent)_35%,var(--border))] hover:text-[var(--accent)] md:inline-flex xl:hidden"
+            aria-label="Search mynanganallur.in"
+          >
+            <SearchIcon />
+          </Link>
+
           <form
             action="/search"
             method="get"
             role="search"
-            className="hidden min-h-11 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 sm:inline-flex"
+            className="hidden min-h-9 items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] py-1 pl-3 pr-1 xl:inline-flex"
           >
             <label htmlFor="header-search" className="sr-only">
               Search mynanganallur.in
             </label>
+            <SearchIcon className="shrink-0 text-[var(--muted)]" />
             <input
               id="header-search"
               type="search"
               name="q"
               placeholder="Search…"
-              className="w-44 bg-transparent text-sm text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none"
+              className="w-28 bg-transparent text-sm text-[var(--foreground)] placeholder:text-[var(--muted)] focus:outline-none 2xl:w-36"
             />
             <button
               type="submit"
-              className="rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-semibold text-white"
+              className="rounded-full bg-[var(--accent)] px-2.5 py-1 text-[11px] font-semibold text-white"
             >
               Go
             </button>
           </form>
+
           <button
             type="button"
-            className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl text-[var(--foreground)] md:hidden"
+            className="focus-ring inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] md:hidden"
             aria-expanded={mobileOpen}
             aria-controls="mobile-mega-nav"
             onClick={() => setMobileOpen((v) => !v)}
           >
             <span className="sr-only">Open menu</span>
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               aria-hidden
             >
-              <path d="M4 6h16M4 12h16M4 18h16" />
+              <path d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </button>
         </div>

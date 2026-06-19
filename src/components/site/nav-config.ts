@@ -159,7 +159,7 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
   },
   {
     id: "local-events",
-    label: "Local events",
+    label: "Events",
     columns: [
       {
         heading: "Happening",

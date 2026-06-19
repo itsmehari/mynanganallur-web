@@ -10,15 +10,15 @@ const ALERT = {
 export function AlertBar() {
   return (
     <div
-      className="border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--accent)_12%,var(--background))] text-sm"
+      className="border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--accent)_10%,var(--background))] text-xs sm:text-sm"
       role="region"
       aria-label="Site notice"
     >
-      <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 py-2.5 text-center sm:justify-between sm:text-left">
-        <p className="max-w-3xl text-[var(--foreground)]">{ALERT.message}</p>
+      <div className="mx-auto flex h-9 max-w-[1280px] items-center justify-between gap-3 px-3 sm:px-4">
+        <p className="min-w-0 truncate text-[var(--foreground)]">{ALERT.message}</p>
         <Link
           href={ALERT.href}
-          className="shrink-0 rounded-full bg-[var(--accent)] px-4 py-1.5 text-xs font-medium text-[var(--accent-fg)] transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+          className="shrink-0 rounded-full bg-[var(--accent)] px-3 py-1 text-[11px] font-semibold text-[var(--accent-fg)] transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] sm:text-xs"
         >
           {ALERT.cta}
         </Link>
