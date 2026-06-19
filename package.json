@@ -19,6 +19,8 @@
     "db:seed:directory:jhoola-play-membership:live": "tsx scripts/seed-directory-jhoola-play-membership.ts --live",
     "db:seed:event:panguni:live": "tsx scripts/seed-event-panguni.ts --live",
     "db:seed:event:thirumurai:live": "tsx scripts/seed-event-thirumurai-music.ts --live",
+    "db:seed:event:boutique-clearance": "tsx scripts/seed-event-boutique-clearance.ts",
+    "db:seed:event:boutique-clearance:live": "tsx scripts/seed-event-boutique-clearance.ts --live",
     "db:seed:jobs": "tsx scripts/seed-jobs-sample.ts",
     "db:seed:jobs:live": "tsx scripts/seed-jobs-sample.ts --live",
     "db:seed:job:shreyas": "tsx scripts/seed-job-shreyas-tutors.ts",

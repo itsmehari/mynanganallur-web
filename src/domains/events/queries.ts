@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, gte } from "drizzle-orm";
+import { and, asc, desc, eq, gte, lte, or } from "drizzle-orm";
 import { getDb } from "@/db/client";
 import { cities, events } from "@/db/schema/tables";
 
@@ -21,13 +21,18 @@ async function getSiteCityId(): Promise<string | null> {
 const publicEventCond = eq(events.status, "scheduled");
 
 /**
- * Upcoming events for listings (startsAt >= now, city site).
+ * Upcoming + ongoing events for listings (city site).
+ * Includes future starts and events that have started but not yet ended.
  */
 export async function listUpcomingEventsForSite(limit = 50) {
   const cityId = await getSiteCityId();
   if (!cityId) return [];
   const db = getDb();
   const now = new Date();
+  const visibleCond = or(
+    gte(events.startsAt, now),
+    and(lte(events.startsAt, now), gte(events.endsAt, now)),
+  );
   return db
     .select()
     .from(events)
@@ -35,7 +40,7 @@ export async function listUpcomingEventsForSite(limit = 50) {
       and(
         eq(events.cityId, cityId),
         publicEventCond,
-        gte(events.startsAt, now),
+        visibleCond,
       ),
     )
     .orderBy(asc(events.startsAt))
