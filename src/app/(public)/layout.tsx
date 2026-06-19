@@ -1,7 +1,6 @@
-import { AlertBar } from "@/components/site/alert-bar";
+import { SiteTopChrome } from "@/components/site/site-top-chrome";
 import { WhatsappBandGate } from "@/components/community/whatsapp-band-gate";
 import { SiteFooter } from "@/components/site/site-footer";
-import { SiteHeader } from "@/components/site/site-header";
 
 export default function PublicLayout({
   children,
@@ -10,8 +9,7 @@ export default function PublicLayout({
 }) {
   return (
     <>
-      <AlertBar />
-      <SiteHeader />
+      <SiteTopChrome />
       <main className="min-w-0 flex-1">{children}</main>
       <WhatsappBandGate />
       <SiteFooter />

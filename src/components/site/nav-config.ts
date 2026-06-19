@@ -115,11 +115,6 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
             label: "Properties",
             description: "Houses and flats for rent or sale.",
           },
-        ],
-      },
-      {
-        heading: "On the map",
-        links: [
           {
             href: "/nanganallur-connect",
             label: "Nanganallur Connect",
@@ -127,10 +122,18 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
           },
           {
             href: "/#areas",
-            label: "Area explorer",
-            description: "Jump to the bento map on the home page.",
+            label: "Area map",
+            description: "Jump to the neighbourhood map on the home page.",
           },
         ],
+      },
+      {
+        heading: "Core & nearby",
+        links: areasColA,
+      },
+      {
+        heading: "Corridors",
+        links: areasColB,
       },
     ],
   },
@@ -170,20 +173,6 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
             description: "Temple utsavams, meetups, culture, and civic dates.",
           },
         ],
-      },
-    ],
-  },
-  {
-    id: "areas",
-    label: "Areas",
-    columns: [
-      {
-        heading: "Core & nearby",
-        links: areasColA,
-      },
-      {
-        heading: "Corridors",
-        links: areasColB,
       },
     ],
   },

@@ -29,7 +29,7 @@ export function SiteHeader() {
   const closeMobile = useCallback(() => setMobileOpen(false), []);
 
   return (
-    <header className="site-header-bar sticky top-0 z-[60] w-full border-b border-[var(--border)] border-t-2 border-t-[var(--accent)] bg-[color-mix(in_srgb,var(--surface)_94%,transparent)] backdrop-blur-md supports-[backdrop-filter]:bg-[color-mix(in_srgb,var(--surface)_82%,transparent)]">
+    <header className="site-header-bar w-full border-b border-[var(--border)] border-t-2 border-t-[var(--accent)] bg-[color-mix(in_srgb,var(--surface)_94%,transparent)] backdrop-blur-md supports-[backdrop-filter]:bg-[color-mix(in_srgb,var(--surface)_82%,transparent)]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[color-mix(in_srgb,var(--accent)_35%,transparent)] to-transparent" />
 
       <div className="relative mx-auto flex h-14 max-w-[1280px] items-center gap-2 px-3 sm:px-4 lg:h-[58px] lg:gap-3">

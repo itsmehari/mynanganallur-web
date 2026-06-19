@@ -9,7 +9,9 @@ type Props = {
 export function MegaNavPanel({ section, onNavigate }: Props) {
   const hasFeatured = Boolean(section.featured);
   const gridClass = hasFeatured
-    ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,280px)]"
+    ? section.columns.length >= 3
+      ? "md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,240px)]"
+      : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,280px)]"
     : section.columns.length > 1
       ? "md:grid-cols-2"
       : "";
