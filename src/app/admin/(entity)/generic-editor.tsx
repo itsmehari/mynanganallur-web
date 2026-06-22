@@ -8,7 +8,7 @@ export type EditorField =
   | { kind: "datetime"; name: string; label: string; defaultValue?: string | null };
 
 type Props = {
-  entity: "article" | "event" | "job" | "property" | "directory";
+  entity: "article" | "event" | "job" | "open_to_work" | "property" | "directory";
   id: string;
   fields: EditorField[];
   detailHref?: string;

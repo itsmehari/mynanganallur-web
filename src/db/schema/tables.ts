@@ -198,6 +198,49 @@ export const jobPostings = pgTable(
   }),
 );
 
+/** Job seeker profiles seeking referrals — separate from employer job postings. */
+export const openToWorkProfiles = pgTable(
+  "open_to_work_profiles",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    cityId: uuid("city_id")
+      .notNull()
+      .references(() => cities.id, { onDelete: "restrict" }),
+    slug: text("slug").notNull(),
+    displayName: text("display_name").notNull(),
+    headline: text("headline").notNull(),
+    body: text("body").notNull(),
+    domainsLabel: text("domains_label"),
+    preferredLocations: text("preferred_locations"),
+    workModePreferences: text("work_mode_preferences").notNull().default("hybrid"),
+    yearsExperience: integer("years_experience"),
+    contactEmail: text("contact_email"),
+    contactPhone: text("contact_phone"),
+    linkedInUrl: text("linkedin_url"),
+    facebookUrl: text("facebook_url"),
+    sourcePostUrl: text("source_post_url"),
+    resumeUrl: text("resume_url"),
+    status: jobPostingStatusEnum("status").notNull().default("draft"),
+    featured: boolean("featured").notNull().default(false),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    publishedAt: timestamp("published_at", { withTimezone: true }),
+    source: entrySourceEnum("source").notNull().default("admin"),
+    submittedByName: text("submitted_by_name"),
+    submittedByEmail: text("submitted_by_email"),
+    submittedByPhone: text("submitted_by_phone"),
+    submittedAt: timestamp("submitted_at", { withTimezone: true }),
+    moderationNotes: text("moderation_notes"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({
+    citySlug: uniqueIndex("open_to_work_profiles_city_slug_uidx").on(
+      t.cityId,
+      t.slug,
+    ),
+  }),
+);
+
 export const propertyListings = pgTable(
   "property_listings",
   {

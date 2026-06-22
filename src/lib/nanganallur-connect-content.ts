@@ -79,6 +79,12 @@ export const CONNECT_ACTION_TILES: ConnectActionTile[] = [
     accent: "#1a3d5c",
   },
   {
+    href: "/careers/open-to-work",
+    label: "Open to Work",
+    description: "Profiles seeking roles and referrals in banking, finance, and more.",
+    accent: "#3d1a5c",
+  },
+  {
     href: "/properties",
     label: "Properties",
     description: "Houses and flats for rent or sale in Nanganallur and nearby.",

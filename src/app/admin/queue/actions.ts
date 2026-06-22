@@ -8,6 +8,7 @@ import {
   directoryEntries,
   events,
   jobPostings,
+  openToWorkProfiles,
   propertyListings,
 } from "@/db/schema";
 import { recordAudit } from "@/lib/admin/audit";
@@ -15,13 +16,14 @@ import { requireStaff } from "@/lib/admin/role-guard";
 import { revalidateForEntity } from "@/lib/admin/revalidate";
 import { pingGoogleSitemaps } from "@/lib/seo/gsc-ping";
 
-type Entity = "article" | "event" | "job" | "property" | "directory";
+type Entity = "article" | "event" | "job" | "open_to_work" | "property" | "directory";
 
 function statusForApprove(entity: Entity): string {
   switch (entity) {
     case "event":
       return "scheduled";
     case "job":
+    case "open_to_work":
       return "open";
     case "article":
     case "property":
@@ -71,6 +73,23 @@ export async function approveAction(formData: FormData) {
         .set({ status: "open", updatedAt: new Date() })
         .where(eq(jobPostings.id, id))
         .returning({ slug: jobPostings.slug });
+      slug = row?.slug ?? null;
+      break;
+    }
+    case "open_to_work": {
+      const now = new Date();
+      const expiresAt = new Date(now);
+      expiresAt.setDate(expiresAt.getDate() + 90);
+      const [row] = await db
+        .update(openToWorkProfiles)
+        .set({
+          status: "open",
+          publishedAt: now,
+          expiresAt,
+          updatedAt: now,
+        })
+        .where(eq(openToWorkProfiles.id, id))
+        .returning({ slug: openToWorkProfiles.slug });
       slug = row?.slug ?? null;
       break;
     }
@@ -152,6 +171,16 @@ export async function rejectAction(formData: FormData) {
           updatedAt: new Date(),
         })
         .where(eq(jobPostings.id, id));
+      break;
+    case "open_to_work":
+      await db
+        .update(openToWorkProfiles)
+        .set({
+          status: "closed",
+          moderationNotes: reason,
+          updatedAt: new Date(),
+        })
+        .where(eq(openToWorkProfiles.id, id));
       break;
     case "property":
       await db

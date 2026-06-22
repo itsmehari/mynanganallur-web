@@ -118,6 +118,8 @@ export default async function JobsPage({
         body="Hiring locally? Share the role and we will publish it on the jobs board after a quick review."
         ctaHref={HUB.emptyCtaHref}
         ctaLabel={HUB.emptyCtaLabel}
+        secondaryHref="/careers/open-to-work"
+        secondaryLabel="Open to Work profiles"
       />
 
       <ListingFilterRow

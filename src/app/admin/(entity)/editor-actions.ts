@@ -8,6 +8,7 @@ import {
   directoryEntries,
   events,
   jobPostings,
+  openToWorkProfiles,
   propertyListings,
 } from "@/db/schema";
 import { recordAudit } from "@/lib/admin/audit";
@@ -28,6 +29,7 @@ const TABLES = {
   article: articles,
   event: events,
   job: jobPostings,
+  open_to_work: openToWorkProfiles,
   property: propertyListings,
   directory: directoryEntries,
 } as const;
@@ -113,6 +115,42 @@ export async function saveEntityAction(formData: FormData) {
         })
         .where(eq(jobPostings.id, id))
         .returning({ slug: jobPostings.slug });
+      slug = row?.slug ?? null;
+      break;
+    }
+    case "open_to_work": {
+      const yearsRaw = readText(formData, "yearsExperience");
+      const yearsExperience = yearsRaw ? Number.parseInt(yearsRaw, 10) : null;
+      const status =
+        (readText(formData, "status") as "draft" | "open" | "closed") ?? "draft";
+      const now = new Date();
+      const expiresAt = new Date(now);
+      expiresAt.setDate(expiresAt.getDate() + 90);
+      const [row] = await db
+        .update(openToWorkProfiles)
+        .set({
+          displayName: readText(formData, "displayName") ?? "(unnamed)",
+          slug: readText(formData, "slug") ?? "untitled",
+          headline: readText(formData, "headline") ?? "",
+          body: readText(formData, "body") ?? "",
+          domainsLabel: readText(formData, "domainsLabel"),
+          preferredLocations: readText(formData, "preferredLocations"),
+          workModePreferences: readText(formData, "workModePreferences") ?? "hybrid",
+          yearsExperience: Number.isFinite(yearsExperience) ? yearsExperience : null,
+          contactEmail: readText(formData, "contactEmail"),
+          contactPhone: readText(formData, "contactPhone"),
+          linkedInUrl: readText(formData, "linkedInUrl"),
+          facebookUrl: readText(formData, "facebookUrl"),
+          sourcePostUrl: readText(formData, "sourcePostUrl"),
+          resumeUrl: readText(formData, "resumeUrl"),
+          status,
+          featured: readBool(formData, "featured"),
+          publishedAt: status === "open" ? now : null,
+          expiresAt: status === "open" ? expiresAt : null,
+          updatedAt: now,
+        })
+        .where(eq(openToWorkProfiles.id, id))
+        .returning({ slug: openToWorkProfiles.slug });
       slug = row?.slug ?? null;
       break;
     }

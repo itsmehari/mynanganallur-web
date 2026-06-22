@@ -8,6 +8,7 @@ import {
   directoryEntries,
   events,
   jobPostings,
+  openToWorkProfiles,
   propertyListings,
 } from "@/db/schema";
 import { approveAction, rejectAction } from "./actions";
@@ -15,7 +16,7 @@ import { approveAction, rejectAction } from "./actions";
 export const dynamic = "force-dynamic";
 
 type QueueRow = {
-  entity: "article" | "event" | "job" | "property" | "directory";
+  entity: "article" | "event" | "job" | "open_to_work" | "property" | "directory";
   id: string;
   title: string;
   submittedBy: string | null;
@@ -109,6 +110,34 @@ async function loadQueue(): Promise<QueueRow[]> {
     });
   }
 
+  const otw = await db
+    .select({
+      id: openToWorkProfiles.id,
+      displayName: openToWorkProfiles.displayName,
+      headline: openToWorkProfiles.headline,
+      status: openToWorkProfiles.status,
+      source: openToWorkProfiles.source,
+      submittedByName: openToWorkProfiles.submittedByName,
+      submittedByEmail: openToWorkProfiles.submittedByEmail,
+      submittedAt: openToWorkProfiles.submittedAt,
+      createdAt: openToWorkProfiles.createdAt,
+    })
+    .from(openToWorkProfiles)
+    .where(eq(openToWorkProfiles.status, "draft"))
+    .orderBy(desc(openToWorkProfiles.createdAt))
+    .limit(100);
+  for (const p of otw) {
+    out.push({
+      entity: "open_to_work",
+      id: p.id,
+      title: `${p.displayName} — ${p.headline}`,
+      submittedBy: p.submittedByEmail ?? p.submittedByName,
+      submittedAt: p.submittedAt ?? p.createdAt,
+      source: p.source,
+      status: p.status,
+    });
+  }
+
   const ps = await db
     .select({
       id: propertyListings.id,
@@ -182,6 +211,7 @@ const ENTITY_LABEL: Record<QueueRow["entity"], string> = {
   article: "Article",
   event: "Event",
   job: "Job",
+  open_to_work: "Open to Work",
   property: "Property",
   directory: "Directory",
 };
@@ -190,6 +220,7 @@ const ENTITY_EDIT: Record<QueueRow["entity"], (id: string) => string> = {
   article: (id) => `/admin/articles/${id}`,
   event: (id) => `/admin/events/${id}`,
   job: (id) => `/admin/jobs/${id}`,
+  open_to_work: (id) => `/admin/open-to-work/${id}`,
   property: (id) => `/admin/properties/${id}`,
   directory: (id) => `/admin/directory/${id}`,
 };
@@ -224,7 +255,7 @@ export default async function ModerationQueue({
         </div>
         <nav aria-label="Filter queue" className="flex flex-wrap gap-2 text-xs">
           <FilterChip current={filter} value={undefined} label={`All (${all.length})`} />
-          {(["article", "event", "job", "property", "directory"] as const).map((t) => (
+          {(["article", "event", "job", "open_to_work", "property", "directory"] as const).map((t) => (
             <FilterChip
               key={t}
               current={filter}

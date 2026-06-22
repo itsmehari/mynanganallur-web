@@ -4,7 +4,13 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
-## 2026-06-16 — SEO engine: canonical + sitemap alignment
+## 2026-06-22 — Open to Work (job seeker profiles)
+
+- **Routes:** `/careers/open-to-work` (hub), `/careers/open-to-work/[slug]` (profile), `/submit/open-to-work` (public submit), `/admin/open-to-work/[id]` (moderation edit).
+- **Data:** New table `open_to_work_profiles` — migration `drizzle/0008_open_to_work_profiles.sql`. Seed Lakshmipriya: `npm run db:seed:open-to-work:lakshmipriya:live` (after applying migration).
+- **UX:** Jobs board stays employer-only; cross-links between `/jobs` and Open to Work. Profiles expire 90 days after approval. Nav + Nanganallur Connect tile added.
+
+---
 
 - **Directory verticals:** `/directory/{type}` is now the canonical path (matches sitemap `loc`). Old `?type=` URLs 301 to path; `/directory/business` → `/directory/industry`.
 - **Canonical helper:** `src/lib/seo/canonical-url.ts`, `buildPageMetadata` for form/utility pages; area hubs + submit flows wired.

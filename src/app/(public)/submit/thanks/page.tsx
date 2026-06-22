@@ -15,6 +15,7 @@ type Props = {
 
 const LABELS: Record<string, string> = {
   job: "job listing",
+  open_to_work: "Open to Work profile",
   event: "event",
   business: "business listing",
   property: "property listing",

@@ -5,6 +5,7 @@ import {
 } from "@/domains/directory";
 import { listEventsForSitemap } from "@/domains/events";
 import { listJobsForSitemap } from "@/domains/jobs";
+import { listOpenToWorkForSitemap } from "@/domains/open-to-work";
 import { listPropertiesForSitemap } from "@/domains/properties";
 import { listArticlesForSitemap, listTopicKeysForSite } from "@/domains/news";
 import { nanganallurAreas } from "@/lib/nanganallur-areas";
@@ -21,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let articleEntries: { slug: string; lastModified: Date }[] = [];
   let eventEntries: { slug: string; lastModified: Date }[] = [];
   let jobEntries: { slug: string; lastModified: Date }[] = [];
+  let openToWorkEntries: { slug: string; lastModified: Date }[] = [];
   let propertyEntries: { slug: string; lastModified: Date }[] = [];
   let directoryEntries: { type: string; slug: string; lastModified: Date }[] =
     [];
@@ -29,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     articleEntries = await listArticlesForSitemap();
     eventEntries = await listEventsForSitemap();
     jobEntries = await listJobsForSitemap();
+    openToWorkEntries = await listOpenToWorkForSitemap();
     propertyEntries = await listPropertiesForSitemap();
     directoryEntries = await listDirectoryForSitemap();
   } catch {
@@ -60,6 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.75,
+    },
+    {
+      url: `${base}/careers/open-to-work`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.7,
     },
     {
       url: `${base}/properties`,
@@ -105,6 +114,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${base}/submit/job`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.48,
+    },
+    {
+      url: `${base}/submit/open-to-work`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.48,
@@ -167,6 +182,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.63,
   }));
 
+  const openToWorkSitemap: MetadataRoute.Sitemap = openToWorkEntries.map((p) => ({
+    url: `${base}/careers/open-to-work/${p.slug}`,
+    lastModified: p.lastModified,
+    changeFrequency: "weekly" as const,
+    priority: 0.58,
+  }));
+
   const propertySitemap: MetadataRoute.Sitemap = propertyEntries.map((p) => ({
     url: `${base}/properties/${p.slug}`,
     lastModified: p.lastModified,
@@ -189,6 +211,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...articleSitemap,
     ...eventSitemap,
     ...jobSitemap,
+    ...openToWorkSitemap,
     ...propertySitemap,
     ...directorySitemap,
   ];

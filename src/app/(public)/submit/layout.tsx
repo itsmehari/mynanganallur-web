@@ -2,6 +2,7 @@ import Link from "next/link";
 
 const TABS = [
   { href: "/submit/job", label: "Job" },
+  { href: "/submit/open-to-work", label: "Open to Work" },
   { href: "/submit/event", label: "Event" },
   { href: "/submit/business", label: "Business" },
   { href: "/submit/property", label: "Property" },

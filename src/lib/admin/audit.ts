@@ -5,6 +5,7 @@ export type AuditableEntity =
   | "article"
   | "event"
   | "job"
+  | "open_to_work"
   | "property"
   | "directory"
   | "ad_creative"

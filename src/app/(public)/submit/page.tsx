@@ -15,6 +15,11 @@ const CARDS = [
     body: "Post an opening at your shop, office, school, or home.",
   },
   {
+    href: "/submit/open-to-work",
+    title: "Share that you're open to work",
+    body: "Seeking a role or referral? Publish your profile for the community.",
+  },
+  {
     href: "/submit/event",
     title: "Announce an event",
     body: "Temple festival, market day, workshop, RWA notice, blood drive.",

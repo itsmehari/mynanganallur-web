@@ -8,7 +8,7 @@
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
 export type SubmissionMeta = {
-  entityType: "job" | "event" | "business" | "property";
+  entityType: "job" | "event" | "business" | "property" | "open_to_work";
   title: string;
   submitterName?: string | null;
   submitterEmail?: string | null;
@@ -49,6 +49,7 @@ const ENTITY_LABELS: Record<SubmissionMeta["entityType"], string> = {
   event: "event",
   business: "business listing",
   property: "property listing",
+  open_to_work: "Open to Work profile",
 };
 
 export async function notifyAdminOfSubmission(meta: SubmissionMeta) {

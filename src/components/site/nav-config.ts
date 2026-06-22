@@ -156,6 +156,11 @@ export const MEGA_NAV_SECTIONS: MegaNavSection[] = [
             label: "Job board",
             description: "Roles across Nanganallur, OMR, and nearby corridors.",
           },
+          {
+            href: "/careers/open-to-work",
+            label: "Open to Work",
+            description: "Profiles seeking roles and referrals.",
+          },
         ],
       },
     ],
