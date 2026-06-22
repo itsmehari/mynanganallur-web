@@ -1,7 +1,7 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { ConnectActionGrid } from "@/components/nanganallur-connect/connect-action-grid";
 import { ConnectLiveSnapshots } from "@/components/nanganallur-connect/connect-live-snapshots";
+import { ConnectSubmitGrid } from "@/components/nanganallur-connect/connect-submit-grid";
 import { FaqBlock } from "@/components/faq/faq-block";
 import { HomeAreaMap } from "@/components/home/home-area-map";
 import { ListingBreadcrumb } from "@/components/listings/listing-breadcrumb";
@@ -110,41 +110,7 @@ export default function NanganallurConnectPage() {
         heading="Nanganallur — frequently asked"
       />
 
-      <section
-        aria-labelledby="connect-submit-heading"
-        className="mt-12 rounded-2xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--accent)_8%,var(--surface))] p-6 sm:p-8"
-      >
-        <h2
-          id="connect-submit-heading"
-          className="text-lg font-semibold text-[var(--foreground)]"
-        >
-          List on mynanganallur.in
-        </h2>
-        <p className="mt-2 max-w-2xl text-sm text-[var(--muted)]">
-          Post a job, property, event, or business — free standard listings,
-          reviewed before they go live.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Link
-            href="/submit/property"
-            className="rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-[var(--accent-fg)] transition hover:bg-[var(--accent-hover)]"
-          >
-            Post a property
-          </Link>
-          <Link
-            href="/submit/job"
-            className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--accent)]"
-          >
-            Post a job
-          </Link>
-          <Link
-            href="/submit"
-            className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-5 py-2.5 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--accent)]"
-          >
-            All submit options
-          </Link>
-        </div>
-      </section>
+      <ConnectSubmitGrid />
     </div>
   );
 }

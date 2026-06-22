@@ -104,6 +104,39 @@ export const CONNECT_ACTION_TILES: ConnectActionTile[] = [
   },
 ];
 
+export const CONNECT_SUBMIT_TILES: ConnectActionTile[] = [
+  {
+    href: "/submit/property",
+    label: "Post a property",
+    description: "Rent or sell a house or flat — reach local renters and buyers.",
+    accent: "#3d1a5c",
+  },
+  {
+    href: "/submit/job",
+    label: "Post a job",
+    description: "Hire help at your shop, office, school, or home.",
+    accent: "#1a3d5c",
+  },
+  {
+    href: "/submit/event",
+    label: "Announce an event",
+    description: "Temple festival, workshop, RWA notice, market day, or blood drive.",
+    accent: "#5c3d1a",
+  },
+  {
+    href: "/submit/business",
+    label: "List your business",
+    description: "Add your shop, clinic, tuition, or service to the directory.",
+    accent: "#5c1a3d",
+  },
+  {
+    href: "/submit/open-to-work",
+    label: "Share Open to Work",
+    description: "Publish your profile if you are seeking a role or referral locally.",
+    accent: "#3d1a5c",
+  },
+];
+
 export const CONNECT_FAQ: FaqItem[] = [
   {
     q: "Where is Nanganallur in Chennai?",
