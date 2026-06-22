@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { AmazonAffiliateBlock } from "@/components/affiliate/amazon-affiliate-block";
@@ -80,11 +81,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .filter(Boolean)
     .join(" · ")
     .slice(0, 155);
-  const ogImage = buildOgImageUrl({
-    title: entry.name,
-    kind: "business",
-    locality: entry.localityLabel ?? "Nanganallur",
-  });
+  const ogImage = entry.heroImageUrl?.trim()
+    ? entry.heroImageUrl.startsWith("http")
+      ? entry.heroImageUrl
+      : `${base}${entry.heroImageUrl.startsWith("/") ? "" : "/"}${entry.heroImageUrl}`
+    : buildOgImageUrl({
+        title: entry.name,
+        kind: "business",
+        locality: entry.localityLabel ?? "Nanganallur",
+      });
   return {
     title: `${entry.name} · Directory`,
     description: desc,
@@ -206,6 +211,19 @@ export default async function DirectoryEntryPage({ params }: Props) {
       </h1>
       {entry.localityLabel ? (
         <p className="mt-2 text-sm text-[var(--muted)]">{entry.localityLabel}</p>
+      ) : null}
+
+      {entry.heroImageUrl ? (
+        <div className="relative mt-6 aspect-[4/5] w-full max-w-md overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] sm:aspect-[3/4]">
+          <Image
+            src={entry.heroImageUrl}
+            alt={`${entry.name} — promotional flyer`}
+            fill
+            className="object-contain object-center"
+            sizes="(max-width: 720px) 100vw, 448px"
+            priority
+          />
+        </div>
       ) : null}
 
       <ListingGeoBlock
