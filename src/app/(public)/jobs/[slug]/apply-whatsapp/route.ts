@@ -18,7 +18,13 @@ export async function GET(
   if (!digits) {
     return NextResponse.redirect(new URL("/jobs", getSiteUrl()), 302);
   }
-  const target = `https://wa.me/91${digits}`;
+  const e164 =
+    digits.length === 10
+      ? `91${digits}`
+      : digits.startsWith("91")
+        ? digits
+        : `91${digits.slice(-10)}`;
+  const target = `https://wa.me/${e164}`;
   return NextResponse.redirect(target, {
     status: 302,
     headers: { "X-Robots-Tag": "noindex, nofollow" },

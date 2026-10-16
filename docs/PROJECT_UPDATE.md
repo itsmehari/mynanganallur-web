@@ -38,6 +38,35 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-10-16 — Job unique page views + Tamil slug fix
+
+- **Unique views:** Client `UniquePageViews` + `POST /api/page-views` writes one row per visitor hash into `listing_page_views` (table already on Neon). **Not visible on production until this app code is deployed** — live `/api/page-views` currently 404s, so the counter never mounts.
+- **Tamil jobs:** Live App Router was matching percent-encoded slugs; Unicode-only Tamil rows 404’d. Stored Tamil VV job slugs percent-encoded (address bar still shows Tamil script). Helper `jobSlugLookupCandidates` covers both forms after deploy.
+- **Deploy needed** for: unique views UI, language switch, hreflang, richer JobPosting JSON-LD, `force-dynamic` on job detail, salary “Up to ₹…” line.
+
+---
+
+## 2026-10-16 — Property: 2 BHK rent near Independence Park, Nanganallur
+
+- **Data:** Seeded **2 BHK** independent-house flat for rent near **Independence Park** (`slug` `rent-2bhk-independence-park-nanganallur`). **700 sq ft**, 2nd/top floor with roof, 2 western baths; no lift, no car park, bike parking only; **vegetarians only**. Rent **₹20,000**/mo, advance **4 months**. Owner contact **7305710601**.
+- **Code:** `scripts/seed-property-independence-park-2bhk-rent.ts` (+ npm scripts `db:seed:property:independence-park-2bhk-rent` / `:live`).
+
+---
+
+## 2026-10-16 — Jobs: VV Placement HR recruiter (EN + TA, Sembakkam)
+
+- **Data:** Bilingual pair — English `hr-recruiter-10-vacancies-sembakkam-chennai` and Tamil-script `எச்ஆர்-ரெக்ரூட்டர்-10-காலியிடம்-செம்பாக்கம்-சென்னை`. Employer **VV Placement Services**; **10** vacancies; pay **up to ₹15,000**/month (ceiling only, no `baseSalary` min–max); female candidates and freshers can apply; immediate joiners; contact **91767 97745**. **apply_by** +90 days; **expires_at** +50 days.
+- **Code:** `scripts/seed-job-vv-placement-hr-recruiter-sembakkam.ts`; hub salary line supports max-only (“Up to ₹…”).
+
+---
+
+## 2026-10-16 — Jobs: VV Placement AC technician & helper (EN + TA, Madipakkam)
+
+- **Data:** Seeded bilingual pair — English `ac-technician-helper-50-vacancies-madipakkam-chennai` and Tamil-script `ஏசி-டெக்னீஷன்-ஹெல்பர்-50-காலியிடம்-மடிப்பாக்கம்-சென்னை`. Employer **VV Placement Services**; **50** vacancies; pay **₹15,000–₹30,000**/month; room and food; full-time onsite Madipakkam; apply **91767 97745**. **apply_by** +90 days; **expires_at** +30 days (auto-takedown).
+- **Code:** Job columns `locale`, `alternate_slug`, `job_benefits`, `published_at`, `expires_at`, `apply_by`; `listing_page_views` + `/api/page-views`; hreflang + language switch; richer JobPosting JSON-LD. Scripts: `db:ensure:job-bilingual:live`, `db:seed:job:vv-placement-ac-helper-madipakkam:live`.
+
+---
+
 ## 2026-06-14 — Directory: Jhoola Play Membership (Ram Nagar)
 
 - **Data:** Seeded **Jhoola Play Membership** at Jhoola Activity Centre, Ram Nagar (`slug` `jhoola-play-membership-nanganallur`, type `industry`). Screen-free play space for children — books, board games, art, craft, and open-ended materials. Membership from **1 July 2026**; two tiers, members-only WhatsApp coordination, online balance tracking, and guest drop-in option. Early bird offers — contact **91765 83618**.

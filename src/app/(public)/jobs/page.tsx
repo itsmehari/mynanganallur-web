@@ -14,6 +14,7 @@ import { listOpenJobsForSite } from "@/domains/jobs";
 import { searchAcross } from "@/domains/search";
 import { LISTING_HUB_CONTENT } from "@/lib/listings/hub-content";
 import { getSiteUrl } from "@/lib/env";
+import { jobSlugPathSegment } from "@/lib/jobs/slug-normalize";
 import { buildHubMetadata } from "@/lib/seo/hub-page-metadata";
 
 export const revalidate = 120;
@@ -92,7 +93,7 @@ export default async function JobsPage({
         breadcrumbLabel="Jobs"
         items={rows.map(({ job }) => ({
           name: job.title,
-          href: `/jobs/${job.slug}`,
+          href: `/jobs/${jobSlugPathSegment(job.slug)}`,
         }))}
       />
 
@@ -121,6 +122,17 @@ export default async function JobsPage({
         secondaryHref="/careers/open-to-work"
         secondaryLabel="Open to Work profiles"
       />
+
+      <p className="mt-6 max-w-prose text-sm text-[var(--muted)]">
+        South Chennai owners hiring near home — see the{" "}
+        <a
+          href="https://mychennaicity.in/chennai-local-news/chennai-local-job-ads-guide-business-owners-hr"
+          className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"
+        >
+          Chennai local job ads guide for owners and HR
+        </a>
+        .
+      </p>
 
       <ListingFilterRow
         action={HUB.path}

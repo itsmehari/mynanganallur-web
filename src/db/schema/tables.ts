@@ -184,6 +184,17 @@ export const jobPostings = pgTable(
     } | null>(),
     contactPhone: text("contact_phone"),
     contactEmail: text("contact_email"),
+    /** BCP 47 tag for JobPosting inLanguage — e.g. en-IN, ta-IN. */
+    locale: text("locale").notNull().default("en-IN"),
+    /** Twin listing slug for hreflang (English ↔ Tamil). */
+    alternateSlug: text("alternate_slug"),
+    /** Free-text benefits for JobPosting.jobBenefits (e.g. room and food). */
+    jobBenefits: text("job_benefits"),
+    publishedAt: timestamp("published_at", { withTimezone: true }),
+    /** Public listing auto-takedown; open rows past this are treated as closed. */
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    /** Application window end — drives JobPosting.validThrough. */
+    applyBy: timestamp("apply_by", { withTimezone: true }),
     source: entrySourceEnum("source").notNull().default("admin"),
     submittedByName: text("submitted_by_name"),
     submittedByEmail: text("submitted_by_email"),
@@ -454,6 +465,26 @@ export const reactions = pgTable(
       t.entityType,
       t.entityId,
       t.ipHash,
+    ),
+  }),
+);
+
+/** One row per unique visitor per listing page (unique page views). */
+export const listingPageViews = pgTable(
+  "listing_page_views",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    entityType: text("entity_type").notNull(),
+    entityId: uuid("entity_id").notNull(),
+    visitorHash: text("visitor_hash").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({
+    entityIdx: index("listing_page_views_entity_idx").on(t.entityType, t.entityId),
+    uniqVisitor: uniqueIndex("listing_page_views_unique_visitor_uidx").on(
+      t.entityType,
+      t.entityId,
+      t.visitorHash,
     ),
   }),
 );

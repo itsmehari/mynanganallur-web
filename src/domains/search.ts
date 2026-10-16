@@ -192,7 +192,7 @@ export async function searchAcross(
           id: r.id,
           title: r.title,
           snippet: r.body.slice(0, 200),
-          href: `/jobs/${r.slug}`,
+          href: `/jobs/${encodeURIComponent(r.slug)}`,
           locality: r.locationLabel,
         }));
       })(),

@@ -279,7 +279,7 @@ export async function HomeJobsSpotlight() {
           );
           return (
             <li key={job.id} className={i === 0 ? "sm:col-span-2" : ""}>
-              <Link href={`/jobs/${job.slug}`} className={className}>
+              <Link href={`/jobs/${encodeURIComponent(job.slug)}`} className={className}>
                 {inner}
               </Link>
             </li>

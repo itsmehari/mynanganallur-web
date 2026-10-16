@@ -97,6 +97,10 @@ export function jobSalaryLine(
     const from = `From ${formatInrPrice(job.salaryMin)}`;
     return opts?.forHub ? `${from} (indicative)` : from;
   }
+  if (job.salaryMax != null) {
+    const upTo = `Up to ${formatInrPrice(job.salaryMax)}`;
+    return opts?.forHub ? `${upTo} (indicative)` : upTo;
+  }
   return opts?.forHub ? null : "Salary on request";
 }
 

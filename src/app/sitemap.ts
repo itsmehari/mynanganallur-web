@@ -5,6 +5,7 @@ import {
 } from "@/domains/directory";
 import { listEventsForSitemap } from "@/domains/events";
 import { listJobsForSitemap } from "@/domains/jobs";
+import { jobSlugPathSegment } from "@/lib/jobs/slug-normalize";
 import { listOpenToWorkForSitemap } from "@/domains/open-to-work";
 import { listPropertiesForSitemap } from "@/domains/properties";
 import { listArticlesForSitemap, listTopicKeysForSite } from "@/domains/news";
@@ -176,7 +177,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const jobSitemap: MetadataRoute.Sitemap = jobEntries.map((j) => ({
-    url: `${base}/jobs/${j.slug}`,
+    url: `${base}/jobs/${jobSlugPathSegment(j.slug)}`,
     lastModified: j.lastModified,
     changeFrequency: "weekly" as const,
     priority: 0.63,

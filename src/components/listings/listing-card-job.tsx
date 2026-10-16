@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { formatPublishedDate, jobSalaryLine } from "@/lib/listings/format";
+import { jobSlugPathSegment } from "@/lib/jobs/slug-normalize";
 
 type Props = {
   slug: string;
@@ -41,7 +42,7 @@ export function ListingCardJob({
   return (
     <li>
       <Link
-        href={`/jobs/${slug}`}
+        href={`/jobs/${jobSlugPathSegment(slug)}`}
         className="flex min-h-[72px] items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 py-4 shadow-sm transition hover:border-[var(--accent)] active:bg-[color-mix(in_srgb,var(--surface)_92%,var(--accent)_8%)]"
       >
         <span className="min-w-0 flex-1">

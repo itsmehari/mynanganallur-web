@@ -113,7 +113,7 @@ async function loadItems(props: Props): Promise<Item[]> {
         .limit(5);
       return rows.map((r) => ({
         name: r.title,
-        href: `/jobs/${r.slug}`,
+        href: `/jobs/${encodeURIComponent(r.slug)}`,
         sub: r.locationLabel,
       }));
     }
