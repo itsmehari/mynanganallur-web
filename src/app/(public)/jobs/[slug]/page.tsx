@@ -22,7 +22,7 @@ import {
   buildJobAutoFaq,
   resolveFaqItems,
 } from "@/lib/listings/faq-generators";
-import { formatPublishedDate, jobSalaryLine } from "@/lib/listings/format";
+import { contactTelHref, formatPublishedDate, jobSalaryLine } from "@/lib/listings/format";
 import { getSiteUrl } from "@/lib/env";
 import { scrubPublicJobBody } from "@/lib/jobs/scrub-public-job-body";
 import { jobSlugPathSegment } from "@/lib/jobs/slug-normalize";
@@ -173,8 +173,32 @@ export default async function JobDetailPage({ params }: Props) {
       : []),
   ];
 
+  const directCall =
+    job.slug === "male-office-assistant-guindy-race-course" &&
+    job.contactPhone?.trim()
+      ? job.contactPhone.trim()
+      : null;
+  const directCallLabel = (() => {
+    if (!directCall) return null;
+    const digits = directCall.replace(/\D/g, "");
+    const local =
+      digits.length === 12 && digits.startsWith("91") ? digits.slice(2) : digits;
+    const pretty =
+      local.length === 10 ? `${local.slice(0, 5)} ${local.slice(5)}` : local;
+    return `Call ${pretty}`;
+  })();
+
   const stickyActions = waLink
     ? [
+        ...(directCall
+          ? [
+              {
+                type: "call" as const,
+                phone: directCall,
+                label: "Call",
+              },
+            ]
+          : []),
         {
           type: "link" as const,
           href: waLink,
@@ -279,7 +303,7 @@ export default async function JobDetailPage({ params }: Props) {
             question={
               isTa
                 ? `${job.title} — எப்படி விண்ணப்பிப்பது?`
-                : `How do I apply for ${job.title} in Madipakkam?`
+                : `How do I apply for ${job.title} in ${job.locationLabel ?? "Nanganallur"}?`
             }
             directAnswer={
               isTa
@@ -377,6 +401,14 @@ export default async function JobDetailPage({ params }: Props) {
                 className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700"
               >
                 {isTa ? "WhatsApp மூலம் விண்ணப்பிக்க" : "Apply via WhatsApp"}
+              </a>
+            ) : null}
+            {directCall ? (
+              <a
+                href={contactTelHref(directCall)}
+                className="mt-3 inline-flex w-full items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 text-sm font-semibold text-[var(--foreground)] transition hover:bg-[var(--background)]"
+              >
+                {directCallLabel}
               </a>
             ) : null}
           </div>
