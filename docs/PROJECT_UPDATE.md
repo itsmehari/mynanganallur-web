@@ -4,6 +4,13 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-10-27 — Live job refresh: vegetable shop billing (Nanganallur)
+
+- **Data:** Refreshed **Billing staff — vegetable shop (Nanganallur)** (`slug` `nanganallur-vegetable-shop-sales-billing`). Full-time and part-time. Timings around 7:30 AM–1:30 PM and 4:30 PM–9:30 PM. Salary around ₹15,000–₹25,000. Age below 40. WhatsApp **9789943459**. Shop name and street unstated. Same note on MyChennaiCity: https://mychennaicity.in/chennai-jobs/nanganallur-vegetable-shop-sales-billing
+- **Code:** `scripts/seed-job-nanganallur-vegetable-shop-billing.ts` (`db:seed:job:nanganallur-vegetable-shop-billing` / `:live`).
+
+---
+
 ## 2026-06-22 — Open to Work (job seeker profiles)
 
 - **Routes:** `/careers/open-to-work` (hub), `/careers/open-to-work/[slug]` (profile), `/submit/open-to-work` (public submit), `/admin/open-to-work/[id]` (moderation edit).

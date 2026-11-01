@@ -1,5 +1,10 @@
 /**
- * Nanganallur vegetable shop — sales / billing staff (POS billing).
+ * Nanganallur vegetable shop — billing staff.
+ * Source note (27 Oct 2026): male or female; full-time and part-time;
+ * timings around 7:30 AM–1:30 PM and 4:30 PM–9:30 PM; salary around
+ * 15k to 25k; age below 40; shop name and street unstated;
+ * WhatsApp 9789943459.
+ * Same note on https://mychennaicity.in/chennai-jobs/nanganallur-vegetable-shop-sales-billing
  *
  * Dev:  `npm run db:seed:job:nanganallur-vegetable-shop-billing`
  * Live: `npm run db:seed:job:nanganallur-vegetable-shop-billing:live`
@@ -31,37 +36,43 @@ const db = drizzle(neon(url), { schema });
 
 const EMPLOYER_SLUG = "nanganallur-vegetable-shop";
 const JOB_SLUG = "nanganallur-vegetable-shop-sales-billing";
+const PHONE = "9789943459";
+const SISTER =
+  "https://mychennaicity.in/chennai-jobs/nanganallur-vegetable-shop-sales-billing";
 
 const BODY = `## Role
 
-A **vegetable shop in Nanganallur** is hiring **sales / billing staff** to handle **shop billing on the billing system** (POS).
+A **vegetable shop in Nanganallur** is hiring **billing staff**. The note says **male or female** applicants can apply. The shop’s name and street were not given.
+
+The same note is on [MyChennaiCity](${SISTER}).
 
 ## Employment type
 
-- **Part-time** or **full-time** — both are fine
+**Full-time** and **part-time** are both open. The note does not say which window is full-time and which is part-time.
 
-## Shift options
+## Timings
 
-Choose one shift (confirm exact hours with the employer):
-
-- **Morning:** 7:00 AM – 2:00 PM
-- **Evening:** 2:00 PM – 9:00 PM
+Around **7:30 AM – 1:30 PM**, and around **4:30 PM – 9:30 PM**. Confirm the exact hours with the shop.
 
 ## Pay
 
-Around **₹15,000 – ₹24,000/month** depending on role, hours, and experience (confirm when you apply).
+Around **₹15,000 – ₹25,000**. The note does not print “per month”. Confirm the pay period, and whether full-time and part-time pay differ, before you join.
+
+## Who can apply
+
+Male or female. Age below 40, as printed in the note.
 
 ## Location
 
-**Nanganallur**, Chennai.
+**Nanganallur**, Chennai. No door number was printed.
 
 ## How to apply
 
-Interested candidates can **WhatsApp** the shop on **[97899 43459](tel:+919789943459)** with your name, preferred shift, and availability.
+WhatsApp **97899 43459**.
 
----
+[Open WhatsApp to apply](/jobs/${JOB_SLUG}/apply-whatsapp) or use the green **Apply via WhatsApp** button on this page. Say you are applying for billing at the vegetable shop.
 
-*Listing sourced from a public hiring post; confirm shop name, pay, and shift details directly with the employer before you join.*`;
+Listing compiled from the hiring note. Confirm shop name, pay, and shift details with the employer before you join.`;
 
 async function main() {
   const [city] = await db
@@ -112,34 +123,41 @@ async function main() {
     )
     .limit(1);
 
+  const now = new Date();
+  const expiresAt = new Date(now);
+  expiresAt.setDate(expiresAt.getDate() + 90);
+
   const values = {
     employerId,
     cityId: city.id,
     slug: JOB_SLUG,
-    title: "Sales / billing staff — vegetable shop (Nanganallur)",
+    title: "Billing staff — vegetable shop (Nanganallur)",
     body: BODY,
     locationLabel: "Nanganallur, Chennai",
     salaryMin: 15_000,
-    salaryMax: 24_000,
+    salaryMax: 25_000,
     salaryDisclosed: true,
     remotePolicy: "onsite",
-    openingsCount: 2,
+    openingsCount: 1,
     status: "open" as const,
     featured: true,
-    contactPhone: "9789943459",
+    contactPhone: PHONE,
+    expiresAt,
+    applyBy: expiresAt,
+    updatedAt: now,
   };
 
   if (existingJob) {
     await db
       .update(jobPostings)
-      .set({
-        ...values,
-        updatedAt: new Date(),
-      })
+      .set(values)
       .where(eq(jobPostings.id, existingJob.id));
     console.log("Updated job:", JOB_SLUG);
   } else {
-    await db.insert(jobPostings).values(values);
+    await db.insert(jobPostings).values({
+      ...values,
+      publishedAt: now,
+    });
     console.log("Inserted job:", JOB_SLUG);
   }
 }

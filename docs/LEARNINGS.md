@@ -16,6 +16,7 @@ Operational and engineering notes for this repo (Next.js app + Postgres/Neon + D
 - **Events:** Pattern is idempotent **per (city_id, slug)** — see `scripts/seed-event-panguni.ts`. Copy that file for new one-off events: Drizzle + `@neondatabase/serverless`, `--live` vs `.env.local`.
 - **Thirumurai event:** `scripts/seed-event-thirumurai-music.ts` — `npm run db:seed:event:thirumurai:live`. Re-runs are safe (existing slug skipped).
 - **Other seeds:** `db:seed:live`, `db:seed:directory:live`, `db:seed:event:panguni:live` in `package.json`.
+- **2026-11-01:** Male office assistant, Guindy Race Course (individual employer, no company name) — `db:seed:job:male-office-assistant-guindy-race-course(:live)` → `/jobs/male-office-assistant-guindy-race-course`. Twin: https://mychennaicity.in/chennai-jobs/male-office-assistant-guindy-race-course.
 
 ## Events model (Drizzle)
 
