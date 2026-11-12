@@ -18,7 +18,7 @@ const ogImage = buildOgImageUrl({
 });
 
 export const metadata: Metadata = {
-  title: "Join the Nanganallur WhatsApp Group · Local Community · mynanganallur.in",
+  title: "Join the Nanganallur WhatsApp Group · Local Community",
   description: META_DESCRIPTION,
   alternates: { canonical },
   keywords: [

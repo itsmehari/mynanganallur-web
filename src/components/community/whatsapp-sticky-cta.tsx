@@ -23,7 +23,7 @@ export function WhatsappStickyCta() {
     >
       <WhatsappJoinCta
         source="sticky"
-        className="flex w-full items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+        className="flex min-h-12 w-full items-center justify-center rounded-full bg-[#128C7E] px-5 text-[15px] font-semibold text-white transition hover:bg-[#0e7468] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#128C7E]"
       />
     </div>
   );

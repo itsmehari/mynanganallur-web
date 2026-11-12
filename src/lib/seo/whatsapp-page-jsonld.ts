@@ -1,4 +1,7 @@
-import { WHATSAPP_USE_CASES } from "@/lib/community/whatsapp-page-content";
+import {
+  WHATSAPP_RULES,
+  WHATSAPP_USE_CASES,
+} from "@/lib/community/whatsapp-page-content";
 import { WHATSAPP_COMMUNITY_INVITE_URL, WHATSAPP_PAGE_PATH } from "@/lib/community/whatsapp";
 import { getSiteUrl } from "@/lib/env";
 
@@ -46,6 +49,17 @@ export function buildWhatsappCommunityPageJsonLd(input: {
           position: idx + 1,
           name: item.title,
           description: item.body,
+        })),
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${pageUrl}#group-rules`,
+        name: "Nanganallur Community WhatsApp group rules",
+        itemListElement: WHATSAPP_RULES.map((rule, idx) => ({
+          "@type": "ListItem",
+          position: idx + 1,
+          name: rule.title,
+          description: rule.points.join(" "),
         })),
       },
       {

@@ -4,6 +4,27 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-11-12 — Nanganallur WhatsApp group page redesign
+
+- **Page:** `/nanganallur-whatsapp-group` now carries the full community rules: ten guidelines, text/photo/poster-only media, one promotional post per business per day, and the “less noise” principle.
+- **Design:** Dark rounded hero, purpose chips, allowed/not-allowed cards, and a mobile sticky join button. Content lives in `src/lib/community/whatsapp-page-content.ts`.
+
+---
+
+## 2026-11-04 — Live job: Admin executive (Vaulta Renewables, Puzhuthivakkam)
+
+- **Data:** Seeded **Admin executive — Vaulta Renewables, Puzhuthivakkam** (`slug` `admin-executive-vaulta-renewables-puzhuthivakkam`). Employer **Vaulta Renewables Private Limited**. Behind **Sunshine School**. Any industry experience; **2 years preferred**. Salary as per market standards (no figure). Immediate joining. Call / WhatsApp **9790645829**.
+- **Code:** `scripts/seed-job-vaulta-renewables-admin-executive.ts` (`db:seed:job:vaulta-renewables-admin-executive` / `:live`).
+
+---
+
+## 2026-11-04 — Live property: co-working space for rent (Hindu Colony)
+
+- **Data:** Seeded **co-working space for rent** in **Hindu Colony, Nanganallur** (`slug` `rent-coworking-hindu-colony-nanganallur`). Daytime **8:00am–5:00pm**, **weekly or monthly**. Aimed at **IT professionals** and **share trading**. Amenities as stated: Wi-Fi, AC, CCTV, power backup, restrooms, housekeeping. Rent not disclosed. Contact **9884036077**.
+- **Code:** `scripts/seed-property-coworking-hindu-colony.ts` (+ npm scripts `db:seed:property:coworking-hindu-colony` / `:live`).
+
+---
+
 ## 2026-10-27 — Live job refresh: vegetable shop billing (Nanganallur)
 
 - **Data:** Refreshed **Billing staff — vegetable shop (Nanganallur)** (`slug` `nanganallur-vegetable-shop-sales-billing`). Full-time and part-time. Timings around 7:30 AM–1:30 PM and 4:30 PM–9:30 PM. Salary around ₹15,000–₹25,000. Age below 40. WhatsApp **9789943459**. Shop name and street unstated. Same note on MyChennaiCity: https://mychennaicity.in/chennai-jobs/nanganallur-vegetable-shop-sales-billing
