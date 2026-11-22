@@ -8,6 +8,18 @@ import { normalizeArticleFaq } from "@/lib/seo/faq-jsonld";
 import { ArticleProse } from "./article-prose";
 import { InteractiveBlock } from "./interactive-block";
 
+/** Drop briefing-template H2s so older seeds read as continuous news copy. */
+function stripScaffoldHeadings(content: string): string {
+  return content
+    .replace(/^##\s+What we know\s*\n+/i, "")
+    .replace(/^##\s+Why this matters locally\s*\n+/i, "")
+    .trim();
+}
+
+function hasInteractive(data: Record<string, unknown> | null | undefined) {
+  return Boolean(data && typeof data === "object" && "type" in data);
+}
+
 export async function EditorialArticle({
   article,
   adSeedPath,
@@ -26,9 +38,12 @@ export async function EditorialArticle({
   } catch {
     related = [];
   }
-  const report = article.reportBody ?? article.body;
-  const analysis = article.analysisBody ?? "";
+  const report = stripScaffoldHeadings(article.reportBody ?? article.body);
+  const analysis = stripScaffoldHeadings(article.analysisBody ?? "");
   const faqItems = normalizeArticleFaq(article.faqJson);
+  const showInteractive = hasInteractive(
+    article.interactiveJson as Record<string, unknown> | null | undefined,
+  );
 
   return (
     <article className="mx-auto min-w-0 max-w-[720px]">
@@ -52,7 +67,6 @@ export async function EditorialArticle({
         <div className="mt-4 flex flex-wrap gap-3 text-xs text-[var(--muted)]">
           {article.publishedAt ? (
             <time dateTime={article.publishedAt.toISOString()}>
-              Published{" "}
               {article.publishedAt.toLocaleString("en-IN", {
                 dateStyle: "medium",
                 timeStyle: "short",
@@ -60,14 +74,22 @@ export async function EditorialArticle({
               })}
             </time>
           ) : null}
-          <span>
-            Updated{" "}
-            {article.updatedAt.toLocaleString("en-IN", {
-              dateStyle: "medium",
-              timeStyle: "short",
-              timeZone: "Asia/Kolkata",
-            })}
-          </span>
+          {article.sourceName ? (
+            <span>
+              {article.sourceUrl ? (
+                <a
+                  href={article.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline-offset-2 hover:underline"
+                >
+                  {article.sourceName}
+                </a>
+              ) : (
+                article.sourceName
+              )}
+            </span>
+          ) : null}
         </div>
       </header>
 
@@ -89,34 +111,15 @@ export async function EditorialArticle({
         className="mt-8"
       />
 
-      {article.summary ? (
-        <section
-          className="mt-8 rounded-2xl border border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_96%,var(--accent)_4%)] px-5 py-4"
-          aria-labelledby="in-short-heading"
-        >
-          <h2
-            id="in-short-heading"
-            className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent)]"
-          >
-            In short
-          </h2>
-          <p className="mt-2 min-w-0 break-words text-[15px] leading-relaxed text-[var(--foreground)]">
-            {article.summary}
-          </p>
-        </section>
-      ) : null}
+      <div className="mt-10">
+        <ArticleProse content={report} />
+      </div>
 
-      <section className="mt-10" aria-labelledby="report-heading">
-        <h2
-          id="report-heading"
-          className="text-lg font-semibold text-[var(--foreground)]"
-        >
-          The news
-        </h2>
-        <div className="mt-4">
-          <ArticleProse content={report} />
+      {analysis ? (
+        <div className="mt-6">
+          <ArticleProse content={analysis} />
         </div>
-      </section>
+      ) : null}
 
       <AdSlot
         slotId="article-mid"
@@ -134,7 +137,7 @@ export async function EditorialArticle({
             id="faq-heading"
             className="text-lg font-semibold text-[var(--foreground)]"
           >
-            Common questions
+            FAQs
           </h2>
           <dl className="mt-6 space-y-6">
             {faqItems.map((item, i) => (
@@ -151,63 +154,40 @@ export async function EditorialArticle({
         </section>
       ) : null}
 
-      {analysis ? (
-        <section
-          className="mt-12 border-t border-[var(--border)] pt-10"
-          aria-labelledby="analysis-heading"
-        >
-          <h2
-            id="analysis-heading"
-            className="text-lg font-semibold text-[var(--foreground)]"
-          >
-            Analysis: what this means locally
-          </h2>
-          <div className="mt-4">
-            <ArticleProse content={analysis} />
-          </div>
-        </section>
-      ) : null}
-
-      <section
-        className="mt-12 border-t border-[var(--border)] pt-10"
-        aria-labelledby="interactive-heading"
-      >
-        <h2
-          id="interactive-heading"
-          className="text-lg font-semibold text-[var(--foreground)]"
-        >
-          Your move
-        </h2>
-        <p className="mt-1 text-sm text-[var(--muted)]">
-          A lightweight interactive tied to this story.
-        </p>
-        <div className="mt-6">
+      {showInteractive ? (
+        <div className="mt-12 border-t border-[var(--border)] pt-10">
           <InteractiveBlock data={article.interactiveJson ?? undefined} />
         </div>
-      </section>
+      ) : null}
 
-      <footer className="mt-12 border-t border-[var(--border)] pt-8">
-        <h2 className="text-sm font-semibold text-[var(--foreground)]">
-          Source and attribution
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
-          This page is an editorial rephrase and analysis based on publicly
-          reported information. It is not a verbatim reproduction of any
-          publisher. Read the original for full context.
-        </p>
-        {article.sourceUrl && article.sourceName ? (
-          <p className="mt-3 min-w-0 text-sm">
-            <a
-              href={article.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="break-words font-medium text-[var(--accent)] underline-offset-4 hover:underline"
-            >
-              Original reporting: {article.sourceName}
-            </a>
+      {(article.sourceUrl && article.sourceName) || article.sourceName ? (
+        <footer className="mt-12 border-t border-[var(--border)] pt-8">
+          <p className="text-sm leading-relaxed text-[var(--muted)]">
+            {article.sourceUrl && article.sourceName ? (
+              <>
+                Based on reporting from{" "}
+                <a
+                  href={article.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-[var(--accent)] underline-offset-4 hover:underline"
+                >
+                  {article.sourceName}
+                </a>
+                . This page is a local rewrite, not a full copy of the original.
+              </>
+            ) : (
+              <>
+                Details and photographs for this report were shared by{" "}
+                <span className="font-medium text-[var(--foreground)]">
+                  {article.sourceName}
+                </span>
+                .
+              </>
+            )}
           </p>
-        ) : null}
-      </footer>
+        </footer>
+      ) : null}
 
       <AmazonAffiliateBlock
         variant="compact"

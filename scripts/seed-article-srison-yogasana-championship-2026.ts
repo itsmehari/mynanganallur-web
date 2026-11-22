@@ -80,50 +80,34 @@ const FAQ = {
   ],
 };
 
-const REPORT = `## What we know
+const REPORT = `Students from **SriSon Naturopathy and Yoga Centre**, Nanganallur, took part in the **2nd National Yogasana Championship** at **SRM Agricultural College, Acharapakkam**, on **22 November 2026**.
 
-Students from **SriSon Naturopathy and Yoga Centre**, Nanganallur, took part in the **2nd National Yogasana Championship** organised at **SRM Agricultural College, Acharapakkam**.
+According to an update shared by the centre after the meet, students **Adarsh**, **Elandeeran** and **Sri Raman** won championship titles. Other SriSon students also competed and returned with certificates and medals.
 
-The centre shared results after the event on **22 November 2026**. According to that update, students **Adarsh**, **Elandeeran** and **Sri Raman** won championship titles. Other SriSon students also competed and received certificates and medals.
+The centre was recognised with an **Institution Honour** citation. The memento names **SriSon Naturopathy and Yoga Center, Nanganallur, Chennai – 600061**, and lists the venue as **SRM Institute of Science & Technology, Acharapakkam Campus**. Organiser lines on the plaque include the **Directorate of Sports, SRM IST**, and **Easy Yoga Studioz – Padmam Yoga**.
 
-The centre itself was recognised with an **Institution Honour** citation at the championship. The memento names **SriSon Naturopathy and Yoga Center, Nanganallur, Chennai – 600061**, and lists the venue as **SRM Institute of Science & Technology, Acharapakkam Campus**. Organiser lines on the plaque include the **Directorate of Sports, SRM IST**, and **Easy Yoga Studioz – Padmam Yoga**.
-
-My Nanganallur has not independently verified the full category-wise results sheet. This report sticks to what the centre stated and what appears on the honour memento and prize photographs shared with us.
+My Nanganallur has not independently verified a full category-wise results sheet. This report follows what the centre stated and what appears on the honour memento and prize photographs shared with us.
 
 ![Prize distribution at the 2nd National Yogasana Championship, Acharapakkam](${IMG_MERIT})
 
-## At a glance
+## Event details
 
 - **Event:** 2nd National Yogasana Championship
 - **Date:** 22 November 2026
 - **Venue:** SRM Agricultural College / SRM IST, Acharapakkam campus
 - **Local centre:** SriSon Naturopathy and Yoga Centre, Nanganallur
-- **Named championship winners (per centre):** Adarsh, Elandeeran, Sri Raman
+- **Named winners (per centre):** Adarsh, Elandeeran, Sri Raman
 - **Centre recognition:** Institution Honour
 
 ![Institution Honour memento presented to SriSon Naturopathy and Yoga Center, Nanganallur](${IMG_HONOUR})
 
-## Photographs from the day
+![SriSon students with certificates and medals after the championship](${IMG_GROUP})`;
 
-![SriSon students with certificates and medals after the championship](${IMG_GROUP})
+const ANALYSIS = `Nanganallur has several yoga and naturopathy centres that train children and adults through the year. A national-level meet at a nearby SRM campus gives those students a formal stage without long-distance travel for every family.
 
-Photographs supplied by the centre show students with certificates and medals, and a prize-distribution group at the Acharapakkam campus auditorium.`;
+Named winners should be read as reported by the centre. For official category ranks, ask the organisers or the centre for the published results. Neighbours seeking local yogasana coaching can reach SriSon on [8148888604](tel:+918148888604).`;
 
-const ANALYSIS = `## Why this matters locally
-
-Nanganallur has several yoga and naturopathy centres that train children and adults year-round. A national-level meet at a nearby SRM campus is a practical stage for those students—close enough for families to travel, and formal enough to test competition routines.
-
-Readers should treat named winners as reported by the centre. If you need official category ranks, ask the organisers or the centre for the published results. For neighbours looking for local yogasana coaching, SriSon’s Nanganallur contact shared with this update is [8148888604](tel:+918148888604).`;
-
-const INTERACTIVE = {
-  type: "poll",
-  question: "Would you like more coverage of local kids’ sports and yoga meets?",
-  options: [
-    { id: "yes", label: "Yes — more local sports coverage" },
-    { id: "sometimes", label: "Only major wins / championships" },
-    { id: "no", label: "Prefer civic / temple / market news" },
-  ],
-};
+const INTERACTIVE = null;
 
 async function main() {
   const [city] = await db
@@ -149,7 +133,7 @@ async function main() {
     body,
     reportBody: REPORT,
     analysisBody: ANALYSIS,
-    interactiveJson: INTERACTIVE,
+    interactiveJson: INTERACTIVE as Record<string, unknown> | null,
     category: "Local",
     status: "published" as const,
     publishedAt: new Date("2026-11-22T12:45:00.000Z"),

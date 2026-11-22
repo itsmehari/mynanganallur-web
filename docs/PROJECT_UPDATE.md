@@ -4,6 +4,11 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-11-22 — Local news article page: drop briefing scaffold
+
+- **UI:** `/local-news/[slug]` no longer wraps stories in “In short / The news / Common questions / Analysis / Your move”. Body reads as continuous report + closing notes; FAQs stay for AEO; interactive only when present. Template H2s like “What we know” are stripped on render for older seeds.
+- **Data:** Re-seeded SriSon Yogasana coverage with news-style copy (no briefing headings / poll).
+
 ## 2026-11-22 — Local news: SriSon Yogasana Championship coverage
 
 - **Data:** Post-event article on **SriSon Naturopathy and Yoga Centre** students at the **2nd National Yogasana Championship** (SRM Agricultural College / SRM IST Acharapakkam, **22 Nov 2026**). Named winners per centre: **Adarsh**, **Elandeeran**, **Sri Raman**. Centre received **Institution Honour**. Slug `srison-yogasana-championship-srm-acharapakkam-november-2026`. Category **Local**, featured. Tip phone **8148888604**.
