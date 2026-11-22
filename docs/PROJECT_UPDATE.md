@@ -4,6 +4,22 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-11-22 — Local news: SriSon Yogasana Championship coverage
+
+- **Data:** Post-event article on **SriSon Naturopathy and Yoga Centre** students at the **2nd National Yogasana Championship** (SRM Agricultural College / SRM IST Acharapakkam, **22 Nov 2026**). Named winners per centre: **Adarsh**, **Elandeeran**, **Sri Raman**. Centre received **Institution Honour**. Slug `srison-yogasana-championship-srm-acharapakkam-november-2026`. Category **Local**, featured. Tip phone **8148888604**.
+- **Page:** `/local-news/srison-yogasana-championship-srm-acharapakkam-november-2026`. Photos under `public/news/srison-yogasana-2026-*.jpg` (visible after deploy).
+- **Code:** `scripts/seed-article-srison-yogasana-championship-2026.ts` (`db:seed:article:srison-yogasana-2026` / `:live`). Article prose now renders `![alt](url)` figures; editorial layout shows `heroImageUrl` when set.
+
+---
+
+## 2026-11-22 — Directory: Sri Srinivasa Hall & Sri Jayendhira Catering
+
+- **Data:** Business listing **Sri Srinivasa Hall & Sri Jayendhira Catering** (`industry` / slug `sri-srinivasa-hall-jayendhira-catering`). A/C marriage hall plus pure veg catering. Hall address from their site: No. 19 (8/1), K.R. Koil Street, Opp. Kothandaramar Koil, **West Mambalam**, Chennai 600033 (not Nanganallur). Call **9791746486**. Website [sjcscateringservices.com](https://sjcscateringservices.com/). Flyer says 25+ years and prints second phone 9842331434; the site says 30+ years and 9842331424.
+- **Page:** `/directory/industry/sri-srinivasa-hall-jayendhira-catering` (alias `/directory/business/…`). Flyer at `public/listings/sri-srinivasa-hall-jayendhira-catering.jpg` — image appears after this commit is deployed.
+- **Code:** `scripts/seed-directory-sri-srinivasa-hall-jayendhira.ts` (`db:seed:directory:sri-srinivasa-jayendhira` / `:live`). Re-runs update the same slug.
+
+---
+
 ## 2026-11-22 — Live news + event: free eye camp, T. Nagar (29 Nov 2026)
 
 - **Data:** Free eye check-up and cataract surgery camp, Sringeri Bharati Vidyashram, No. 11 Venkata Narayana Road, T. Nagar, Chennai 600017. Sunday 29 Nov 2026, 9:00am–1:30pm. Lions Clubs International District 324 1C and Chennai Aravind Eye Hospital, in memory of baby Charumathi. Cataract surgery, IOL, medicines, food, stay, and transport stated as free. Contacts **9821733100** / **8608965647**.

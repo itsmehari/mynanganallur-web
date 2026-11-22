@@ -1,4 +1,4 @@
-/** Minimal markdown-like rendering for seeded article bodies (## headings, **bold**, lists). */
+/** Minimal markdown-like rendering for seeded article bodies (## headings, **bold**, lists, images). */
 function formatInline(text: string) {
   const parts = text.split(/(\*\*.+?\*\*|\[.+?\]\(.+?\))/g);
   return parts.map((part, i) => {
@@ -27,12 +27,37 @@ function formatInline(text: string) {
   });
 }
 
+function parseImageBlock(line: string): { alt: string; src: string } | null {
+  const match = line.match(/^!\[(.*?)\]\((.+?)\)$/);
+  if (!match) return null;
+  return { alt: match[1].trim(), src: match[2].trim() };
+}
+
 export function ArticleProse({ content }: { content: string }) {
   const blocks = content.split(/\n\n+/);
   return (
     <div className="min-w-0 space-y-4 break-words text-[15px] leading-relaxed text-[var(--foreground)]">
       {blocks.map((block, i) => {
         const line = block.trim();
+        const image = parseImageBlock(line);
+        if (image) {
+          return (
+            <figure key={i} className="my-6 overflow-hidden rounded-xl bg-[var(--surface)]">
+              {/* eslint-disable-next-line @next/next/no-img-element -- seeded local/public paths; avoid remotePatterns churn */}
+              <img
+                src={image.src}
+                alt={image.alt || ""}
+                className="h-auto w-full object-cover"
+                loading="lazy"
+              />
+              {image.alt ? (
+                <figcaption className="border-t border-[var(--border)] px-3 py-2 text-xs text-[var(--muted)]">
+                  {image.alt}
+                </figcaption>
+              ) : null}
+            </figure>
+          );
+        }
         if (line.startsWith("## ")) {
           return (
             <h2

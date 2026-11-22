@@ -71,6 +71,17 @@ export async function EditorialArticle({
         </div>
       </header>
 
+      {article.heroImageUrl ? (
+        <figure className="mt-8 overflow-hidden rounded-xl bg-[var(--surface)]">
+          {/* eslint-disable-next-line @next/next/no-img-element -- seeded local/public paths */}
+          <img
+            src={article.heroImageUrl}
+            alt=""
+            className="h-auto w-full object-cover"
+          />
+        </figure>
+      ) : null}
+
       <AdSlot
         slotId="article-top"
         size="728x90"
