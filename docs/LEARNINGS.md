@@ -17,6 +17,10 @@ Operational and engineering notes for this repo (Next.js app + Postgres/Neon + D
 - **Thirumurai event:** `scripts/seed-event-thirumurai-music.ts` — `npm run db:seed:event:thirumurai:live`. Re-runs are safe (existing slug skipped).
 - **Other seeds:** `db:seed:live`, `db:seed:directory:live`, `db:seed:event:panguni:live` in `package.json`.
 - **2026-11-01:** Male office assistant, Guindy Race Course (individual employer, no company name) — `db:seed:job:male-office-assistant-guindy-race-course(:live)` → `/jobs/male-office-assistant-guindy-race-course`. Twin: https://mychennaicity.in/chennai-jobs/male-office-assistant-guindy-race-course.
+- **2026-11-04:** Daytime co-working / desk space for rent goes through **property listings** (`kind: rent`), not directory — no branded venue name, weekly/monthly tenure. Example: `db:seed:property:coworking-hindu-colony(:live)` → `/properties/rent-coworking-hindu-colony-nanganallur`. Leave `rentPerMonth` null when the advertiser did not quote a figure; put hours and amenities in `body` + `faqJson`.
+- **2026-11-04:** Admin executive, Vaulta Renewables Pvt Ltd — `db:seed:job:vaulta-renewables-admin-executive(:live)` → `/jobs/admin-executive-vaulta-renewables-puzhuthivakkam`. Hiring note spelled the area **Puzhivatham**; store locality as **Puzhuthivakkam** and keep the printed spelling in the body. “Salary as per market standards” → `salaryDisclosed: false`.
+- **2026-11-19:** Pulikachal.com multi-role note (no phone or email on the poster) — one listing, `openingsCount: 6`, `db:seed:job:pulikachal(:live)` → `/jobs/pulikachal-finance-billing-sales-nanganallur`. Apply path uses the public site contact (`contactus@pulikachal.com`) and the Nanganallur store line from pulikachal.com (`9150152751`). Say in the body that those contacts were not printed on the note.
+- **2026-11-22:** News + event can share one slug across tables. `categoryToTopicSlug` strips non-ASCII, so a Tamil `articles.category` links to an empty topic and 404s — store a mapped English desk (`Local`) and keep Tamil in title, dek, and body. Eye camp: `db:seed:eye-camp-t-nagar(:live)`.
 
 ## Events model (Drizzle)
 

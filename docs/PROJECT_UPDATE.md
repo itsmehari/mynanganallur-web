@@ -4,6 +4,21 @@ Reverse-chronological notes on meaningful changes (deployments, data, infra, maj
 
 ---
 
+## 2026-11-22 — Live news + event: free eye camp, T. Nagar (29 Nov 2026)
+
+- **Data:** Free eye check-up and cataract surgery camp, Sringeri Bharati Vidyashram, No. 11 Venkata Narayana Road, T. Nagar, Chennai 600017. Sunday 29 Nov 2026, 9:00am–1:30pm. Lions Clubs International District 324 1C and Chennai Aravind Eye Hospital, in memory of baby Charumathi. Cataract surgery, IOL, medicines, food, stay, and transport stated as free. Contacts **9821733100** / **8608965647**.
+- **Pages:** `/local-news/free-eye-cataract-surgery-camp-t-nagar-chennai-november-29-2026` and `/local-events/free-eye-cataract-surgery-camp-t-nagar-chennai-november-29-2026`. Article category stored as **Local** (Tamil category string would make an empty topic slug). Article featured on the home news desk.
+- **Code:** `scripts/seed-eye-cataract-camp-t-nagar.ts` (`db:seed:eye-camp-t-nagar` / `:live`). Re-runs update the same slug.
+
+---
+
+## 2026-11-19 — Live job: Pulikachal.com (Nanganallur)
+
+- **Data:** Seeded **Finance, billing, and sales roles — Pulikachal.com, Nanganallur** (`slug` `pulikachal-finance-billing-sales-nanganallur`). Employer **Pulikachal.com**. Six seats: senior accountant, junior accountant, procurement and inventory, billing and store operations (2), sales and marketing lead. Age below 45. Salary not stated. Resume to **contactus@pulikachal.com**; Nanganallur store WhatsApp **9150152751** (contacts from pulikachal.com, not printed on the note).
+- **Code:** `scripts/seed-job-pulikachal-nanganallur.ts` (`db:seed:job:pulikachal` / `:live`).
+
+---
+
 ## 2026-11-12 — Nanganallur WhatsApp group page redesign
 
 - **Page:** `/nanganallur-whatsapp-group` now carries the full community rules: ten guidelines, text/photo/poster-only media, one promotional post per business per day, and the “less noise” principle.
